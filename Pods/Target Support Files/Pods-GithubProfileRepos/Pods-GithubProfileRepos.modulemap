@@ -1,0 +1,6 @@
+framework module Pods_GithubProfileRepos {
+  umbrella header "Pods-GithubProfileRepos-umbrella.h"
+
+  export *
+  module * { export * }
+}
