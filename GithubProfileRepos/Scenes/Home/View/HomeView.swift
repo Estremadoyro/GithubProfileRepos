@@ -5,10 +5,19 @@
 //  Created by Leonardo  on 27/03/22.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 
 class HomeView: UIViewController {
+  @IBOutlet private weak var tableView: UITableView!
+  @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+
   var networkManager: NetworkManager
+  lazy var viewModel = HomeViewModel(networkManager: networkManager)
+  lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
+
+  private var disposeBag = DisposeBag()
 
   init(networkManager: NetworkManager) {
     self.networkManager = networkManager
@@ -24,20 +33,71 @@ class HomeView: UIViewController {
 extension HomeView {
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = UIColor.systemIndigo
-    navigationItem.title = "Repos"
-    loadReposFromUsername(username: "estremadoyro")
+    tableView.delegate = self
+    configureView()
+    displayReposFromUsername()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    loadingIndicator.startAnimating()
+    loadingIndicator.alpha = 1
   }
 }
 
 extension HomeView {
-  private func loadReposFromUsername(username: String) {
-    networkManager.getReposByUsername(username: username) { repos, error in
-      if let repos = repos {
-        print("Repos from \(username): \(repos.map { $0.name })")
-      } else {
-        print("Error @ VC: \(error ?? "")")
-      }
+  private func configureTable() {
+    tableView.register(UINib(nibName: Nibs.repoCell, bundle: Bundle.main), forCellReuseIdentifier: Nibs.repoCell)
+  }
+
+  private func configureView() {
+    view.backgroundColor = UIColor.systemIndigo
+    navigationItem.title = "Repos"
+    configureTable()
+  }
+}
+
+extension HomeView {
+  private func reposDidLoad() {
+    DispatchQueue.main.async { [weak self] in
+      self?.loadingIndicator.stopAnimating()
+      self?.loadingIndicator.alpha = 0
     }
+  }
+}
+
+extension HomeView {
+  private func displayReposFromUsername() {
+    // Yet to concatenate with the Lanaguages API
+    reposObservable.bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { _, repo, cell in
+      cell.repoName.text = repo.name
+    }
+    .disposed(by: disposeBag)
+    reposObservable.subscribe(onCompleted: { [weak self] in
+      self?.reposDidLoad()
+    })
+      .disposed(by: disposeBag)
+  }
+
+  private func displayLanguagesFromRepo(repo: Repo) {
+    viewModel.getLanguagesFromRepo(repo: repo)
+      .subscribe { languages in
+        print("Language: \(languages.map { $0.key })")
+      } onError: { error in
+        print("Error @ VC: \(error)")
+      }.disposed(by: disposeBag)
+  }
+
+  func transformUsingMap() -> Observable<String> {
+    return Observable.of(1, 2, 3)
+      .map { number in
+        String("\(number)")
+      }
+  }
+}
+
+extension HomeView: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 100
   }
 }

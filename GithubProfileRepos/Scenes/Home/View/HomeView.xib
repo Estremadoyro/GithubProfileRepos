@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="GithubProfileRepos" customModuleProvider="target">
             <connections>
+                <outlet property="loadingIndicator" destination="x1H-z4-4Ym" id="g8a-aI-vPV"/>
+                <outlet property="tableView" destination="xdM-AP-kik" id="cvu-he-O9G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,6 +25,15 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="x1H-z4-4Ym">
+                    <rect key="frame" x="187" y="450" width="40" height="40"/>
+                    <color key="tintColor" systemColor="systemIndigoColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="rXe-SF-SPZ"/>
+                        <constraint firstAttribute="width" constant="40" id="tt5-Zx-dn7"/>
+                    </constraints>
+                    <color key="color" systemColor="systemIndigoColor"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -30,6 +41,8 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xdM-AP-kik" secondAttribute="trailing" id="3zb-F1-3vh"/>
                 <constraint firstAttribute="bottom" secondItem="xdM-AP-kik" secondAttribute="bottom" id="5lH-eB-D1U"/>
                 <constraint firstItem="xdM-AP-kik" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="PUY-iV-bTa"/>
+                <constraint firstItem="x1H-z4-4Ym" firstAttribute="centerX" secondItem="xdM-AP-kik" secondAttribute="centerX" id="c4J-Fr-qjM"/>
+                <constraint firstItem="x1H-z4-4Ym" firstAttribute="centerY" secondItem="xdM-AP-kik" secondAttribute="centerY" id="nJT-ad-AJ0"/>
                 <constraint firstItem="xdM-AP-kik" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sJ2-7u-av3"/>
             </constraints>
             <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
@@ -38,6 +51,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

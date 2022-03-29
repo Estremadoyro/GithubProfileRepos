@@ -11,8 +11,9 @@ import Foundation
 /// https://api.github.com/users/estremadoyro/repos
 
 // All the request methods for this endpoint
-public enum GithubUsersEndpoint {
+enum GithubUsersEndpoint {
   case reposByUsername(username: String)
+  case languagesByRepo(repo: Repo)
 }
 
 // Set the base URL
@@ -35,6 +36,8 @@ extension GithubUsersEndpoint: EndpointProtocol {
     switch self {
       case .reposByUsername(let username):
         return "\(username)/repos"
+      case .languagesByRepo(let repo):
+        return "\(repo.owner)/\(repo.name)/languages"
     }
   }
 
@@ -44,7 +47,7 @@ extension GithubUsersEndpoint: EndpointProtocol {
 
   var httpTask: HTTPTask {
     switch self {
-      case .reposByUsername:
+      case .reposByUsername, .languagesByRepo:
         return .request
     }
   }

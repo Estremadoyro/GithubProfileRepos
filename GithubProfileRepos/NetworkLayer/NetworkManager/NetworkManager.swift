@@ -18,14 +18,15 @@ struct NetworkManager {
   static let environment: NetworkEnvironment = .develop
   static let githubApiKey = Keys.githubApiKey
 
-  typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: String?) -> ()
+  typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
+  typealias GithubRepoLanguagesCompletion = (_ languages: RepoLanguages?, _ error: Error?) -> ()
 
   fileprivate let router = Router<GithubUsersEndpoint>()
 
   func getReposByUsername(username: String, completion: @escaping GithubUserReposCompletion) {
     router.request(.reposByUsername(username: username)) { data, response, error in
       if error != nil {
-        completion(nil, NetworkResponse.errorFound.rawValue)
+        completion(nil, NetworkResponse.errorFound)
         return
       }
 
@@ -34,7 +35,7 @@ struct NetworkManager {
         switch result {
           case .success:
             guard let responseData = data else {
-              completion(nil, NetworkResponse.noData.rawValue)
+              completion(nil, NetworkResponse.noData)
               return
             }
             do {
@@ -42,7 +43,36 @@ struct NetworkManager {
               print("Response data: \(apiReponse)")
               completion(apiReponse, nil)
             } catch {
-              completion(nil, NetworkResponse.unableToDecode.rawValue)
+              completion(nil, NetworkResponse.unableToDecode)
+            }
+          case .failure(let networkFailureError):
+            completion(nil, networkFailureError)
+        }
+      }
+    }
+  }
+
+  func getLanguagesByRepo(repo: Repo, completion: @escaping GithubRepoLanguagesCompletion) {
+    router.request(.languagesByRepo(repo: repo)) { data, response, error in
+      if error != nil {
+        completion(nil, NetworkResponse.errorFound)
+        return
+      }
+
+      if let response = response as? HTTPURLResponse {
+        let result = handleNetworkResponse(response)
+        switch result {
+          case .success:
+            guard let responseData = data else {
+              completion(nil, NetworkResponse.noData)
+              return
+            }
+            do {
+              let apiReponse = try JSONDecoder().decode(RepoLanguages.self, from: responseData)
+              print("Languages data: \(apiReponse)")
+              completion(apiReponse, nil)
+            } catch {
+              completion(nil, NetworkResponse.unableToDecode)
             }
           case .failure(let networkFailureError):
             completion(nil, networkFailureError)
@@ -53,12 +83,12 @@ struct NetworkManager {
 }
 
 private extension NetworkManager {
-  enum Result<T: StringProtocol> {
+  enum Result<T: Error> {
     case success
     case failure(networkFailureError: T)
   }
 
-  enum NetworkResponse: String {
+  enum NetworkResponse: String, Error {
     case success
     case authenticationError = "You need to be authenticated first."
     case badRequest = "Bad request"
@@ -69,13 +99,13 @@ private extension NetworkManager {
     case errorFound = "Request error found"
   }
 
-  func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
+  func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<NetworkResponse> {
     switch response.statusCode {
       case 200 ... 299: return .success
-      case 401 ... 500: return .failure(networkFailureError: NetworkResponse.authenticationError.rawValue)
-      case 501 ... 599: return .failure(networkFailureError: NetworkResponse.badRequest.rawValue)
-      case 600: return .failure(networkFailureError: NetworkResponse.outdated.rawValue)
-      default: return .failure(networkFailureError: NetworkResponse.failed.rawValue)
+      case 401 ... 500: return .failure(networkFailureError: NetworkResponse.authenticationError)
+      case 501 ... 599: return .failure(networkFailureError: NetworkResponse.badRequest)
+      case 600: return .failure(networkFailureError: NetworkResponse.outdated)
+      default: return .failure(networkFailureError: NetworkResponse.failed)
     }
   }
 }

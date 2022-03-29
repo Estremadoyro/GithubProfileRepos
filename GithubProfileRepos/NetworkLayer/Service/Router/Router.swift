@@ -23,6 +23,7 @@ class Router<Endpoint: EndpointProtocol>: RouterProtocol {
       completion(nil, nil, error)
     }
     task?.resume()
+    session.finishTasksAndInvalidate()
   }
 
   func cancel() {

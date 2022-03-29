@@ -27,3 +27,5 @@ struct Owner: Decodable {
     case name = "login"
   }
 }
+
+public typealias RepoLanguages = [String: Int]

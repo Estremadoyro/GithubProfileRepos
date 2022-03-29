@@ -9,4 +9,5 @@ import Foundation
 
 struct Nibs {
   public static let homeView: String = "HomeView"
+  public static let repoCell: String = "RepoCell"
 }
