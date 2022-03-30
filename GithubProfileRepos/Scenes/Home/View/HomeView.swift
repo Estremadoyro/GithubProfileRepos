@@ -13,9 +13,9 @@ class HomeView: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
-  var networkManager: NetworkManager
-  lazy var viewModel = HomeViewModel(networkManager: networkManager)
-  lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
+  private let networkManager: NetworkManager
+  private lazy var viewModel = HomeViewModel(networkManager: networkManager)
+  private lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
 
   private var disposeBag = DisposeBag()
 
@@ -36,6 +36,7 @@ extension HomeView {
     tableView.delegate = self
     configureView()
     displayReposFromUsername()
+    testingRxSwift()
   }
 
   override func viewDidLayoutSubviews() {
@@ -69,10 +70,17 @@ extension HomeView {
 extension HomeView {
   private func displayReposFromUsername() {
     // Yet to concatenate with the Lanaguages API
-    reposObservable.bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { _, repo, cell in
-      cell.repoName.text = repo.name
-    }
-    .disposed(by: disposeBag)
+    reposObservable
+      .toArray()
+      .asObservable()
+      .bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { [weak self] _, repo, cell in
+        cell.repo = repo
+//        cell.homeViewModel = self?.viewModel
+//        cell.disposeBag = self?.disposeBag
+//        cell.displayLanguagesFromRepo(repo: repo)
+      }
+      .disposed(by: disposeBag)
+
     reposObservable.subscribe(onCompleted: { [weak self] in
       self?.reposDidLoad()
     })
@@ -87,17 +95,19 @@ extension HomeView {
         print("Error @ VC: \(error)")
       }.disposed(by: disposeBag)
   }
-
-  func transformUsingMap() -> Observable<String> {
-    return Observable.of(1, 2, 3)
-      .map { number in
-        String("\(number)")
-      }
-  }
 }
 
 extension HomeView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 100
+  }
+}
+
+private extension HomeView {
+  func testingRxSwift() {
+    let repo = Repo(owner: Owner(name: "Leonardo", url: "www"), name: "RxSwift", fullName: "Leonardo/RxSwift")
+//    Observable.of([repo])
+//    Observable.of(repo)
+//      .toArray().asObservable()
   }
 }

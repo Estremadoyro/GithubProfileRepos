@@ -16,6 +16,7 @@ class Router<Endpoint: EndpointProtocol>: RouterProtocol {
     let session = URLSession.shared
     do {
       let request = try buildRequest(from: route)
+      print("API ENDPOINT: \(request.url)")
       task = session.dataTask(with: request, completionHandler: { data, response, error in
         completion(data, response, error)
       })

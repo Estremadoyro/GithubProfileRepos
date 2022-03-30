@@ -20,8 +20,8 @@ enum GithubUsersEndpoint {
 extension GithubUsersEndpoint {
   var environmentBaseURL: String {
     switch NetworkManager.environment {
-      case .production: return "https://api.github.com/users/"
-      case .develop: return "https://api.github.com/users/"
+      case .production: return "https://api.github.com/"
+      case .develop: return "https://api.github.com/"
     }
   }
 }
@@ -35,9 +35,9 @@ extension GithubUsersEndpoint: EndpointProtocol {
   var path: String {
     switch self {
       case .reposByUsername(let username):
-        return "\(username)/repos"
+        return "users/\(username)/repos"
       case .languagesByRepo(let repo):
-        return "\(repo.owner)/\(repo.name)/languages"
+        return "repos/\(repo.owner.name)/\(repo.name)/languages"
     }
   }
 
@@ -53,6 +53,6 @@ extension GithubUsersEndpoint: EndpointProtocol {
   }
 
   var httpHeaders: HTTPHeaders? {
-    return nil
+    return ["authorization": "token \(Keys.githubApiKey)"]
   }
 }
