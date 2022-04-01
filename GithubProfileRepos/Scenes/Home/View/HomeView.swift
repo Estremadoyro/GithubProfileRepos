@@ -36,7 +36,6 @@ extension HomeView {
     tableView.delegate = self
     configureView()
     displayReposFromUsername()
-    testingRxSwift()
   }
 
   override func viewDidLayoutSubviews() {
@@ -71,17 +70,20 @@ extension HomeView {
   private func displayReposFromUsername() {
     // Yet to concatenate with the Lanaguages API
     reposObservable
-      .toArray()
-      .asObservable()
+      // So, the Observable<Repo> needs to become Observable<[Repo]>, so Observable is a Sequence and it's elements need to aswell.
+      // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
+      // Observable: Sequence <[Repo]: Sequence>
       .bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { [weak self] _, repo, cell in
+        print("reposObservable value: \(repo.name)")
+        cell.homeViewModel = self?.viewModel
+        cell.disposeBag = self?.disposeBag
         cell.repo = repo
-//        cell.homeViewModel = self?.viewModel
-//        cell.disposeBag = self?.disposeBag
 //        cell.displayLanguagesFromRepo(repo: repo)
       }
       .disposed(by: disposeBag)
 
-    reposObservable.subscribe(onCompleted: { [weak self] in
+    reposObservable.subscribe(onNext: { _ in
+    }, onCompleted: { [weak self] in
       self?.reposDidLoad()
     })
       .disposed(by: disposeBag)
@@ -100,14 +102,5 @@ extension HomeView {
 extension HomeView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 100
-  }
-}
-
-private extension HomeView {
-  func testingRxSwift() {
-    let repo = Repo(owner: Owner(name: "Leonardo", url: "www"), name: "RxSwift", fullName: "Leonardo/RxSwift")
-//    Observable.of([repo])
-//    Observable.of(repo)
-//      .toArray().asObservable()
   }
 }

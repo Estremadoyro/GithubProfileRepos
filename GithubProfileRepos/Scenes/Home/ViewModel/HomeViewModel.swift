@@ -17,16 +17,14 @@ class HomeViewModel {
 }
 
 extension HomeViewModel {
-  func getReposFromUsername(username: String) -> Observable<Repo> {
+  func getReposFromUsername(username: String) -> Observable<[Repo]> {
     return Observable.create { observer in
       self.networkManager.getReposByUsername(username: username, completion: { repos, error in
         if let error = error {
           observer.onError(error)
         }
         if let repos = repos {
-          repos.forEach { repo in
-            observer.onNext(repo)
-          }
+          observer.onNext(repos)
         }
         observer.onCompleted()
         print("Rx Sequence completed")
@@ -47,7 +45,7 @@ extension HomeViewModel {
         }
         observer.onCompleted()
         print("Rx Sequence languages")
-        print("LANGUAGES: \(languages)")
+        print("LANGUAGES: \(String(describing: languages))")
       })
       return Disposables.create()
     }

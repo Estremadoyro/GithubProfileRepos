@@ -19,24 +19,26 @@ final class RepoCell: UITableViewCell {
     didSet {
       guard let repo = repo else { return }
       repoName.text = repo.name
+      displayLanguagesFromRepo(repo: repo)
     }
-  }
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
   }
 
   func displayLanguagesFromRepo(repo: Repo) {
     homeViewModel?.getLanguagesFromRepo(repo: repo)
-      .subscribe { [weak self] languages in
-        DispatchQueue.main.async {
-          self?.repoLanguages.text = self?.parseLanguages(languages: languages)
-          print("Language: \(languages.map { $0.key })")
-        }
-      } onError: { error in
-        print("Error @ VC: \(error)")
-      }.disposed(by: disposeBag ?? DisposeBag())
+      .map { [weak self] in
+        self?.parseLanguages(languages: $0)
+      }
+      .bind(to: repoLanguages.rx.text)
+      .disposed(by: disposeBag ?? DisposeBag())
+//    homeViewModel?.getLanguagesFromRepo(repo: repo)
+//      .subscribe { [weak self] languages in
+//        DispatchQueue.main.async {
+//          self?.repoLanguages.text = self?.parseLanguages(languages: languages)
+//          print("Language: \(languages.map { $0.key })")
+//        }
+//      } onError: { error in
+//        print("Error @ VC: \(error)")
+//      }.disposed(by: disposeBag ?? DisposeBag())
   }
 }
 
