@@ -30,15 +30,6 @@ final class RepoCell: UITableViewCell {
       }
       .bind(to: repoLanguages.rx.text)
       .disposed(by: disposeBag ?? DisposeBag())
-//    homeViewModel?.getLanguagesFromRepo(repo: repo)
-//      .subscribe { [weak self] languages in
-//        DispatchQueue.main.async {
-//          self?.repoLanguages.text = self?.parseLanguages(languages: languages)
-//          print("Language: \(languages.map { $0.key })")
-//        }
-//      } onError: { error in
-//        print("Error @ VC: \(error)")
-//      }.disposed(by: disposeBag ?? DisposeBag())
   }
 }
 

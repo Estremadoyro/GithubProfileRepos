@@ -78,7 +78,6 @@ extension HomeView {
         cell.homeViewModel = self?.viewModel
         cell.disposeBag = self?.disposeBag
         cell.repo = repo
-//        cell.displayLanguagesFromRepo(repo: repo)
       }
       .disposed(by: disposeBag)
 

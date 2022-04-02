@@ -17,13 +17,11 @@ enum NetworkEnvironment {
 struct NetworkManager {
   static let environment: NetworkEnvironment = .develop
   static let githubApiKey = Keys.githubApiKey
-
-  typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
-  typealias GithubRepoLanguagesCompletion = (_ languages: RepoLanguages?, _ error: Error?) -> ()
-
   fileprivate let router = Router<GithubUsersEndpoint>()
+}
 
-  func getReposByUsername(username: String, completion: @escaping GithubUserReposCompletion) {
+extension NetworkManager: NetworkRequestsProtocol {
+  func getReposByUsername(username: String, mocking: Bool = false, completion: @escaping GithubUserReposCompletion) {
     router.request(.reposByUsername(username: username)) { data, response, error in
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
@@ -52,7 +50,7 @@ struct NetworkManager {
     }
   }
 
-  func getLanguagesByRepo(repo: Repo, completion: @escaping GithubRepoLanguagesCompletion) {
+  func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
     router.request(.languagesByRepo(repo: repo)) { data, response, error in
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
