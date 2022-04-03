@@ -34,7 +34,7 @@
 		A7F81B1C27F7FBB100082EFE /* UserRepos.json in Resources */ = {isa = PBXBuildFile; fileRef = A7F81B1A27F7FBB100082EFE /* UserRepos.json */; };
 		A7F81B1D27F7FBB100082EFE /* RepoLanguages.json in Resources */ = {isa = PBXBuildFile; fileRef = A7F81B1B27F7FBB100082EFE /* RepoLanguages.json */; };
 		A7F81B1F27F7FCA200082EFE /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F81B1E27F7FCA200082EFE /* NetworkProtocol.swift */; };
-		A7F81B2227F806AD00082EFE /* LocalFilesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F81B2127F806AD00082EFE /* LocalFilesLoader.swift */; };
+		A7F81B2227F806AD00082EFE /* JSONMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F81B2127F806AD00082EFE /* JSONMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +67,7 @@
 		A7F81B1A27F7FBB100082EFE /* UserRepos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserRepos.json; sourceTree = SOURCE_ROOT; };
 		A7F81B1B27F7FBB100082EFE /* RepoLanguages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoLanguages.json; sourceTree = SOURCE_ROOT; };
 		A7F81B1E27F7FCA200082EFE /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
-		A7F81B2127F806AD00082EFE /* LocalFilesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesLoader.swift; sourceTree = "<group>"; };
+		A7F81B2127F806AD00082EFE /* JSONMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONMock.swift; sourceTree = "<group>"; };
 		D06877A76E953C3101BD1B69 /* Pods-GithubProfileRepos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubProfileRepos.release.xcconfig"; path = "Target Support Files/Pods-GithubProfileRepos/Pods-GithubProfileRepos.release.xcconfig"; sourceTree = "<group>"; };
 		ED3DE93CCA114A2601F728F6 /* Pods_GithubProfileRepos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubProfileRepos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				A7F81B1927F7F8C800082EFE /* Mocks */,
-				A7F81B2127F806AD00082EFE /* LocalFilesLoader.swift */,
+				A7F81B2127F806AD00082EFE /* JSONMock.swift */,
 			);
 			path = LocalStorageLayer;
 			sourceTree = "<group>";
@@ -412,7 +412,7 @@
 				A7DF1B3927F16A210030DA50 /* HTTPHeaders.swift in Sources */,
 				A7DF1B2227F13F440030DA50 /* Repo.swift in Sources */,
 				A7DF1B1F27F137F90030DA50 /* RepoCell.swift in Sources */,
-				A7F81B2227F806AD00082EFE /* LocalFilesLoader.swift in Sources */,
+				A7F81B2227F806AD00082EFE /* JSONMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

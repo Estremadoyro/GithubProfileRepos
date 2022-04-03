@@ -35,7 +35,11 @@ extension HomeView {
     super.viewDidLoad()
     tableView.delegate = self
     configureView()
-    displayReposFromUsername()
+//    displayReposFromUsername()
+    LocalStorageManager.loadUserReposMock(fileName: "UserRepos", obj: [Repo].self) { data in
+      guard let data = data else { return }
+      print("Data from mocks: \(data)")
+    }
   }
 
   override func viewDidLayoutSubviews() {
