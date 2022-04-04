@@ -9,14 +9,22 @@ import Foundation
 
 /// # MAKES THE REQUEST ITSELF
 // Any Endpoint that conforms EndpointProtocol can be used to make and HTTPRequest
+
+/// ** Request Examples
+/// https://api.github.com/users/estremadoyro/repos
+/// https://api.github.com/repos/Estremadoyro/Clean-Code/languages
 class Router<Endpoint: EndpointProtocol>: RouterProtocol {
   private var task: URLSessionTask?
 
   func request(_ route: Endpoint, completion: @escaping RouterCompletion) {
     let session = URLSession.shared
+    defer {
+      session.invalidateAndCancel()
+      session.finishTasksAndInvalidate()
+    }
     do {
       let request = try buildRequest(from: route)
-//      print("API ENDPOINT: \(request.url ?? URL(string: "https://www.google.com")!)")
+      print("API ENDPOINT: \(request.url ?? URL(string: "https://www.google.com")!)")
       task = session.dataTask(with: request, completionHandler: { data, response, error in
         completion(data, response, error)
       })
@@ -24,7 +32,7 @@ class Router<Endpoint: EndpointProtocol>: RouterProtocol {
       completion(nil, nil, error)
     }
     task?.resume()
-    session.finishTasksAndInvalidate()
+//    session.finishTasksAndInvalidate()
   }
 
   func cancel() {

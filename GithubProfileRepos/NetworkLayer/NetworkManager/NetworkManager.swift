@@ -22,7 +22,6 @@ struct NetworkManager {
 
 extension NetworkManager: NetworkRequestsProtocol {
   func getReposByUsername(username: String, mocking: Bool = false, completion: @escaping GithubUserReposCompletion) {
-    print("API REQUEST ABOUT TO START OWO")
     if mocking {
       LocalStorageManager.loadMock(fileName: "UserRepos", obj: [Repo].self) { data in
         guard let data = data else { completion(nil, NetworkResponse.noData); return }

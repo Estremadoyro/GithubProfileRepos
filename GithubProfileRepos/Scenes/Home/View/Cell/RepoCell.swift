@@ -10,15 +10,23 @@ import UIKit
 
 final class RepoCell: UITableViewCell {
   @IBOutlet private weak var repoName: UILabel!
+  @IBOutlet private weak var repoDescription: UILabel!
   @IBOutlet private weak var repoLanguages: UILabel!
 
   weak var homeViewModel: HomeViewModel?
   weak var disposeBag: DisposeBag?
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    repoDescription.lineBreakMode = .byTruncatingMiddle
+    repoDescription.adjustsFontSizeToFitWidth = true
+  }
 
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
       repoName.text = repo.name
+      repoDescription.text = repo.description
       displayLanguagesFromRepo(repo: repo)
     }
   }

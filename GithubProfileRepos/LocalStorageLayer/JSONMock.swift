@@ -33,7 +33,7 @@ enum JSONMock {
       let jsonData = try JSONDecoder().decode(T.self, from: data)
       return jsonData
     } catch {
-      print(BundleLoadingErrors.jsonError.rawValue)
+      print("\(BundleLoadingErrors.jsonError.rawValue) - \(error)")
       throw BundleLoadingErrors.jsonError
     }
   }

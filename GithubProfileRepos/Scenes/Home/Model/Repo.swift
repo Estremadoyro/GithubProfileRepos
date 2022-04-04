@@ -11,9 +11,10 @@ struct Repo: Decodable {
   let owner: Owner
   let name: String
   let fullName: String
+  let description: String?
 
   enum CodingKeys: String, CodingKey {
-    case owner, name
+    case owner, name, description
     case fullName = "full_name"
   }
 }
