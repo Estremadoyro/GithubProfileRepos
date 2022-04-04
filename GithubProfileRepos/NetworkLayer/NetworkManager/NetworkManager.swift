@@ -22,7 +22,17 @@ struct NetworkManager {
 
 extension NetworkManager: NetworkRequestsProtocol {
   func getReposByUsername(username: String, mocking: Bool = false, completion: @escaping GithubUserReposCompletion) {
+    print("API REQUEST ABOUT TO START OWO")
+    if mocking {
+      LocalStorageManager.loadMock(fileName: "UserRepos", obj: [Repo].self) { data in
+        guard let data = data else { completion(nil, NetworkResponse.noData); return }
+        completion(data, nil)
+      }
+      print("Repos mocking")
+      return
+    }
     router.request(.reposByUsername(username: username)) { data, response, error in
+      print("API REQUEST RESPONSE")
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
         return
@@ -38,7 +48,6 @@ extension NetworkManager: NetworkRequestsProtocol {
             }
             do {
               let apiReponse = try JSONDecoder().decode([Repo].self, from: responseData)
-              print("Response data: \(apiReponse)")
               completion(apiReponse, nil)
             } catch {
               completion(nil, NetworkResponse.unableToDecode)
@@ -51,6 +60,14 @@ extension NetworkManager: NetworkRequestsProtocol {
   }
 
   func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
+    if mocking {
+      LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguages.self) { data in
+        guard let data = data else { return }
+        completion(data, nil)
+      }
+      print("Languages mocking")
+      return
+    }
     router.request(.languagesByRepo(repo: repo)) { data, response, error in
       if error != nil {
         completion(nil, NetworkResponse.errorFound)

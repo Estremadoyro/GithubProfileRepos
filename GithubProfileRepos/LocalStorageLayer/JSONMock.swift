@@ -16,12 +16,12 @@ enum BundleLoadingErrors: String, Error {
 enum JSONMock {
   static func loadFileFromBundle(from mockName: String) throws -> Data {
     guard let url = Bundle.main.url(forResource: mockName, withExtension: "json") else {
-      print("Error: \(BundleLoadingErrors.noFile.rawValue)")
+      print(BundleLoadingErrors.noFile.rawValue)
       throw BundleLoadingErrors.noFile
     }
 
     guard let data = try? Data(contentsOf: url) else {
-      print("Error: \(BundleLoadingErrors.dataError.rawValue)")
+      print(BundleLoadingErrors.dataError.rawValue)
       throw BundleLoadingErrors.dataError
     }
 
@@ -33,14 +33,14 @@ enum JSONMock {
       let jsonData = try JSONDecoder().decode(T.self, from: data)
       return jsonData
     } catch {
-      print("Error: \(error)")
+      print(BundleLoadingErrors.jsonError.rawValue)
       throw BundleLoadingErrors.jsonError
     }
   }
 }
 
-struct LocalStorageManager {
-  static func loadUserReposMock<T: Decodable>(fileName: String, obj: T.Type, completion: (_: T?) -> Void) {
+enum LocalStorageManager {
+  static func loadMock<T: Decodable>(fileName: String, obj: T.Type, completion: (_: T?) -> Void) {
     do {
       let data = try JSONMock.loadFileFromBundle(from: fileName)
       let jsonData = try JSONMock.convertDataToJson(data: data, from: T.self)

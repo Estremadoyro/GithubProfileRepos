@@ -18,16 +18,19 @@ class HomeViewModel {
 
 extension HomeViewModel {
   func getReposFromUsername(username: String) -> Observable<[Repo]> {
+    print("VM getReposFromUsername")
     return Observable.create { observer in
-      self.networkManager.getReposByUsername(username: username, completion: { repos, error in
+      print("VM Observer: \(observer)")
+      self.networkManager.getReposByUsername(username: username, mocking: true, completion: { repos, error in
         if let error = error {
           observer.onError(error)
         }
         if let repos = repos {
+          print("VM repos exists")
           observer.onNext(repos)
         }
         observer.onCompleted()
-        print("Rx Sequence completed")
+        print("VM Rx repos sequence completed")
       })
       return Disposables.create()
     }
@@ -35,7 +38,7 @@ extension HomeViewModel {
 
   func getLanguagesFromRepo(repo: Repo) -> Observable<RepoLanguages> {
     return Observable.create { observer in
-      self.networkManager.getLanguagesByRepo(repo: repo, completion: { languages, error in
+      self.networkManager.getLanguagesByRepo(repo: repo, mocking: true, completion: { languages, error in
         if let error = error {
           observer.onError(error)
           print("Error: \(error)")
@@ -44,8 +47,8 @@ extension HomeViewModel {
           observer.onNext(languages)
         }
         observer.onCompleted()
-        print("Rx Sequence languages")
-        print("LANGUAGES: \(String(describing: languages))")
+        print("Rx languages sequence languages")
+//        print("LANGUAGES: \(String(describing: languages))")
       })
       return Disposables.create()
     }

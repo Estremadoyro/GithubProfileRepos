@@ -15,8 +15,9 @@ class HomeView: UIViewController {
 
   private let networkManager: NetworkManager
   private lazy var viewModel = HomeViewModel(networkManager: networkManager)
-  private lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
 
+  
+  lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
   private var disposeBag = DisposeBag()
 
   init(networkManager: NetworkManager) {
@@ -35,11 +36,7 @@ extension HomeView {
     super.viewDidLoad()
     tableView.delegate = self
     configureView()
-//    displayReposFromUsername()
-    LocalStorageManager.loadUserReposMock(fileName: "UserRepos", obj: [Repo].self) { data in
-      guard let data = data else { return }
-      print("Data from mocks: \(data)")
-    }
+    displayReposFromUsername()
   }
 
   override func viewDidLayoutSubviews() {
@@ -85,20 +82,12 @@ extension HomeView {
       }
       .disposed(by: disposeBag)
 
-    reposObservable.subscribe(onNext: { _ in
-    }, onCompleted: { [weak self] in
+    reposObservable.debug("b").subscribe(onCompleted: { [weak self] in
       self?.reposDidLoad()
+      print("WOF")
     })
       .disposed(by: disposeBag)
-  }
-
-  private func displayLanguagesFromRepo(repo: Repo) {
-    viewModel.getLanguagesFromRepo(repo: repo)
-      .subscribe { languages in
-        print("Language: \(languages.map { $0.key })")
-      } onError: { error in
-        print("Error @ VC: \(error)")
-      }.disposed(by: disposeBag)
+    
   }
 }
 
