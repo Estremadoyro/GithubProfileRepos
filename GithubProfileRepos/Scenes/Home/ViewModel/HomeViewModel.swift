@@ -36,7 +36,7 @@ extension HomeViewModel {
     }
   }
 
-  func getLanguagesFromRepo(repo: Repo) -> Observable<RepoLanguages> {
+  func getLanguagesFromRepo(repo: Repo) -> Observable<RepoLanguage> {
     return Observable.create { observer in
       self.networkManager.getLanguagesByRepo(repo: repo, mocking: true, completion: { languages, error in
         if let error = error {

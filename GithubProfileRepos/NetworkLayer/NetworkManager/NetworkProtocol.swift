@@ -9,7 +9,7 @@ import Foundation
 
 protocol NetworkCompletionsProtocol {
   typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
-  typealias GithubRepoLanguagesCompletion = (_ languages: RepoLanguages?, _ error: Error?) -> ()
+  typealias GithubRepoLanguagesCompletion = (_ languages: RepoLanguage?, _ error: Error?) -> ()
 }
 
 protocol NetworkRequestsProtocol: NetworkCompletionsProtocol {

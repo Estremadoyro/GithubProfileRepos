@@ -13,7 +13,7 @@ import Foundation
 /// ** Request Examples
 /// https://api.github.com/users/estremadoyro/repos
 /// https://api.github.com/repos/Estremadoyro/Clean-Code/languages
-class Router<Endpoint: EndpointProtocol>: RouterProtocol {
+final class Router<Endpoint: EndpointProtocol>: RouterProtocol {
   private var task: URLSessionTask?
 
   func request(_ route: Endpoint, completion: @escaping RouterCompletion) {

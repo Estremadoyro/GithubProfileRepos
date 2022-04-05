@@ -9,7 +9,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class HomeView: UIViewController {
+final class HomeView: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
@@ -42,11 +42,8 @@ extension HomeView {
 extension HomeView {
   private func configureTable() {
     tableView.register(UINib(nibName: Nibs.repoCell, bundle: Bundle.main), forCellReuseIdentifier: Nibs.repoCell)
-  }
-
-  private func reposWillLoad() {
-    loadingIndicator.startAnimating()
-    loadingIndicator.alpha = 1
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 100
   }
 
   private func configureView() {
@@ -58,6 +55,11 @@ extension HomeView {
 }
 
 extension HomeView {
+  private func reposWillLoad() {
+    loadingIndicator.startAnimating()
+    loadingIndicator.alpha = 1
+  }
+
   private func reposDidLoad() {
     DispatchQueue.main.async { [weak self] in
       self?.loadingIndicator.stopAnimating()

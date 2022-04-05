@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6BB3C104AA563B0EC6AC6726 /* Pods_GithubProfileRepos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3DE93CCA114A2601F728F6 /* Pods_GithubProfileRepos.framework */; };
+		A777805827FC000E004AF800 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805727FC000E004AF800 /* LanguageColors.swift */; };
+		A777805A27FC1746004AF800 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805927FC1746004AF800 /* Utils.swift */; };
 		A7C8B40827F2AB6E001F6F93 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */; };
 		A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */; };
 		A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */; };
@@ -39,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		3D67EA8AA75DF875A50078A4 /* Pods-GithubProfileRepos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubProfileRepos.debug.xcconfig"; path = "Target Support Files/Pods-GithubProfileRepos/Pods-GithubProfileRepos.debug.xcconfig"; sourceTree = "<group>"; };
+		A777805727FC000E004AF800 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
+		A777805927FC1746004AF800 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A7DF1AF627F1328F0030DA50 /* GithubProfileRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubProfileRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +97,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A777805627FBFFEE004AF800 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A777805727FC000E004AF800 /* LanguageColors.swift */,
+				A777805927FC1746004AF800 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A7DF1AED27F1328F0030DA50 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +130,7 @@
 				A7F81B2027F8065800082EFE /* LocalStorageLayer */,
 				A7DF1B0E27F1357F0030DA50 /* NetworkLayer */,
 				A7DF1B0D27F1357B0030DA50 /* Scenes */,
+				A777805627FBFFEE004AF800 /* Utils */,
 				A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */,
 				A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */,
 				A7DF1B0227F132900030DA50 /* Assets.xcassets */,
@@ -401,11 +415,13 @@
 				A7DF1B2A27F142D60030DA50 /* ParameterEncoder.swift in Sources */,
 				A7DF1B1827F1366F0030DA50 /* HomeView.swift in Sources */,
 				A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */,
+				A777805827FC000E004AF800 /* LanguageColors.swift in Sources */,
 				A7DF1B3D27F16D2D0030DA50 /* RouterProtocol.swift in Sources */,
 				A7DF1B4127F170DC0030DA50 /* JSONBodyParameterEncoder.swift in Sources */,
 				A7DF1B2527F142AD0030DA50 /* GithubUsersEndpoint.swift in Sources */,
 				A7DF1B3B27F16D050030DA50 /* Router.swift in Sources */,
 				A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */,
+				A777805A27FC1746004AF800 /* Utils.swift in Sources */,
 				A7DF1B3027F143680030DA50 /* EndpointProtocol.swift in Sources */,
 				A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */,
 				A7DF1B3327F1452A0030DA50 /* HTTPMethod.swift in Sources */,

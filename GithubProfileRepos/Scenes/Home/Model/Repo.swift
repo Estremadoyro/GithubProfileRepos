@@ -12,10 +12,12 @@ struct Repo: Decodable {
   let name: String
   let fullName: String
   let description: String?
+  let stars: Int
 
   enum CodingKeys: String, CodingKey {
     case owner, name, description
     case fullName = "full_name"
+    case stars = "stargazers_count"
   }
 }
 
@@ -29,4 +31,4 @@ struct Owner: Decodable {
   }
 }
 
-public typealias RepoLanguages = [String: Int]
+public typealias RepoLanguage = [String: Int]

@@ -12,29 +12,39 @@ final class RepoCell: UITableViewCell {
   @IBOutlet private weak var repoName: UILabel!
   @IBOutlet private weak var repoDescription: UILabel!
   @IBOutlet private weak var repoLanguages: UILabel!
+  @IBOutlet private weak var repoLanguageColor: UIImageView!
+  @IBOutlet private weak var repoStar: UIImageView!
+  @IBOutlet private weak var repoStarCount: UILabel!
 
   weak var homeViewModel: HomeViewModel?
   weak var disposeBag: DisposeBag?
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    repoDescription.lineBreakMode = .byTruncatingMiddle
-    repoDescription.adjustsFontSizeToFitWidth = true
-  }
 
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
       repoName.text = repo.name
       repoDescription.text = repo.description
-      displayLanguagesFromRepo(repo: repo)
+      bindLanguagesFromRepo(repo: repo)
+      setStars(starsCount: repo.stars)
     }
   }
 
-  func displayLanguagesFromRepo(repo: Repo) {
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    repoDescription.lineBreakMode = .byWordWrapping
+  }
+}
+
+private extension RepoCell {
+  func bindLanguagesFromRepo(repo: Repo) {
     homeViewModel?.getLanguagesFromRepo(repo: repo)
-      .map { [weak self] in
-        self?.parseLanguages(languages: $0)
+      .map { [weak self] languages in
+        guard let strongSelf = self else { return "No language" }
+        let mostUsedLanguage = strongSelf.getMostUsedLanguage(languages: languages)
+        DispatchQueue.main.async {
+          self?.setLanguageColor(language: mostUsedLanguage)
+        }
+        return mostUsedLanguage.key
       }
       .bind(to: repoLanguages.rx.text)
       .disposed(by: disposeBag ?? DisposeBag())
@@ -42,7 +52,23 @@ final class RepoCell: UITableViewCell {
 }
 
 private extension RepoCell {
-  func parseLanguages(languages: RepoLanguages) -> String {
-    return languages.map { $0.key }.joined(separator: " | ")
+  func getMostUsedLanguage(languages: RepoLanguage) -> ColorByLanguage.Element {
+    return Utils.getMostUsedLanguage(languages: languages)
+  }
+
+  func setLanguageColor(language: ColorByLanguage.Element) {
+    repoLanguageColor.tintColor = language.value
+  }
+
+  func setStars(starsCount: Int) {
+    if starsCount > 0 {
+      repoStar.image = UIImage(systemName: "star.fill")
+      repoStar.tintColor = UIColor.systemOrange
+    } else {
+      repoStar.image = UIImage(systemName: "star")
+      repoStar.tintColor = UIColor.systemGray
+    }
+
+    repoStarCount.text = "\(starsCount)"
   }
 }

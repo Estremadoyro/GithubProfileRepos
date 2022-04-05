@@ -60,7 +60,7 @@ extension NetworkManager: NetworkRequestsProtocol {
 
   func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
     if mocking {
-      LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguages.self) { data in
+      LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguage.self) { data in
         guard let data = data else { return }
         completion(data, nil)
       }
@@ -82,7 +82,7 @@ extension NetworkManager: NetworkRequestsProtocol {
               return
             }
             do {
-              let apiReponse = try JSONDecoder().decode(RepoLanguages.self, from: responseData)
+              let apiReponse = try JSONDecoder().decode(RepoLanguage.self, from: responseData)
               print("Languages data: \(apiReponse)")
               completion(apiReponse, nil)
             } catch {
