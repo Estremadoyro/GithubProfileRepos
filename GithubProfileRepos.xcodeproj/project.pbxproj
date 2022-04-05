@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6BB3C104AA563B0EC6AC6726 /* Pods_GithubProfileRepos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3DE93CCA114A2601F728F6 /* Pods_GithubProfileRepos.framework */; };
+		A759B59E27FCDAC600002498 /* RepoAuthorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A759B59D27FCDAC600002498 /* RepoAuthorView.xib */; };
+		A759B5A027FCDAE100002498 /* RepoAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B59F27FCDAE100002498 /* RepoAuthorView.swift */; };
 		A777805827FC000E004AF800 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805727FC000E004AF800 /* LanguageColors.swift */; };
 		A777805A27FC1746004AF800 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805927FC1746004AF800 /* Utils.swift */; };
 		A7C8B40827F2AB6E001F6F93 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		3D67EA8AA75DF875A50078A4 /* Pods-GithubProfileRepos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubProfileRepos.debug.xcconfig"; path = "Target Support Files/Pods-GithubProfileRepos/Pods-GithubProfileRepos.debug.xcconfig"; sourceTree = "<group>"; };
+		A759B59D27FCDAC600002498 /* RepoAuthorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepoAuthorView.xib; sourceTree = "<group>"; };
+		A759B59F27FCDAE100002498 /* RepoAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAuthorView.swift; sourceTree = "<group>"; };
 		A777805727FC000E004AF800 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
 		A777805927FC1746004AF800 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -95,6 +99,24 @@
 				D06877A76E953C3101BD1B69 /* Pods-GithubProfileRepos.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A759B59B27FCD9AD00002498 /* ReposTable */ = {
+			isa = PBXGroup;
+			children = (
+				A7DF1B1627F1366F0030DA50 /* HomeView.swift */,
+				A7DF1B1727F1366F0030DA50 /* HomeView.xib */,
+			);
+			path = ReposTable;
+			sourceTree = "<group>";
+		};
+		A759B59C27FCD9C300002498 /* RepoAuthor */ = {
+			isa = PBXGroup;
+			children = (
+				A759B59F27FCDAE100002498 /* RepoAuthorView.swift */,
+				A759B59D27FCDAC600002498 /* RepoAuthorView.xib */,
+			);
+			path = RepoAuthor;
 			sourceTree = "<group>";
 		};
 		A777805627FBFFEE004AF800 /* Utils */ = {
@@ -182,9 +204,9 @@
 		A7DF1B1327F136340030DA50 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A7DF1B1C27F137DF0030DA50 /* Cell */,
-				A7DF1B1627F1366F0030DA50 /* HomeView.swift */,
-				A7DF1B1727F1366F0030DA50 /* HomeView.xib */,
+				A759B59C27FCD9C300002498 /* RepoAuthor */,
+				A7DF1B1C27F137DF0030DA50 /* RepoCell */,
+				A759B59B27FCD9AD00002498 /* ReposTable */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,13 +219,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A7DF1B1C27F137DF0030DA50 /* Cell */ = {
+		A7DF1B1C27F137DF0030DA50 /* RepoCell */ = {
 			isa = PBXGroup;
 			children = (
 				A7DF1B1D27F137F90030DA50 /* RepoCell.swift */,
 				A7DF1B1E27F137F90030DA50 /* RepoCell.xib */,
 			);
-			path = Cell;
+			path = RepoCell;
 			sourceTree = "<group>";
 		};
 		A7DF1B2827F142CA0030DA50 /* Encoding */ = {
@@ -351,6 +373,7 @@
 				A7DF1B0627F132900030DA50 /* LaunchScreen.storyboard in Resources */,
 				A7DF1B0327F132900030DA50 /* Assets.xcassets in Resources */,
 				A7DF1B1927F1366F0030DA50 /* HomeView.xib in Resources */,
+				A759B59E27FCDAC600002498 /* RepoAuthorView.xib in Resources */,
 				A7F81B1C27F7FBB100082EFE /* UserRepos.json in Resources */,
 				A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */,
 				A7F81B1D27F7FBB100082EFE /* RepoLanguages.json in Resources */,
@@ -409,6 +432,7 @@
 				A7C8B40827F2AB6E001F6F93 /* HomeViewModel.swift in Sources */,
 				A7DF1B3527F1453A0030DA50 /* HTTPTask.swift in Sources */,
 				A7DF1B2727F142B60030DA50 /* NetworkManager.swift in Sources */,
+				A759B5A027FCDAE100002498 /* RepoAuthorView.swift in Sources */,
 				A7DF1B2C27F142E70030DA50 /* URLParameterEncoder.swift in Sources */,
 				A7F81B1F27F7FCA200082EFE /* NetworkProtocol.swift in Sources */,
 				A7DF1B1027F1358C0030DA50 /* Keys.swift in Sources */,

@@ -33,7 +33,6 @@ final class HomeView: UIViewController {
 extension HomeView {
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.delegate = self
     configureView()
     displayReposFromUsername()
   }
@@ -87,11 +86,5 @@ extension HomeView {
       self?.reposDidLoad()
     })
       .disposed(by: disposeBag)
-  }
-}
-
-extension HomeView: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 100
   }
 }

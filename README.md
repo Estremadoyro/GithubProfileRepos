@@ -46,6 +46,6 @@ Small Todo's yet to complete, will be filling out periodically. PR's are welcome
 - [x]  Probably fix the LanguagesLabel in each cell, it’s not showing the correct languages per repo due to cell reusing.
 - [x]  Test subscribe() vs. bind()
 - [x]  Make Description Label wrap up to 2 lines, it’s currently going 1 line nonstop
-- [ ]  Automatic cell height
+- [x]  Automatic cell height
 - [x]  Fix getMostUsedLanguage
-- [ ]  Center vertically the UIStackView inside the UIView (within the Cell)
+- [x]  Center vertically the UIStackView inside the UIView (within the Cell)

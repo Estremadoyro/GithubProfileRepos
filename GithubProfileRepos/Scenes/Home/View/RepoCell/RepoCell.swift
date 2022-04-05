@@ -31,7 +31,6 @@ final class RepoCell: UITableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    repoDescription.lineBreakMode = .byWordWrapping
   }
 }
 
