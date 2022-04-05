@@ -49,3 +49,4 @@ Small Todo's yet to complete, will be filling out periodically. PR's are welcome
 - [x]  Automatic cell height
 - [x]  Fix getMostUsedLanguage
 - [x]  Center vertically the UIStackView inside the UIView (within the Cell)
+- [ ]  Structure RepoCell.nib properly (with container view in TableView VC? with child view controllers?, plain view inside the TableVC, additional MVVM layer for it? The latter seems the most likely, with 2 child VC and 1 master VC for the whole screen
