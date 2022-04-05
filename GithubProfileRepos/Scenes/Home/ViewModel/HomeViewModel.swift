@@ -43,8 +43,7 @@ extension HomeViewModel {
           observer.onNext(languages)
         }
         observer.onCompleted()
-        print("Rx languages sequence languages")
-//        print("LANGUAGES: \(String(describing: languages))")
+//        print("Rx languages sequence languages")
       })
       return Disposables.create()
     }

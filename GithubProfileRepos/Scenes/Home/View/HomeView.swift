@@ -77,7 +77,6 @@ extension HomeView {
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
       .bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { [weak self] _, repo, cell in
-        print("reposObservable value: \(repo.name)")
         cell.homeViewModel = self?.viewModel
         cell.disposeBag = self?.disposeBag
         cell.repo = repo
