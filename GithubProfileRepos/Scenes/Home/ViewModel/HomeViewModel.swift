@@ -18,19 +18,15 @@ class HomeViewModel {
 
 extension HomeViewModel {
   func getReposFromUsername(username: String) -> Observable<[Repo]> {
-    print("VM getReposFromUsername")
     return Observable.create { observer in
-      print("VM Observer: \(observer)")
       self.networkManager.getReposByUsername(username: username, mocking: true, completion: { repos, error in
         if let error = error {
           observer.onError(error)
         }
         if let repos = repos {
-          print("VM repos exists")
           observer.onNext(repos)
         }
         observer.onCompleted()
-        print("VM Rx repos sequence completed")
       })
       return Disposables.create()
     }
