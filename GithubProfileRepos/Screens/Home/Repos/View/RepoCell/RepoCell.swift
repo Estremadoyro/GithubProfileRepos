@@ -16,7 +16,7 @@ final class RepoCell: UITableViewCell {
   @IBOutlet private weak var repoStar: UIImageView!
   @IBOutlet private weak var repoStarCount: UILabel!
 
-  weak var homeViewModel: HomeViewModel?
+  weak var reposTableViewModel: ReposTableViewModel?
   weak var disposeBag: DisposeBag?
 
   var repo: Repo? {
@@ -36,7 +36,7 @@ final class RepoCell: UITableViewCell {
 
 private extension RepoCell {
   func bindLanguagesFromRepo(repo: Repo) {
-    homeViewModel?.getLanguagesFromRepo(repo: repo)
+    reposTableViewModel?.getLanguagesFromRepo(repo: repo)
       .map { [weak self] languages in
         guard let strongSelf = self else { return "No language" }
         let mostUsedLanguage = strongSelf.getMostUsedLanguage(languages: languages)

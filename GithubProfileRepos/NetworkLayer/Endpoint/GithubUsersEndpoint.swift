@@ -47,8 +47,13 @@ extension GithubUsersEndpoint: EndpointProtocol {
 
   var httpTask: HTTPTask {
     switch self {
-      case .reposByUsername, .languagesByRepo:
+      case .languagesByRepo:
         return .request
+      case .reposByUsername:
+        return .requestWithParameters(
+          urlParameters:
+          ["sort": "pushed", "direction": "desc"],
+          bodyParameters: nil)
     }
   }
 

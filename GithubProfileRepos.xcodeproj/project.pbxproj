@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		6BB3C104AA563B0EC6AC6726 /* Pods_GithubProfileRepos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3DE93CCA114A2601F728F6 /* Pods_GithubProfileRepos.framework */; };
-		A759B59E27FCDAC600002498 /* RepoAuthorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A759B59D27FCDAC600002498 /* RepoAuthorView.xib */; };
-		A759B5A027FCDAE100002498 /* RepoAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B59F27FCDAE100002498 /* RepoAuthorView.swift */; };
+		A759B59E27FCDAC600002498 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A759B59D27FCDAC600002498 /* UserView.xib */; };
+		A759B5A727FD3B1500002498 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B5A627FD3B1500002498 /* UserVC.swift */; };
+		A759B5AD27FD45E800002498 /* HomeContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B5AC27FD45E800002498 /* HomeContainerVC.swift */; };
+		A759B5B027FD48B200002498 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */; };
 		A777805827FC000E004AF800 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805727FC000E004AF800 /* LanguageColors.swift */; };
 		A777805A27FC1746004AF800 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805927FC1746004AF800 /* Utils.swift */; };
-		A7C8B40827F2AB6E001F6F93 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */; };
+		A7C8B40827F2AB6E001F6F93 /* ReposTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */; };
 		A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */; };
 		A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */; };
 		A7DF1B0327F132900030DA50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B0227F132900030DA50 /* Assets.xcassets */; };
 		A7DF1B0627F132900030DA50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B0427F132900030DA50 /* LaunchScreen.storyboard */; };
 		A7DF1B1027F1358C0030DA50 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B0F27F1358C0030DA50 /* Keys.swift */; };
-		A7DF1B1827F1366F0030DA50 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1627F1366F0030DA50 /* HomeView.swift */; };
-		A7DF1B1927F1366F0030DA50 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B1727F1366F0030DA50 /* HomeView.xib */; };
+		A7DF1B1827F1366F0030DA50 /* ReposTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1627F1366F0030DA50 /* ReposTableVC.swift */; };
+		A7DF1B1927F1366F0030DA50 /* ReposTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B1727F1366F0030DA50 /* ReposTableView.xib */; };
 		A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1A27F136AE0030DA50 /* Nibs.swift */; };
 		A7DF1B1F27F137F90030DA50 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1D27F137F90030DA50 /* RepoCell.swift */; };
 		A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B1E27F137F90030DA50 /* RepoCell.xib */; };
@@ -43,11 +45,13 @@
 
 /* Begin PBXFileReference section */
 		3D67EA8AA75DF875A50078A4 /* Pods-GithubProfileRepos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubProfileRepos.debug.xcconfig"; path = "Target Support Files/Pods-GithubProfileRepos/Pods-GithubProfileRepos.debug.xcconfig"; sourceTree = "<group>"; };
-		A759B59D27FCDAC600002498 /* RepoAuthorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepoAuthorView.xib; sourceTree = "<group>"; };
-		A759B59F27FCDAE100002498 /* RepoAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAuthorView.swift; sourceTree = "<group>"; };
+		A759B59D27FCDAC600002498 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
+		A759B5A627FD3B1500002498 /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		A759B5AC27FD45E800002498 /* HomeContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainerVC.swift; sourceTree = "<group>"; };
+		A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		A777805727FC000E004AF800 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
 		A777805927FC1746004AF800 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewModel.swift; sourceTree = "<group>"; };
 		A7DF1AF627F1328F0030DA50 /* GithubProfileRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubProfileRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,8 +59,8 @@
 		A7DF1B0527F132900030DA50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7DF1B0727F132900030DA50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7DF1B0F27F1358C0030DA50 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		A7DF1B1627F1366F0030DA50 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		A7DF1B1727F1366F0030DA50 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
+		A7DF1B1627F1366F0030DA50 /* ReposTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableVC.swift; sourceTree = "<group>"; };
+		A7DF1B1727F1366F0030DA50 /* ReposTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReposTableView.xib; sourceTree = "<group>"; };
 		A7DF1B1A27F136AE0030DA50 /* Nibs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nibs.swift; sourceTree = "<group>"; };
 		A7DF1B1D27F137F90030DA50 /* RepoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		A7DF1B1E27F137F90030DA50 /* RepoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepoCell.xib; sourceTree = "<group>"; };
@@ -104,19 +108,69 @@
 		A759B59B27FCD9AD00002498 /* ReposTable */ = {
 			isa = PBXGroup;
 			children = (
-				A7DF1B1627F1366F0030DA50 /* HomeView.swift */,
-				A7DF1B1727F1366F0030DA50 /* HomeView.xib */,
+				A7DF1B1627F1366F0030DA50 /* ReposTableVC.swift */,
+				A7DF1B1727F1366F0030DA50 /* ReposTableView.xib */,
 			);
 			path = ReposTable;
 			sourceTree = "<group>";
 		};
-		A759B59C27FCD9C300002498 /* RepoAuthor */ = {
+		A759B59C27FCD9C300002498 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				A759B59F27FCDAE100002498 /* RepoAuthorView.swift */,
-				A759B59D27FCDAC600002498 /* RepoAuthorView.xib */,
+				A759B5A627FD3B1500002498 /* UserVC.swift */,
+				A759B59D27FCDAC600002498 /* UserView.xib */,
 			);
-			path = RepoAuthor;
+			path = User;
+			sourceTree = "<group>";
+		};
+		A759B5A127FD39F300002498 /* Repos */ = {
+			isa = PBXGroup;
+			children = (
+				A7DF1B1227F1362D0030DA50 /* Model */,
+				A7DF1B1327F136340030DA50 /* View */,
+				A7DF1B1427F1363F0030DA50 /* ViewModel */,
+			);
+			path = Repos;
+			sourceTree = "<group>";
+		};
+		A759B5A227FD3A0B00002498 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A759B5A327FD3A7700002498 /* Model */,
+				A759B5A527FD3A8200002498 /* View */,
+				A759B5A427FD3A7D00002498 /* ViewModel */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		A759B5A327FD3A7700002498 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A759B5A427FD3A7D00002498 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A759B5A527FD3A8200002498 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A759B59C27FCD9C300002498 /* User */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A759B5AE27FD484700002498 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A777805627FBFFEE004AF800 /* Utils */ = {
@@ -149,12 +203,13 @@
 		A7DF1AF827F1328F0030DA50 /* GithubProfileRepos */ = {
 			isa = PBXGroup;
 			children = (
-				A7F81B2027F8065800082EFE /* LocalStorageLayer */,
-				A7DF1B0E27F1357F0030DA50 /* NetworkLayer */,
-				A7DF1B0D27F1357B0030DA50 /* Scenes */,
-				A777805627FBFFEE004AF800 /* Utils */,
 				A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */,
 				A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */,
+				A7F81B2027F8065800082EFE /* LocalStorageLayer */,
+				A7DF1B0E27F1357F0030DA50 /* NetworkLayer */,
+				A7DF1B0D27F1357B0030DA50 /* Screens */,
+				A777805627FBFFEE004AF800 /* Utils */,
+				A759B5AE27FD484700002498 /* Extensions */,
 				A7DF1B0227F132900030DA50 /* Assets.xcassets */,
 				A7DF1B0427F132900030DA50 /* LaunchScreen.storyboard */,
 				A7DF1B0727F132900030DA50 /* Info.plist */,
@@ -162,13 +217,13 @@
 			path = GithubProfileRepos;
 			sourceTree = "<group>";
 		};
-		A7DF1B0D27F1357B0030DA50 /* Scenes */ = {
+		A7DF1B0D27F1357B0030DA50 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				A7DF1B1A27F136AE0030DA50 /* Nibs.swift */,
 				A7DF1B1127F135AC0030DA50 /* Home */,
 			);
-			path = Scenes;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		A7DF1B0E27F1357F0030DA50 /* NetworkLayer */ = {
@@ -186,9 +241,9 @@
 		A7DF1B1127F135AC0030DA50 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A7DF1B1227F1362D0030DA50 /* Model */,
-				A7DF1B1327F136340030DA50 /* View */,
-				A7DF1B1427F1363F0030DA50 /* ViewModel */,
+				A759B5AC27FD45E800002498 /* HomeContainerVC.swift */,
+				A759B5A227FD3A0B00002498 /* User */,
+				A759B5A127FD39F300002498 /* Repos */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -204,7 +259,6 @@
 		A7DF1B1327F136340030DA50 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A759B59C27FCD9C300002498 /* RepoAuthor */,
 				A7DF1B1C27F137DF0030DA50 /* RepoCell */,
 				A759B59B27FCD9AD00002498 /* ReposTable */,
 			);
@@ -214,7 +268,7 @@
 		A7DF1B1427F1363F0030DA50 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A7C8B40727F2AB6E001F6F93 /* HomeViewModel.swift */,
+				A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -372,8 +426,8 @@
 			files = (
 				A7DF1B0627F132900030DA50 /* LaunchScreen.storyboard in Resources */,
 				A7DF1B0327F132900030DA50 /* Assets.xcassets in Resources */,
-				A7DF1B1927F1366F0030DA50 /* HomeView.xib in Resources */,
-				A759B59E27FCDAC600002498 /* RepoAuthorView.xib in Resources */,
+				A7DF1B1927F1366F0030DA50 /* ReposTableView.xib in Resources */,
+				A759B59E27FCDAC600002498 /* UserView.xib in Resources */,
 				A7F81B1C27F7FBB100082EFE /* UserRepos.json in Resources */,
 				A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */,
 				A7F81B1D27F7FBB100082EFE /* RepoLanguages.json in Resources */,
@@ -429,15 +483,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7C8B40827F2AB6E001F6F93 /* HomeViewModel.swift in Sources */,
+				A759B5AD27FD45E800002498 /* HomeContainerVC.swift in Sources */,
+				A7C8B40827F2AB6E001F6F93 /* ReposTableViewModel.swift in Sources */,
 				A7DF1B3527F1453A0030DA50 /* HTTPTask.swift in Sources */,
 				A7DF1B2727F142B60030DA50 /* NetworkManager.swift in Sources */,
-				A759B5A027FCDAE100002498 /* RepoAuthorView.swift in Sources */,
 				A7DF1B2C27F142E70030DA50 /* URLParameterEncoder.swift in Sources */,
 				A7F81B1F27F7FCA200082EFE /* NetworkProtocol.swift in Sources */,
 				A7DF1B1027F1358C0030DA50 /* Keys.swift in Sources */,
 				A7DF1B2A27F142D60030DA50 /* ParameterEncoder.swift in Sources */,
-				A7DF1B1827F1366F0030DA50 /* HomeView.swift in Sources */,
+				A759B5A727FD3B1500002498 /* UserVC.swift in Sources */,
+				A7DF1B1827F1366F0030DA50 /* ReposTableVC.swift in Sources */,
 				A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */,
 				A777805827FC000E004AF800 /* LanguageColors.swift in Sources */,
 				A7DF1B3D27F16D2D0030DA50 /* RouterProtocol.swift in Sources */,
@@ -450,6 +505,7 @@
 				A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */,
 				A7DF1B3327F1452A0030DA50 /* HTTPMethod.swift in Sources */,
 				A7DF1B3927F16A210030DA50 /* HTTPHeaders.swift in Sources */,
+				A759B5B027FD48B200002498 /* UIViewControllerExtension.swift in Sources */,
 				A7DF1B2227F13F440030DA50 /* Repo.swift in Sources */,
 				A7DF1B1F27F137F90030DA50 /* RepoCell.swift in Sources */,
 				A7F81B2227F806AD00082EFE /* JSONMock.swift in Sources */,

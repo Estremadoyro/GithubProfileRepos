@@ -9,19 +9,19 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-final class HomeView: UIViewController {
+final class ReposTableVC: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
   private let networkManager: NetworkManager
-  private lazy var viewModel = HomeViewModel(networkManager: networkManager)
+  private lazy var viewModel = ReposTableViewModel(networkManager: networkManager)
 
   lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
   private var disposeBag = DisposeBag()
 
   init(networkManager: NetworkManager) {
     self.networkManager = networkManager
-    super.init(nibName: Nibs.homeView, bundle: Bundle.main)
+    super.init(nibName: Nibs.reposTableView, bundle: Bundle.main)
   }
 
   @available(*, unavailable)
@@ -30,7 +30,7 @@ final class HomeView: UIViewController {
   }
 }
 
-extension HomeView {
+extension ReposTableVC {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureView()
@@ -38,7 +38,7 @@ extension HomeView {
   }
 }
 
-extension HomeView {
+extension ReposTableVC {
   private func configureTable() {
     tableView.register(UINib(nibName: Nibs.repoCell, bundle: Bundle.main), forCellReuseIdentifier: Nibs.repoCell)
     tableView.rowHeight = UITableView.automaticDimension
@@ -53,7 +53,7 @@ extension HomeView {
   }
 }
 
-extension HomeView {
+extension ReposTableVC {
   private func reposWillLoad() {
     loadingIndicator.startAnimating()
     loadingIndicator.alpha = 1
@@ -67,7 +67,7 @@ extension HomeView {
   }
 }
 
-extension HomeView {
+extension ReposTableVC {
   private func displayReposFromUsername() {
     // Yet to concatenate with the Lanaguages API
     reposObservable
@@ -75,8 +75,8 @@ extension HomeView {
       // So, the Observable<Repo> needs to become Observable<[Repo]>, so Observable is a Sequence and it's elements need to aswell.
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
-      .bind(to: tableView.rx.items(cellIdentifier: "RepoCell", cellType: RepoCell.self)) { [weak self] _, repo, cell in
-        cell.homeViewModel = self?.viewModel
+      .bind(to: tableView.rx.items(cellIdentifier: Nibs.repoCell, cellType: RepoCell.self)) { [weak self] _, repo, cell in
+        cell.reposTableViewModel = self?.viewModel
         cell.disposeBag = self?.disposeBag
         cell.repo = repo
       }

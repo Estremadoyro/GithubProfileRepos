@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Nibs {
-  public static let homeView: String = "HomeView"
+enum Nibs {
+  public static let reposTableView: String = "ReposTableView"
   public static let repoCell: String = "RepoCell"
+  public static let userView: String = "UserView"
 }

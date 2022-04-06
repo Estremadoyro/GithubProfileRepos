@@ -8,15 +8,15 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel {
-  weak var view: HomeView?
+final class ReposTableViewModel {
+  weak var view: ReposTableVC?
   var networkManager: NetworkManager
   init(networkManager: NetworkManager) {
     self.networkManager = networkManager
   }
 }
 
-extension HomeViewModel {
+extension ReposTableViewModel {
   func getReposFromUsername(username: String) -> Observable<[Repo]> {
     return Observable.create { observer in
       self.networkManager.getReposByUsername(username: username, mocking: true, completion: { repos, error in

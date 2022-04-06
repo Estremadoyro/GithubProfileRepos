@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="GithubProfileRepos" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReposTableVC" customModule="GithubProfileRepos" customModuleProvider="target">
             <connections>
                 <outlet property="loadingIndicator" destination="x1H-z4-4Ym" id="g8a-aI-vPV"/>
                 <outlet property="tableView" destination="xdM-AP-kik" id="cvu-he-O9G"/>
@@ -45,6 +45,7 @@
                 <constraint firstItem="x1H-z4-4Ym" firstAttribute="centerY" secondItem="xdM-AP-kik" secondAttribute="centerY" id="nJT-ad-AJ0"/>
                 <constraint firstItem="xdM-AP-kik" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sJ2-7u-av3"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
         </view>
     </objects>
