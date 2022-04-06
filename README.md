@@ -34,9 +34,10 @@ struct Keys {
 ```
 
 ### Screenshots
-| Home | 
+#### Home
+| Light | Dark | 
 | --- | --- | 
-| <img src="images/home-light.png" width=300 /> |  <img src="images/home-dark.png" width=300 /> |
+| <img src="images/home-light.png" width=300 /> | <img src="images/home-dark.png" width=300 /> |
 
 ### Todo
 Small Todo's yet to complete, will be filling out periodically. PR's are welcome.  
