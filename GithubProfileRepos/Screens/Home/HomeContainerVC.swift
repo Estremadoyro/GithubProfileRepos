@@ -11,8 +11,8 @@ import UIKit
 /// **UserVC**
 /// **ReposTableVC**
 final class HomeContainerVC: UIViewController {
-  fileprivate var userVC: UserVC?
-  fileprivate var reposTableVC: ReposTableVC?
+  fileprivate lazy var userVC = UserVC(networkManager: networkManager)
+  fileprivate lazy var reposTableVC = ReposTableVC(networkManager: networkManager)
   fileprivate var networkManager: NetworkManager
 
   init(networkManager: NetworkManager) {
@@ -29,22 +29,48 @@ final class HomeContainerVC: UIViewController {
 extension HomeContainerVC {
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureContainerView()
+    buildScreen()
   }
 }
 
 private extension HomeContainerVC {
-  func initializeHomeVCs() {
-    userVC = UserVC(networkManager: networkManager)
-//    userVC = UserVC(nibName: Nibs.userView, bundle: Bundle.main)
-//    reposTableVC = ReposTableVC(nibName: Nibs.reposTableView, bundle: Bundle.main)
+  func configureContainerView() {
+//    view.backgroundColor = UIColor.systemIndigo
+    view.backgroundColor = UIColor.systemBackground
+    navigationItem.title = "Repos"
   }
 }
 
 private extension HomeContainerVC {
   func buildScreen() {
-    guard let userVC = userVC, let reposTableVC = reposTableVC else { return }
-    addChild(userVC)
-    view.addSubview(userVC.view)
-    userVC.didMove(toParent: self)
+    // Add child VCs
+    addChildVC(userVC)
+    addChildVC(reposTableVC)
+    // Configure child VCs
+    configureUserVC()
+    configureReposTableVC()
+  }
+}
+
+private extension HomeContainerVC {
+  func configureUserVC() {
+    userVC.view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      userVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      userVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+      userVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      userVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    ])
+  }
+
+  func configureReposTableVC() {
+    reposTableVC.view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      reposTableVC.view.topAnchor.constraint(equalTo: userVC.view.bottomAnchor, constant: 5),
+      reposTableVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      reposTableVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      reposTableVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    ])
   }
 }

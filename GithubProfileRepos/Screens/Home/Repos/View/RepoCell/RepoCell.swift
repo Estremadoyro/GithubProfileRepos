@@ -28,10 +28,6 @@ final class RepoCell: UITableViewCell {
       setStars(starsCount: repo.stars)
     }
   }
-
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
 }
 
 private extension RepoCell {

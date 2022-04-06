@@ -7,4 +7,10 @@
 
 import UIKit.UIViewController
 
-extension UIViewController {}
+extension UIViewController {
+  func addChildVC(_ child: UIViewController) {
+    self.addChild(child)
+    self.view.addSubview(child.view)
+    child.didMove(toParent: self)
+  }
+}

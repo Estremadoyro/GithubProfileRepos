@@ -13,11 +13,11 @@ final class ReposTableVC: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
-  private let networkManager: NetworkManager
-  private lazy var viewModel = ReposTableViewModel(networkManager: networkManager)
+  fileprivate let networkManager: NetworkManager
+  fileprivate lazy var viewModel = ReposTableViewModel(networkManager: networkManager)
 
-  lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
-  private var disposeBag = DisposeBag()
+  fileprivate lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
+  fileprivate var disposeBag = DisposeBag()
 
   init(networkManager: NetworkManager) {
     self.networkManager = networkManager
@@ -46,8 +46,6 @@ extension ReposTableVC {
   }
 
   private func configureView() {
-    view.backgroundColor = UIColor.systemIndigo
-    navigationItem.title = "Repos"
     reposWillLoad()
     configureTable()
   }
