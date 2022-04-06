@@ -58,7 +58,8 @@ private extension HomeContainerVC {
     userVC.view.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       userVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      userVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+//      userVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+      userVC.view.heightAnchor.constraint(lessThanOrEqualToConstant: 120),
       userVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       userVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
     ])

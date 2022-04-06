@@ -35,8 +35,8 @@ struct Keys {
 
 ### Screenshots
 | Home | 
-| --- | 
-| <img src="images/home.png" width=300 /> |
+| --- | --- | 
+| <img src="images/home-light.png" width=300 /> |  <img src="images/home-dark.png" width=300 /> |
 
 ### Todo
 Small Todo's yet to complete, will be filling out periodically. PR's are welcome.  
@@ -49,4 +49,8 @@ Small Todo's yet to complete, will be filling out periodically. PR's are welcome
 - [x]  Automatic cell height
 - [x]  Fix getMostUsedLanguage
 - [x]  Center vertically the UIStackView inside the UIView (within the Cell)
-- [ ]  Structure RepoCell.nib properly (with container view in TableView VC? with child view controllers?, plain view inside the TableVC, additional MVVM layer for it? The latter seems the most likely, with 2 child VC and 1 master VC for the whole screen
+- [x]  Structure RepoCell.nib properly (with container view in TableView VC? with child view controllers?, plain view inside the TableVC, additional MVVM layer for it? The latter seems the most likely, with 2 child VC and 1 master VC for the whole screen
+- [ ]  User UIView height should be 20% of superview on smaller devices, but 120 on bigger
+- [ ]  Create Network Requests for the User's Followers, Following & Avatar
+- [ ]  Calculate total lines of code
+- [ ]  Get total stars awarded
