@@ -9,10 +9,14 @@ import Foundation
 
 protocol NetworkCompletionsProtocol {
   typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
+  typealias GithubUserFollowersCompletion = (_ followers: Followers?, _ error: Error?) -> ()
+  typealias GithubUserFollowingCompletion = (_ following: Following?, _ error: Error?) -> ()
   typealias GithubRepoLanguagesCompletion = (_ languages: RepoLanguage?, _ error: Error?) -> ()
 }
 
 protocol NetworkRequestsProtocol: NetworkCompletionsProtocol {
   func getReposByUsername(username: String, mocking: Bool, completion: @escaping GithubUserReposCompletion)
+  func getUserFollowers(username: String, mocking: Bool, completion: @escaping GithubUserFollowersCompletion)
+  func getUserFollowing(username: String, mocking: Bool, completion: @escaping GithubUserFollowingCompletion)
   func getLanguagesByRepo(repo: Repo, mocking: Bool, completion: @escaping GithubRepoLanguagesCompletion)
 }

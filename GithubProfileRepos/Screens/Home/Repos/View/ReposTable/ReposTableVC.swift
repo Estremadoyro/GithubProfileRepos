@@ -13,14 +13,18 @@ final class ReposTableVC: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
-  fileprivate let networkManager: NetworkManager
   fileprivate lazy var viewModel = ReposTableViewModel(networkManager: networkManager)
 
-  fileprivate lazy var reposObservable = viewModel.getReposFromUsername(username: "estremadoyro").share()
-  fileprivate var disposeBag = DisposeBag()
+  // Notice how it's using the same reference and preventing an unnecessary Strong Reference
+  fileprivate weak var reposObservable: Observable<[Repo]>?
+  fileprivate weak var disposeBag: DisposeBag?
 
-  init(networkManager: NetworkManager) {
+  fileprivate let networkManager: NetworkManager
+
+  init(networkManager: NetworkManager, reposObservable: Observable<[Repo]>, disposeBag: DisposeBag) {
     self.networkManager = networkManager
+    self.reposObservable = reposObservable
+    self.disposeBag = disposeBag
     super.init(nibName: Nibs.reposTableView, bundle: Bundle.main)
   }
 
@@ -34,7 +38,7 @@ extension ReposTableVC {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureView()
-    displayReposFromUsername()
+    configureBindings()
   }
 }
 
@@ -65,8 +69,16 @@ extension ReposTableVC {
   }
 }
 
+private extension ReposTableVC {
+  func configureBindings() {
+    guard let reposObservable = reposObservable else { return }
+    bindRepos(reposObservable: reposObservable)
+  }
+}
+
 extension ReposTableVC {
-  private func displayReposFromUsername() {
+  private func bindRepos(reposObservable: Observable<[Repo]>) {
+    guard let disposeBag = disposeBag else { return }
     // Yet to concatenate with the Lanaguages API
     reposObservable
       .delay(.seconds(1), scheduler: MainScheduler.instance)

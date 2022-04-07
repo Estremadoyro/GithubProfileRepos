@@ -12,6 +12,8 @@ import Foundation
 
 /// ** Request Examples
 /// https://api.github.com/users/estremadoyro/repos
+/// https://api.github.com/users/estremadoyro/followers
+/// https://api.github.com/users/estremadoyro/following
 /// https://api.github.com/repos/Estremadoyro/Clean-Code/languages
 final class Router<Endpoint: EndpointProtocol>: RouterProtocol {
   private var task: URLSessionTask?
@@ -32,7 +34,6 @@ final class Router<Endpoint: EndpointProtocol>: RouterProtocol {
       completion(nil, nil, error)
     }
     task?.resume()
-//    session.finishTasksAndInvalidate()
   }
 
   func cancel() {

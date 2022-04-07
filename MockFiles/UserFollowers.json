@@ -1,0 +1,22 @@
+[
+  {
+    "login": "PieroNarciso",
+    "id": 51268201,
+    "node_id": "MDQ6VXNlcjUxMjY4MjAx",
+    "avatar_url": "https://avatars.githubusercontent.com/u/51268201?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/PieroNarciso",
+    "html_url": "https://github.com/PieroNarciso",
+    "followers_url": "https://api.github.com/users/PieroNarciso/followers",
+    "following_url": "https://api.github.com/users/PieroNarciso/following{/other_user}",
+    "gists_url": "https://api.github.com/users/PieroNarciso/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/PieroNarciso/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/PieroNarciso/subscriptions",
+    "organizations_url": "https://api.github.com/users/PieroNarciso/orgs",
+    "repos_url": "https://api.github.com/users/PieroNarciso/repos",
+    "events_url": "https://api.github.com/users/PieroNarciso/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/PieroNarciso/received_events",
+    "type": "User",
+    "site_admin": false
+  }
+]

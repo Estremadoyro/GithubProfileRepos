@@ -8,7 +8,7 @@
 import Foundation
 
 struct Repo: Decodable {
-  let owner: Owner
+  let owner: User
   let name: String
   let fullName: String
   let description: String?
@@ -18,16 +18,6 @@ struct Repo: Decodable {
     case owner, name, description
     case fullName = "full_name"
     case stars = "stargazers_count"
-  }
-}
-
-struct Owner: Decodable {
-  let name: String
-  let url: String
-
-  enum CodingKeys: String, CodingKey {
-    case url = "html_url"
-    case name = "login"
   }
 }
 

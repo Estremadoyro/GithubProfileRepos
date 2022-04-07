@@ -58,6 +58,80 @@ extension NetworkManager: NetworkRequestsProtocol {
     }
   }
 
+  func getUserFollowers(username: String, mocking: Bool, completion: @escaping GithubUserFollowersCompletion) {
+    if mocking {
+      LocalStorageManager.loadMock(fileName: "UserFollowers", obj: Followers.self) { data in
+        guard let data = data else { completion(nil, NetworkResponse.noData); return }
+        completion(data, nil)
+      }
+      print("User followers mocking")
+      return
+    }
+    router.request(.userFollowers(username: username)) { data, response, error in
+      print("API REQUEST RESPONSE")
+      if error != nil {
+        completion(nil, NetworkResponse.errorFound)
+        return
+      }
+
+      if let response = response as? HTTPURLResponse {
+        let result = handleNetworkResponse(response)
+        switch result {
+          case .success:
+            guard let responseData = data else {
+              completion(nil, NetworkResponse.noData)
+              return
+            }
+            do {
+              let apiReponse = try JSONDecoder().decode(Followers.self, from: responseData)
+              completion(apiReponse, nil)
+            } catch {
+              completion(nil, NetworkResponse.unableToDecode)
+            }
+          case .failure(let networkFailureError):
+            completion(nil, networkFailureError)
+        }
+      }
+    }
+  }
+
+  func getUserFollowing(username: String, mocking: Bool, completion: @escaping GithubUserFollowingCompletion) {
+    if mocking {
+      LocalStorageManager.loadMock(fileName: "UserFollowing", obj: Following.self) { data in
+        guard let data = data else { completion(nil, NetworkResponse.noData); return }
+        completion(data, nil)
+      }
+      print("User following mocking")
+      return
+    }
+    router.request(.userFollowing(username: username)) { data, response, error in
+      print("API REQUEST RESPONSE")
+      if error != nil {
+        completion(nil, NetworkResponse.errorFound)
+        return
+      }
+
+      if let response = response as? HTTPURLResponse {
+        let result = handleNetworkResponse(response)
+        switch result {
+          case .success:
+            guard let responseData = data else {
+              completion(nil, NetworkResponse.noData)
+              return
+            }
+            do {
+              let apiReponse = try JSONDecoder().decode(Following.self, from: responseData)
+              completion(apiReponse, nil)
+            } catch {
+              completion(nil, NetworkResponse.unableToDecode)
+            }
+          case .failure(let networkFailureError):
+            completion(nil, networkFailureError)
+        }
+      }
+    }
+  }
+
   func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
     if mocking {
       LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguage.self) { data in
@@ -72,7 +146,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         completion(nil, NetworkResponse.errorFound)
         return
       }
-
       if let response = response as? HTTPURLResponse {
         let result = handleNetworkResponse(response)
         switch result {

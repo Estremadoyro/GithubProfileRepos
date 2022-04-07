@@ -3,7 +3,7 @@ Small app trying to recreate the Github's repos section from the iOS app with Rx
 
 ### Considerations
 You will more likely exceed the Github's API rate limit for your IP, so there is a mocking layer (could use some aditional improvements) for simulating API calls with .json files inside the *Mocks* folder.\
-If you are looking to mock a call you only need to change the **mock** flag inside the HOmeViewModel.swift file.
+If you are looking to mock a call you only need to change the **mock** flag inside the **HomeViewModel.swift** file.
 ```swift
 func getReposFromUsername(username: String) -> Observable<[Repo]> {
     return Observable.create { observer in

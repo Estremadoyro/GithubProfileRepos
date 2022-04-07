@@ -10,10 +10,14 @@ import Foundation
 /// # CREATES THE `ENDPOINT` FULL PATH TO CREATE AN HTTPRequest WITH
 /// https://api.github.com/users/estremadoyro/repos
 
+/// Should have 2 Endpoint modules actually, one for users/ and other for repos/
+
 // All the request methods for this endpoint
 enum GithubUsersEndpoint {
   case reposByUsername(username: String)
   case languagesByRepo(repo: Repo)
+  case userFollowers(username: String)
+  case userFollowing(username: String)
 }
 
 // Set the base URL
@@ -38,6 +42,10 @@ extension GithubUsersEndpoint: EndpointProtocol {
         return "users/\(username)/repos"
       case .languagesByRepo(let repo):
         return "repos/\(repo.owner.name)/\(repo.name)/languages"
+      case .userFollowers(let username):
+        return "users/\(username)/followers"
+      case .userFollowing(let username):
+        return "users/\(username)/following"
     }
   }
 
@@ -47,7 +55,7 @@ extension GithubUsersEndpoint: EndpointProtocol {
 
   var httpTask: HTTPTask {
     switch self {
-      case .languagesByRepo:
+      case .languagesByRepo, .userFollowers, .userFollowing:
         return .request
       case .reposByUsername:
         return .requestWithParameters(

@@ -5,14 +5,25 @@
 //  Created by Leonardo  on 5/04/22.
 //
 
+import RxSwift
 import UIKit
 
 /// # `Container ViewController` which has the following ViewControllers as children:
 /// **UserVC**
 /// **ReposTableVC**
 final class HomeContainerVC: UIViewController {
-  fileprivate lazy var userVC = UserVC(networkManager: networkManager)
-  fileprivate lazy var reposTableVC = ReposTableVC(networkManager: networkManager)
+  // ViewControllers
+  fileprivate lazy var userVC = UserVC(networkManager: networkManager, reposObservable: reposFromUserNameObservable, disposeBag: disposeBag)
+  fileprivate lazy var reposTableVC = ReposTableVC(networkManager: networkManager, reposObservable: reposFromUserNameObservable, disposeBag: disposeBag)
+
+  // Container View Model
+  fileprivate lazy var homeContainerViewModel = HomeContainerViewModel(networkManager: self.networkManager)
+
+  // Repos Observable
+  fileprivate lazy var reposFromUserNameObservable: Observable<[Repo]> = homeContainerViewModel.getReposFromUsername(username: "estremadoyro").share()
+  fileprivate lazy var disposeBag = DisposeBag()
+
+  // Network manager
   fileprivate var networkManager: NetworkManager
 
   init(networkManager: NetworkManager) {
@@ -36,7 +47,6 @@ extension HomeContainerVC {
 
 private extension HomeContainerVC {
   func configureContainerView() {
-//    view.backgroundColor = UIColor.systemIndigo
     view.backgroundColor = UIColor.systemBackground
     navigationItem.title = "Repos"
   }
