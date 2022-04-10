@@ -8,33 +8,23 @@
 import RxSwift
 
 final class UserViewModel {
-  fileprivate var networkManager: NetworkManager
-  init(networkManager: NetworkManager) {
-    self.networkManager = networkManager
-  }
+  fileprivate lazy var networkManager = NetworkManager()
+  lazy var userFollowersObservable = PublishSubject<Followers>()
+  lazy var userFollowingObservable = PublishSubject<Following>()
 }
 
-// I think these won't be Observables if observing the userUsername UILabel for changes
 extension UserViewModel {
-  func getUserFollowers(username: String) -> Observable<Followers> {
-    return Observable.create { [weak self] observer in
-      self?.networkManager.getUserFollowers(username: username, mocking: true) { followers, error in
-        if let followers = followers { observer.onNext(followers) }
-        if let error = error { observer.onError(error) }
-        observer.onCompleted()
-      }
-      return Disposables.create()
+  func updateFollowersSequence(username: String) {
+    networkManager.getUserFollowers(username: username, mocking: true) { [weak self] followers, error in
+      if let error = error { self?.userFollowersObservable.onError(error) }
+      if let followers = followers { self?.userFollowersObservable.onNext(followers) }
     }
   }
 
-  func getUserFollowing(username: String) -> Observable<Following> {
-    return Observable.create { [weak self] observer in
-      self?.networkManager.getUserFollowing(username: username, mocking: true) { following, error in
-        if let following = following { observer.onNext(following) }
-        if let error = error { observer.onError(error) }
-        observer.onCompleted()
-      }
-      return Disposables.create()
+  func updateFollowingSequence(username: String) {
+    networkManager.getUserFollowing(username: username, mocking: true) { [weak self] followers, error in
+      if let error = error { self?.userFollowingObservable.onError(error) }
+      if let followers = followers { self?.userFollowingObservable.onNext(followers) }
     }
   }
 }

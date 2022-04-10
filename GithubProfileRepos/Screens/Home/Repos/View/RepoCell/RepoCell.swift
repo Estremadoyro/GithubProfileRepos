@@ -19,23 +19,29 @@ final class RepoCell: UITableViewCell {
   weak var reposTableViewModel: ReposTableViewModel?
   weak var disposeBag: DisposeBag?
 
+  lazy var currentRepoCellObservable = PublishSubject<Repo>()
+
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
-      repoName.text = repo.name
-      repoDescription.text = repo.description
-      bindLanguagesFromRepo(repo: repo)
-      setStars(starsCount: repo.stars)
+      configureBindings(repo: repo)
+      currentRepoCellObservable.onNext(repo)
     }
   }
 }
 
 private extension RepoCell {
-  func bindLanguagesFromRepo(repo: Repo) {
-    reposTableViewModel?.getLanguagesFromRepo(repo: repo)
+  func configureBindings(repo: Repo) {
+    bindRepoLanguages(repo: repo)
+    bindRepoInfo(repo: repo)
+  }
+}
+
+private extension RepoCell {
+  func bindRepoLanguages(repo: Repo) {
+    reposTableViewModel?.repoLanguagesObservable
       .map { [weak self] languages in
-        guard let strongSelf = self else { return "No language" }
-        let mostUsedLanguage = strongSelf.getMostUsedLanguage(languages: languages)
+        let mostUsedLanguage = Utils.getMostUsedLanguage(languages: languages)
         DispatchQueue.main.async {
           self?.setLanguageColor(language: mostUsedLanguage)
         }
@@ -43,6 +49,29 @@ private extension RepoCell {
       }
       .bind(to: repoLanguages.rx.text)
       .disposed(by: disposeBag ?? DisposeBag())
+  }
+
+  // TODO: Can this be improved? Too much boiler
+  func bindRepoInfo(repo: Repo) {
+    guard let disposeBag = disposeBag else { return }
+
+    currentRepoCellObservable
+      .map { $0.name }
+      .bind(to: repoName.rx.text)
+      .disposed(by: disposeBag)
+
+    currentRepoCellObservable
+      .map { $0.description }
+      .bind(to: repoDescription.rx.text)
+      .disposed(by: disposeBag)
+
+    currentRepoCellObservable
+      .map { [weak self] repo in
+        self?.setStars(starsCount: repo.stars)
+        return String(repo.stars)
+      }
+      .bind(to: repoStarCount.rx.text)
+      .disposed(by: disposeBag)
   }
 }
 
@@ -63,7 +92,5 @@ private extension RepoCell {
       repoStar.image = UIImage(systemName: "star")
       repoStar.tintColor = UIColor.systemGray
     }
-
-    repoStarCount.text = "\(starsCount)"
   }
 }

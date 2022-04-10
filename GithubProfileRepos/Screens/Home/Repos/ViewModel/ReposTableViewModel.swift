@@ -9,10 +9,10 @@ import Foundation
 import RxSwift
 
 final class ReposTableViewModel {
-  var networkManager: NetworkManager
-  init(networkManager: NetworkManager) {
-    self.networkManager = networkManager
-  }
+  // Observables
+  lazy var repoLanguagesObservable = PublishSubject<RepoLanguage>()
+
+  fileprivate lazy var networkManager = NetworkManager()
 }
 
 extension ReposTableViewModel {
@@ -29,6 +29,13 @@ extension ReposTableViewModel {
         observer.onCompleted()
       })
       return Disposables.create()
+    }
+  }
+
+  func updateLanguagesSequence(repo: Repo) {
+    networkManager.getLanguagesByRepo(repo: repo, mocking: true) { [weak self] languages, error in
+      if let error = error { self?.repoLanguagesObservable.onError(error) }
+      if let languages = languages { self?.repoLanguagesObservable.onNext(languages) }
     }
   }
 }

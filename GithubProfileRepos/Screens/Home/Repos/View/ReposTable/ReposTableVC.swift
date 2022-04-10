@@ -13,18 +13,16 @@ final class ReposTableVC: UIViewController {
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
-  fileprivate lazy var viewModel = ReposTableViewModel(networkManager: networkManager)
+  fileprivate lazy var viewModel = ReposTableViewModel()
 
+  // Observable passed from ContainerVC
   // Notice how it's using the same reference and preventing an unnecessary Strong Reference
-  fileprivate weak var reposObservable: Observable<[Repo]>?
-  fileprivate weak var disposeBag: DisposeBag?
+  fileprivate weak var reposObservable: PublishSubject<[Repo]>?
 
-  fileprivate let networkManager: NetworkManager
+  fileprivate let disposeBag = DisposeBag()
 
-  init(networkManager: NetworkManager, reposObservable: Observable<[Repo]>, disposeBag: DisposeBag) {
-    self.networkManager = networkManager
+  init(reposObservable: PublishSubject<[Repo]>) {
     self.reposObservable = reposObservable
-    self.disposeBag = disposeBag
     super.init(nibName: Nibs.reposTableView, bundle: Bundle.main)
   }
 
@@ -77,8 +75,7 @@ private extension ReposTableVC {
 }
 
 extension ReposTableVC {
-  private func bindRepos(reposObservable: Observable<[Repo]>) {
-    guard let disposeBag = disposeBag else { return }
+  private func bindRepos(reposObservable: PublishSubject<[Repo]>) {
     // Yet to concatenate with the Lanaguages API
     reposObservable
       .delay(.seconds(1), scheduler: MainScheduler.instance)
@@ -89,12 +86,15 @@ extension ReposTableVC {
         cell.reposTableViewModel = self?.viewModel
         cell.disposeBag = self?.disposeBag
         cell.repo = repo
+        self?.viewModel.updateLanguagesSequence(repo: repo)
       }
       .disposed(by: disposeBag)
 
-    reposObservable.delay(.seconds(1), scheduler: MainScheduler.instance).subscribe(onCompleted: { [weak self] in
-      self?.reposDidLoad()
-    })
+    reposObservable
+      .delay(.seconds(1), scheduler: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] _ in
+        self?.reposDidLoad()
+      })
       .disposed(by: disposeBag)
   }
 }

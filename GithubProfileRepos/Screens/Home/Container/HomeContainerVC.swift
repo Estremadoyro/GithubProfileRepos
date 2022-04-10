@@ -5,6 +5,7 @@
 //  Created by Leonardo  on 5/04/22.
 //
 
+import RxRelay
 import RxSwift
 import UIKit
 
@@ -13,14 +14,20 @@ import UIKit
 /// **ReposTableVC**
 final class HomeContainerVC: UIViewController {
   // ViewControllers
-  fileprivate lazy var userVC = UserVC(networkManager: networkManager, reposObservable: reposFromUserNameObservable, disposeBag: disposeBag)
-  fileprivate lazy var reposTableVC = ReposTableVC(networkManager: networkManager, reposObservable: reposFromUserNameObservable, disposeBag: disposeBag)
+  fileprivate lazy var userVC = UserVC(
+    reposObservable: reposFromUserNameObservable
+  )
+  fileprivate lazy var reposTableVC = ReposTableVC(
+    reposObservable: reposFromUserNameObservable
+  )
 
   // Container View Model
   fileprivate lazy var homeContainerViewModel = HomeContainerViewModel(networkManager: self.networkManager)
 
-  // Repos Observable
-  fileprivate lazy var reposFromUserNameObservable: Observable<[Repo]> = homeContainerViewModel.getReposFromUsername(username: "estremadoyro").share()
+  // Shared among User/Repos observables
+  fileprivate lazy var currentUserObservable: PublishRelay<User> = homeContainerViewModel.currentUserObservable
+  fileprivate lazy var reposFromUserNameObservable: PublishSubject<[Repo]> = homeContainerViewModel.userReposObservable
+
   fileprivate lazy var disposeBag = DisposeBag()
 
   // Network manager
@@ -40,8 +47,12 @@ final class HomeContainerVC: UIViewController {
 extension HomeContainerVC {
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureBindings()
     configureContainerView()
     buildScreen()
+
+    // First User event
+    currentUserObservable.accept(User(name: "estremadoyro"))
   }
 }
 
@@ -53,13 +64,26 @@ private extension HomeContainerVC {
 }
 
 private extension HomeContainerVC {
+  func configureBindings() {
+    currentUserObservable
+      .subscribe(onNext: { [weak self] _ in
+        self?.homeContainerViewModel.updateUserReposSequence()
+      })
+      .disposed(by: disposeBag)
+  }
+}
+
+private extension HomeContainerVC {
   func buildScreen() {
-    // Add child VCs
+    print("BUILDING SCREEN")
+    // Add child VCs (Also instantiating them)
     addChildVC(userVC)
     addChildVC(reposTableVC)
+
     // Configure child VCs
     configureUserVC()
     configureReposTableVC()
+    print("BUILDING SCREEN ENDED")
   }
 }
 
@@ -68,7 +92,6 @@ private extension HomeContainerVC {
     userVC.view.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       userVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//      userVC.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
       userVC.view.heightAnchor.constraint(lessThanOrEqualToConstant: 120),
       userVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       userVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),

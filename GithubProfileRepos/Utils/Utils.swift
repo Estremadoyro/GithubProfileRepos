@@ -26,3 +26,16 @@ enum Utils {
     return (language.key, color)
   }
 }
+
+extension Utils {
+  public static func getUserAccumulatedStars(repos: [Repo]) -> Int {
+    let reposStars = repos.map { $0.stars }
+    return reposStars.reduce(0) { current, next in
+      current + next
+    }
+  }
+  
+  public static func getUserTotalLinesOfCode(repos: [Repo]) -> Int {
+    return 1
+  }
+}

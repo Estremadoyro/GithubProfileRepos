@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="userFollowers" destination="kAt-ed-Zk1" id="UI4-md-IS2"/>
                 <outlet property="userFollowing" destination="94T-qk-i1t" id="Ufp-9C-34s"/>
+                <outlet property="userStars" destination="uKZ-f4-TIa" id="4ir-qd-L4g"/>
                 <outlet property="userUsername" destination="nRK-Ij-1od" id="k48-bg-sbG"/>
                 <outlet property="view" destination="1PG-nU-qkn" id="WuV-Nh-eat"/>
             </connections>
@@ -66,13 +67,13 @@
                                     <rect key="frame" x="0.0" y="25.5" width="202.5" height="64.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rmx-ac-KKT">
-                                            <rect key="frame" x="0.0" y="0.0" width="202.5" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="202.5" height="17"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="dAT-2p-Ny9">
-                                                    <rect key="frame" x="0.0" y="1.5" width="20.5" height="17.5"/>
+                                                    <rect key="frame" x="0.0" y="1.5" width="20.5" height="14.5"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAt-ed-Zk1">
-                                                    <rect key="frame" x="35.5" y="0.0" width="167" height="20"/>
+                                                    <rect key="frame" x="35.5" y="0.0" width="167" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -83,13 +84,13 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="s4j-rG-YeX">
-                                            <rect key="frame" x="0.0" y="22.5" width="202.5" height="20"/>
+                                            <rect key="frame" x="0.0" y="17" width="202.5" height="17"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.2.wave.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dpx-X7-dE1">
-                                                    <rect key="frame" x="0.0" y="-1" width="23" height="20"/>
+                                                    <rect key="frame" x="0.0" y="-1" width="23" height="17"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94T-qk-i1t">
-                                                    <rect key="frame" x="35.5" y="0.0" width="167" height="20"/>
+                                                    <rect key="frame" x="35.5" y="0.0" width="167" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -99,24 +100,14 @@
                                                 <constraint firstItem="Dpx-X7-dE1" firstAttribute="width" secondItem="s4j-rG-YeX" secondAttribute="width" multiplier="0.1" id="bRr-0k-CVW"/>
                                             </constraints>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="X9U-4e-avF">
-                                            <rect key="frame" x="0.0" y="44.5" width="202.5" height="20"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.left.forwardslash.chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Bbk-sk-ur9">
-                                                    <rect key="frame" x="0.0" y="1" width="20.5" height="18"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98203059 lines of code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnC-wS-z9U">
-                                                    <rect key="frame" x="35.5" y="0.0" width="167" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Bbk-sk-ur9" firstAttribute="width" secondItem="X9U-4e-avF" secondAttribute="width" multiplier="0.1" id="eqe-7P-ESP"/>
-                                            </constraints>
-                                        </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8o2-Hc-JaS">
+                                            <rect key="frame" x="0.0" y="34" width="202.5" height="30.5"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8o2-Hc-JaS" firstAttribute="top" secondItem="s4j-rG-YeX" secondAttribute="bottom" id="3Fe-hj-hMi"/>
+                                    </constraints>
                                 </stackView>
                             </subviews>
                         </stackView>
@@ -140,7 +131,6 @@
         </view>
     </objects>
     <resources>
-        <image name="chevron.left.forwardslash.chevron.right" catalog="system" width="128" height="83"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.2.wave.2" catalog="system" width="128" height="85"/>
         <image name="repo-profile-image" width="230" height="230"/>
