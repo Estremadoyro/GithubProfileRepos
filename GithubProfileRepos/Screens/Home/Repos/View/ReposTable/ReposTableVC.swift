@@ -87,15 +87,13 @@ extension ReposTableVC {
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
       .bind(to: tableView.rx.items(cellIdentifier: Nibs.repoCell, cellType: RepoCell.self)) { [weak self] _, repo, cell in
-        cell.reposTableViewModel = self?.viewModel
-        cell.disposeBag = self?.disposeBag
+        cell.repoCellViewModel.networkManager = self?.viewModel.networkManager
         cell.repo = repo
-        self?.viewModel.updateLanguagesSequence(repo: repo)
       }
       .disposed(by: disposeBag)
 
     reposObservable
-      .delay(.seconds(1), scheduler: MainScheduler.instance)
+//      .delay(.seconds(1), scheduler: MainScheduler.instance)
       .subscribe(onNext: { [weak self] _ in
         self?.reposDidLoad()
       })

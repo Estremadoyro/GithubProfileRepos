@@ -26,7 +26,7 @@ final class HomeContainerVC: UIViewController {
   fileprivate lazy var homeContainerViewModel = HomeContainerViewModel(networkManager: self.networkManager)
 
   // Shared among User/Repos observables
-  fileprivate lazy var currentUserObservable: PublishRelay<User> = homeContainerViewModel.currentUserObservable
+  fileprivate lazy var currentUserObservable: PublishRelay<UserProfile> = homeContainerViewModel.currentUserObservable
   fileprivate lazy var reposFromUserNameObservable: PublishSubject<[Repo]> = homeContainerViewModel.userReposObservable
 
   fileprivate lazy var disposeBag = DisposeBag()
@@ -58,9 +58,8 @@ extension HomeContainerVC {
     buildScreen()
 
     // First User event
-//    homeContainerViewModel.updateUserSequence(username: "PieroNarciso")
-//    currentUserObservable.accept(User(name: "PieroNarciso"))
-    currentUserObservable.accept(User(name: "estremadoyro"))
+    homeContainerViewModel.updateUserSequence(username: "estremadoyro")
+//    currentUserObservable.accept(UserProfile(name: "pieronarciso"))
   }
 }
 

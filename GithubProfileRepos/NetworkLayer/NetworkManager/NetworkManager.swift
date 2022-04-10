@@ -23,7 +23,7 @@ struct NetworkManager {
 extension NetworkManager: NetworkRequestsProtocol {
   func getUser(username: String, mocking: Bool, completion: @escaping GithubUserCompletion) {
     if mocking {
-      LocalStorageManager.loadMock(fileName: "User", obj: User.self) { data in
+      LocalStorageManager.loadMock(fileName: "User", obj: UserProfile.self) { data in
         guard let data = data else { completion(nil, NetworkResponse.noData); return }
         completion(data, nil)
       }
@@ -46,7 +46,7 @@ extension NetworkManager: NetworkRequestsProtocol {
             return
             }
             do {
-              let apiReponse = try JSONDecoder().decode(User.self, from: responseData)
+              let apiReponse = try JSONDecoder().decode(UserProfile.self, from: responseData)
               completion(apiReponse, nil)
             } catch {
               completion(nil, NetworkResponse.unableToDecode)

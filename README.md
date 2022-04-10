@@ -39,6 +39,9 @@ struct Keys {
 | --- | --- | 
 | <img src="images/home-light.png" width=250 /> | <img src="images/home-dark.png" width=250 /> |
 
+| Demo | 
+| --- |
+| <img src="images/demo.gif" width=250 />|
 ### Todo
 Small Todo's yet to complete, will be filling out periodically. PR's are welcome.  
 - [x]  Passing observable to the RepoCell in a clean manner
@@ -52,6 +55,10 @@ Small Todo's yet to complete, will be filling out periodically. PR's are welcome
 - [x]  Center vertically the UIStackView inside the UIView (within the Cell)
 - [x]  Structure RepoCell.nib properly (with container view in TableView VC? with child view controllers?, plain view inside the TableVC, additional MVVM layer for it? The latter seems the most likely, with 2 child VC and 1 master VC for the whole screen
 - [ ]  User UIView height should be 20% of superview on smaller devices, but 120 on bigger
-- [ ]  Create Network Requests for the User's Followers, Following & Avatar
-- [ ]  Calculate total lines of code
-- [ ]  Get total stars awarded
+- [x]  Create Network Requests for the User's Followers, Following & Avatar
+- [x]  ~~Calculate total lines of code~~
+- [x]  Get total stars awarded
+- [x]  Updated most of Observables to PublishSubjects in order to post new Sequences for a SearchVC to be implemented
+- [x]  Added User's bio, this required an API call to /user/{user} endpoint
+- [ ]  Handle binding errors when the API block the sender IP after many requests (Mainly for Languages requets)
+- [x]  Handle User profile picture by making it an asyn sequence (PublishSubject)

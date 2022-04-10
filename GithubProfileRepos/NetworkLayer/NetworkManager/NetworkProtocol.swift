@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkCompletionsProtocol {
-  typealias GithubUserCompletion = (_ user: User?, _ error: Error?) -> ()
+  typealias GithubUserCompletion = (_ user: UserProfile?, _ error: Error?) -> ()
   typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
   typealias GithubUserFollowersCompletion = (_ followers: Followers?, _ error: Error?) -> ()
   typealias GithubUserFollowingCompletion = (_ following: Following?, _ error: Error?) -> ()

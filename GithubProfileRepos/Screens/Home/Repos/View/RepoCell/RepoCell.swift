@@ -16,17 +16,24 @@ final class RepoCell: UITableViewCell {
   @IBOutlet private weak var repoStar: UIImageView!
   @IBOutlet private weak var repoStarCount: UILabel!
 
-  weak var reposTableViewModel: ReposTableViewModel?
-  weak var disposeBag: DisposeBag?
+  lazy var repoCellViewModel = RepoCellViewModel()
+  lazy var disposeBag = DisposeBag()
 
-  lazy var currentRepoCellObservable = PublishSubject<Repo>()
+  // Observables
+  lazy var currentRepoObservable: Observable<Repo> = repoCellViewModel.currentRepoObservable(repo: repo).share()
+  lazy var currentRepoLanguagesObservable: Observable<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable(repo: repo).share()
 
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
       configureBindings(repo: repo)
-      currentRepoCellObservable.onNext(repo)
     }
+  }
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    repoLanguages.text = ""
+    repoLanguageColor.isHidden = true
   }
 }
 
@@ -39,33 +46,32 @@ private extension RepoCell {
 
 private extension RepoCell {
   func bindRepoLanguages(repo: Repo) {
-    reposTableViewModel?.repoLanguagesObservable
+    currentRepoLanguagesObservable
       .map { [weak self] languages in
         let mostUsedLanguage = Utils.getMostUsedLanguage(languages: languages)
         DispatchQueue.main.async {
           self?.setLanguageColor(language: mostUsedLanguage)
+          self?.repoLanguageColor.isHidden = false
         }
         return mostUsedLanguage.key
       }
       .bind(to: repoLanguages.rx.text)
-      .disposed(by: disposeBag ?? DisposeBag())
+      .disposed(by: disposeBag)
   }
 
   // TODO: Can this be improved? Too much boiler
   func bindRepoInfo(repo: Repo) {
-    guard let disposeBag = disposeBag else { return }
-
-    currentRepoCellObservable
+    currentRepoObservable
       .map { $0.name }
       .bind(to: repoName.rx.text)
       .disposed(by: disposeBag)
 
-    currentRepoCellObservable
+    currentRepoObservable
       .map { $0.description }
       .bind(to: repoDescription.rx.text)
       .disposed(by: disposeBag)
 
-    currentRepoCellObservable
+    currentRepoObservable
       .map { [weak self] repo in
         self?.setStars(starsCount: repo.stars)
         return String(repo.stars)

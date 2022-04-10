@@ -20,8 +20,9 @@ enum Utils {
   }
 
   fileprivate static func getColorByRepoLanguage(repoLanguage: RepoLanguage.Element?) -> ColorByLanguage.Element {
-    guard let language = repoLanguage, let color = LanguageColors.colors[language.key.lowercased()] else {
-      return errorColorByLanguage
+    guard let language = repoLanguage else { return errorColorByLanguage }
+    guard let color = LanguageColors.colors[language.key.lowercased()] else {
+      return (language.key, LanguageColors.defaultColor)
     }
     return (language.key, color)
   }
@@ -41,24 +42,32 @@ extension Utils {
 }
 
 extension Utils {
-  public static func getImageFromSource(source: String?, completion: @escaping (UIImage) -> Void)  {
+  enum ImageError: String, Error {
+    case errorSource = "Error - No source"
+    case errorUrl = "Error - Failed to convert source to URL"
+    case errorRequest = "Error - Failed fetching the image data"
+    case errorData = "Error - Failed accessing data"
+  }
+
+  typealias ImageFromSourceCompletion = (_ profilePicture: UIImage, _ error: Error?) -> Void
+
+  public static func getImageFromSource(source: String?, completion: @escaping ImageFromSourceCompletion) {
     let placeholderImage = UIImage(named: "loading-image.png")!
-    guard let source = source else { completion(placeholderImage); return }
+    guard let source = source else { completion(placeholderImage, ImageError.errorSource); return }
     let session = URLSession.shared
     defer {
       session.invalidateAndCancel()
       session.finishTasksAndInvalidate()
     }
-    guard let url = URL(string: source) else { completion(placeholderImage); return }
+    guard let url = URL(string: source) else { completion(placeholderImage, ImageError.errorUrl); return }
     print("IMAGE URL \(url)")
 
     session.dataTask(with: url) { data, _, error in
       guard error == nil else {
-        completion(placeholderImage)
-        return
+        completion(placeholderImage, ImageError.errorRequest); return
       }
-      guard let data = data, let image = UIImage(data: data) else { return }
-      completion(image)
+      guard let data = data, let image = UIImage(data: data) else { completion(placeholderImage, ImageError.errorData); return }
+      completion(image, nil)
     }.resume()
   }
 }

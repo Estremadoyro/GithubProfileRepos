@@ -9,16 +9,13 @@ import Foundation
 
 struct User: Decodable {
   let name: String
-  let profilePicture: String
 
   enum CodingKeys: String, CodingKey {
     case name = "login"
-    case profilePicture = "avatar_url"
   }
 
   init(name: String) {
     self.name = name
-    self.profilePicture = ""
   }
 }
 
