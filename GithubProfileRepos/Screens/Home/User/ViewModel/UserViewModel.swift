@@ -16,14 +16,14 @@ final class UserViewModel {
 
 extension UserViewModel {
   func updateFollowersSequence(username: String) {
-    networkManager.getUserFollowers(username: username, mocking: false) { [weak self] followers, error in
+    networkManager.getUserFollowers(username: username, mocking: true) { [weak self] followers, error in
       if let error = error { self?.userFollowersObservable.onError(error) }
       if let followers = followers { self?.userFollowersObservable.onNext(followers) }
     }
   }
 
   func updateFollowingSequence(username: String) {
-    networkManager.getUserFollowing(username: username, mocking: false) { [weak self] followers, error in
+    networkManager.getUserFollowing(username: username, mocking: true) { [weak self] followers, error in
       if let error = error { self?.userFollowingObservable.onError(error) }
       if let followers = followers { self?.userFollowingObservable.onNext(followers) }
     }

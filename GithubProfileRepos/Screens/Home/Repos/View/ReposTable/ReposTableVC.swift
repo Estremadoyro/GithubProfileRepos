@@ -93,7 +93,7 @@ extension ReposTableVC {
       .disposed(by: disposeBag)
 
     reposObservable
-//      .delay(.seconds(1), scheduler: MainScheduler.instance)
+      .delay(.seconds(1), scheduler: MainScheduler.instance)
       .subscribe(onNext: { [weak self] _ in
         self?.reposDidLoad()
       })

@@ -13,7 +13,6 @@ enum RepoError: Error {
 }
 
 final class RepoCellViewModel {
-//  lazy var networkManager = NetworkManager()
   var networkManager: NetworkManager?
   deinit { print("\(self) deinited") }
 }
@@ -34,7 +33,7 @@ extension RepoCellViewModel {
   func currentRepoLanguagesObservable(repo: Repo?) -> Observable<RepoLanguage> {
     return Observable.create { [weak self] observer in
       if let repo = repo {
-        self?.networkManager?.getLanguagesByRepo(repo: repo, mocking: false) { languages, error in
+        self?.networkManager?.getLanguagesByRepo(repo: repo, mocking: true) { languages, error in
           if let languages = languages { observer.onNext(languages) }
           if let error = error { observer.onError(error) }
           observer.onCompleted()
