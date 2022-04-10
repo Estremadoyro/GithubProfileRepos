@@ -14,9 +14,11 @@ final class UserVC: UIViewController {
   @IBOutlet private weak var userFollowing: UILabel!
   @IBOutlet private weak var userFollowers: UILabel!
   @IBOutlet private weak var userStars: UILabel!
+  @IBOutlet private weak var userPicture: UIImageView!
 
   // Observable passed from ContainerVC
   fileprivate weak var reposObservable: PublishSubject<[Repo]>?
+  fileprivate weak var currentUserObservable: PublishRelay<User>?
 
   // User View Model
   fileprivate lazy var userViewModel = UserViewModel()
@@ -27,13 +29,16 @@ final class UserVC: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  init(reposObservable: PublishSubject<[Repo]>) {
+  init(reposObservable: PublishSubject<[Repo]>, currentUserObservable: PublishRelay<User>) {
     self.reposObservable = reposObservable
+    self.currentUserObservable = currentUserObservable
     super.init(nibName: Nibs.userView, bundle: Bundle.main)
   }
 
   deinit {
     print("\(self) deinited")
+    userFollowersObservable.dispose()
+    userFollowingObservable.dispose()
   }
 
   @available(*, unavailable)
@@ -49,6 +54,7 @@ extension UserVC {
     userFollowers.text = "Loading..."
     userFollowing.text = "Loading..."
     userStars.text = "-"
+    userPicture.image = UIImage(named: "loading-image.png")!
     configureBindings()
   }
 }
@@ -56,6 +62,7 @@ extension UserVC {
 private extension UserVC {
   func configureBindings() {
     guard let reposObservable = reposObservable else { return }
+    bindUserProfilePicture()
     bindUsername(reposObservable: reposObservable)
     bindFollowsAndFollowers(reposObservable: reposObservable)
     bindUserStars(reposObservable: reposObservable)
@@ -89,18 +96,18 @@ private extension UserVC {
       })
       .disposed(by: disposeBag)
 
-    bindUserFollowers(reposObservable: reposObservable)
-    bindUserFollowing(reposObservable: reposObservable)
+    bindUserFollowers()
+    bindUserFollowing()
   }
 
-  func bindUserFollowers(reposObservable: PublishSubject<[Repo]>) {
+  func bindUserFollowers() {
     userFollowersObservable
       .map { "\($0.count) followers" }
       .bind(to: userFollowers.rx.text)
       .disposed(by: disposeBag)
   }
 
-  func bindUserFollowing(reposObservable: PublishSubject<[Repo]>) {
+  func bindUserFollowing() {
     userFollowingObservable
       .map { "\($0.count) following" }
       .bind(to: userFollowing.rx.text)
@@ -116,6 +123,27 @@ extension UserVC {
         return String(stars)
       }
       .bind(to: userStars.rx.text)
+      .disposed(by: disposeBag)
+  }
+
+  func bindUserProfilePicture() {
+//    currentUserObservable?
+//      .subscribe(onNext: { [weak self] user in
+//        self?.userPicture.imageFromServerURL(urlString: user.profilePicture, placeholderImage: UIImage(named: "loading-image.png")!)
+//      })
+//      .disposed(by: disposeBag)
+
+    reposObservable?
+      .map { repos -> UIImage? in
+        let user = repos.first?.owner
+        var userProfileImage: UIImage?
+        Utils.getImageFromSource(source: user?.profilePicture) { image in
+          userProfileImage = image
+          print("IMAGE OBTAINED: \(userProfileImage)")
+        }
+        return userProfileImage
+      }
+      .bind(to: userPicture.rx.image)
       .disposed(by: disposeBag)
   }
 }

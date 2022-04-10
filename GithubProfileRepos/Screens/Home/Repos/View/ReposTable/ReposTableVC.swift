@@ -16,7 +16,6 @@ final class ReposTableVC: UIViewController {
   fileprivate lazy var viewModel = ReposTableViewModel()
 
   // Observable passed from ContainerVC
-  // Notice how it's using the same reference and preventing an unnecessary Strong Reference
   fileprivate weak var reposObservable: PublishSubject<[Repo]>?
 
   fileprivate let disposeBag = DisposeBag()
@@ -24,6 +23,11 @@ final class ReposTableVC: UIViewController {
   init(reposObservable: PublishSubject<[Repo]>) {
     self.reposObservable = reposObservable
     super.init(nibName: Nibs.reposTableView, bundle: Bundle.main)
+  }
+
+  deinit {
+    print("\(self) deinited")
+    reposObservable?.dispose()
   }
 
   @available(*, unavailable)

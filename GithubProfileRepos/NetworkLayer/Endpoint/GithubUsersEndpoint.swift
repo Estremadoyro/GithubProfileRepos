@@ -18,6 +18,7 @@ enum GithubUsersEndpoint {
   case languagesByRepo(repo: Repo)
   case userFollowers(username: String)
   case userFollowing(username: String)
+  case user(username: String)
 }
 
 // Set the base URL
@@ -46,6 +47,8 @@ extension GithubUsersEndpoint: EndpointProtocol {
         return "users/\(username)/followers"
       case .userFollowing(let username):
         return "users/\(username)/following"
+      case .user(let username):
+        return "users/\(username)"
     }
   }
 
@@ -55,7 +58,7 @@ extension GithubUsersEndpoint: EndpointProtocol {
 
   var httpTask: HTTPTask {
     switch self {
-      case .languagesByRepo, .userFollowers, .userFollowing:
+      case .languagesByRepo, .userFollowers, .userFollowing, .user:
         return .request
       case .reposByUsername:
         return .requestWithParameters(

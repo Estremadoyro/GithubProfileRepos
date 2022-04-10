@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="userFollowers" destination="kAt-ed-Zk1" id="UI4-md-IS2"/>
                 <outlet property="userFollowing" destination="94T-qk-i1t" id="Ufp-9C-34s"/>
+                <outlet property="userPicture" destination="WnM-tC-X99" id="dDc-Da-6a0"/>
                 <outlet property="userStars" destination="uKZ-f4-TIa" id="4ir-qd-L4g"/>
                 <outlet property="userUsername" destination="nRK-Ij-1od" id="k48-bg-sbG"/>
                 <outlet property="view" destination="1PG-nU-qkn" id="WuV-Nh-eat"/>

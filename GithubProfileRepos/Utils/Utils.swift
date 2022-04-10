@@ -34,8 +34,31 @@ extension Utils {
       current + next
     }
   }
-  
+
   public static func getUserTotalLinesOfCode(repos: [Repo]) -> Int {
     return 1
+  }
+}
+
+extension Utils {
+  public static func getImageFromSource(source: String?, completion: @escaping (UIImage) -> Void)  {
+    let placeholderImage = UIImage(named: "loading-image.png")!
+    guard let source = source else { completion(placeholderImage); return }
+    let session = URLSession.shared
+    defer {
+      session.invalidateAndCancel()
+      session.finishTasksAndInvalidate()
+    }
+    guard let url = URL(string: source) else { completion(placeholderImage); return }
+    print("IMAGE URL \(url)")
+
+    session.dataTask(with: url) { data, _, error in
+      guard error == nil else {
+        completion(placeholderImage)
+        return
+      }
+      guard let data = data, let image = UIImage(data: data) else { return }
+      completion(image)
+    }.resume()
   }
 }

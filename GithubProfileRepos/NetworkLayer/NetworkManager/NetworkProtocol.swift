@@ -8,6 +8,7 @@
 import Foundation
 
 protocol NetworkCompletionsProtocol {
+  typealias GithubUserCompletion = (_ user: User?, _ error: Error?) -> ()
   typealias GithubUserReposCompletion = (_ repos: [Repo]?, _ error: Error?) -> ()
   typealias GithubUserFollowersCompletion = (_ followers: Followers?, _ error: Error?) -> ()
   typealias GithubUserFollowingCompletion = (_ following: Following?, _ error: Error?) -> ()
@@ -15,6 +16,7 @@ protocol NetworkCompletionsProtocol {
 }
 
 protocol NetworkRequestsProtocol: NetworkCompletionsProtocol {
+  func getUser(username: String, mocking: Bool, completion: @escaping GithubUserCompletion)
   func getReposByUsername(username: String, mocking: Bool, completion: @escaping GithubUserReposCompletion)
   func getUserFollowers(username: String, mocking: Bool, completion: @escaping GithubUserFollowersCompletion)
   func getUserFollowing(username: String, mocking: Bool, completion: @escaping GithubUserFollowingCompletion)

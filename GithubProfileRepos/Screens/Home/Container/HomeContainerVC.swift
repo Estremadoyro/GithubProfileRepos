@@ -15,7 +15,8 @@ import UIKit
 final class HomeContainerVC: UIViewController {
   // ViewControllers
   fileprivate lazy var userVC = UserVC(
-    reposObservable: reposFromUserNameObservable
+    reposObservable: reposFromUserNameObservable,
+    currentUserObservable: currentUserObservable
   )
   fileprivate lazy var reposTableVC = ReposTableVC(
     reposObservable: reposFromUserNameObservable
@@ -38,6 +39,11 @@ final class HomeContainerVC: UIViewController {
     super.init(nibName: nil, bundle: nil)
   }
 
+  deinit {
+    print("\(self) deinited")
+    reposFromUserNameObservable.dispose()
+  }
+
   @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -52,6 +58,8 @@ extension HomeContainerVC {
     buildScreen()
 
     // First User event
+//    homeContainerViewModel.updateUserSequence(username: "PieroNarciso")
+//    currentUserObservable.accept(User(name: "PieroNarciso"))
     currentUserObservable.accept(User(name: "estremadoyro"))
   }
 }
@@ -66,8 +74,9 @@ private extension HomeContainerVC {
 private extension HomeContainerVC {
   func configureBindings() {
     currentUserObservable
-      .subscribe(onNext: { [weak self] _ in
-        self?.homeContainerViewModel.updateUserReposSequence()
+      .subscribe(onNext: { [weak self] user in
+        self?.homeContainerViewModel.updateUserReposSequence(username: user.name)
+        print("REPOS FOR USER: \(user.name)")
       })
       .disposed(by: disposeBag)
   }

@@ -11,7 +11,6 @@ import UIKit
 
 final class HomeContainerViewModel {
   fileprivate let networkManager: NetworkManager
-  var currentUser = User(name: "estremadoyro")
 
   // Observables
   lazy var currentUserObservable = PublishRelay<User>()
@@ -24,11 +23,22 @@ final class HomeContainerViewModel {
 
 extension HomeContainerViewModel {
   /// # Need to be both `**Observable & Observer**
-  func updateUserReposSequence() {
-    networkManager.getReposByUsername(username: currentUser.name, mocking: true) { [weak self] repos, error in
+  func updateUserReposSequence(username: String) {
+    networkManager.getReposByUsername(username: username, mocking: true) { [weak self] repos, error in
       if let error = error { self?.userReposObservable.onError(error) }
       if let repos = repos { self?.userReposObservable.onNext(repos) }
       print("userReposObservable DID EMIT event")
+    }
+  }
+
+  // Currently not necessary, unless wanting to access the Bio
+  func updateUserSequence(username: String) {
+    networkManager.getUser(username: username, mocking: true) { [weak self] user, error in
+      if error != nil { self?.currentUserObservable.accept(User(name: "Error")) }
+      if let user = user {
+        self?.currentUserObservable.accept(user)
+        print("New user emited: \(user.name)")
+      }
     }
   }
 }

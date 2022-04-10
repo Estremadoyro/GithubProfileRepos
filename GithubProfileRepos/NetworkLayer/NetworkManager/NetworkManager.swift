@@ -21,6 +21,43 @@ struct NetworkManager {
 }
 
 extension NetworkManager: NetworkRequestsProtocol {
+  func getUser(username: String, mocking: Bool, completion: @escaping GithubUserCompletion) {
+    if mocking {
+      LocalStorageManager.loadMock(fileName: "User", obj: User.self) { data in
+        guard let data = data else { completion(nil, NetworkResponse.noData); return }
+        completion(data, nil)
+      }
+      print("User mocking")
+      return
+    }
+    router.request(.user(username: username)) { data, response, error in
+      print("API REQUEST RESPONSE")
+      if error != nil {
+        completion(nil, NetworkResponse.errorFound)
+        return
+      }
+
+      if let response = response as? HTTPURLResponse {
+        let result = handleNetworkResponse(response)
+        switch result {
+          case .success:
+            guard let responseData = data else {
+              completion(nil, NetworkResponse.noData)
+            return
+            }
+            do {
+              let apiReponse = try JSONDecoder().decode(User.self, from: responseData)
+              completion(apiReponse, nil)
+            } catch {
+              completion(nil, NetworkResponse.unableToDecode)
+            }
+          case .failure(let networkFailureError):
+            completion(nil, networkFailureError)
+        }
+      }
+    }
+  }
+
   func getReposByUsername(username: String, mocking: Bool = false, completion: @escaping GithubUserReposCompletion) {
     if mocking {
       LocalStorageManager.loadMock(fileName: "UserRepos", obj: [Repo].self) { data in

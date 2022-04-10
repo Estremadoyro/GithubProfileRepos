@@ -21,6 +21,8 @@
 		A759B5B027FD48B200002498 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */; };
 		A777805827FC000E004AF800 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805727FC000E004AF800 /* LanguageColors.swift */; };
 		A777805A27FC1746004AF800 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777805927FC1746004AF800 /* Utils.swift */; };
+		A7A2A7E528029A04009EF621 /* User.json in Resources */ = {isa = PBXBuildFile; fileRef = A7A2A7E428029A04009EF621 /* User.json */; };
+		A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */; };
 		A7C8B40827F2AB6E001F6F93 /* ReposTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */; };
 		A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */; };
 		A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */; };
@@ -63,6 +65,8 @@
 		A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		A777805727FC000E004AF800 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
 		A777805927FC1746004AF800 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		A7A2A7E428029A04009EF621 /* User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = User.json; path = MockFiles/User.json; sourceTree = SOURCE_ROOT; };
+		A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewModel.swift; sourceTree = "<group>"; };
 		A7DF1AF627F1328F0030DA50 /* GithubProfileRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubProfileRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7DF1AF927F1328F0030DA50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				A759B5AF27FD48B200002498 /* UIViewControllerExtension.swift */,
+				A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 		A7F81B1927F7F8C800082EFE /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				A7A2A7E428029A04009EF621 /* User.json */,
 				A72F567527FEA5F700D6650F /* UserFollowers.json */,
 				A72F567627FEA5F700D6650F /* UserFollowing.json */,
 				A72F567127FEA59900D6650F /* RepoLanguages.json */,
@@ -453,6 +459,7 @@
 				A7DF1B1927F1366F0030DA50 /* ReposTableView.xib in Resources */,
 				A759B59E27FCDAC600002498 /* UserView.xib in Resources */,
 				A72F567427FEA59900D6650F /* UserRepos.json in Resources */,
+				A7A2A7E528029A04009EF621 /* User.json in Resources */,
 				A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */,
 				A72F567727FEA5F700D6650F /* UserFollowers.json in Resources */,
 				A72F567327FEA59900D6650F /* RepoLanguages.json in Resources */,
@@ -528,6 +535,7 @@
 				A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */,
 				A777805A27FC1746004AF800 /* Utils.swift in Sources */,
 				A72F566D27FE8D7700D6650F /* HomeContainerViewModel.swift in Sources */,
+				A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */,
 				A7DF1B3027F143680030DA50 /* EndpointProtocol.swift in Sources */,
 				A72F566F27FEA22700D6650F /* User.swift in Sources */,
 				A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */,
