@@ -20,13 +20,17 @@ final class RepoCell: UITableViewCell {
   lazy var disposeBag = DisposeBag()
 
   // Observables
-  lazy var currentRepoObservable: Observable<Repo> = repoCellViewModel.currentRepoObservable(repo: repo).share()
-  lazy var currentRepoLanguagesObservable: Observable<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable(repo: repo).share()
+//  lazy var currentRepoObservable: Observable<Repo> = repoCellViewModel.currentRepoObservable(repo: repo).share()
+//  lazy var currentRepoLanguagesObservable: Observable<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable(repo: repo).share()
+
+  lazy var currentRepoObservable: PublishSubject<Repo> = repoCellViewModel.currentRepoObservable
+  lazy var currentRepoLanguagesObservable: PublishSubject<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable
 
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
       configureBindings(repo: repo)
+      repoCellViewModel.updateCurrentRepoSequence(repo: repo)
     }
   }
 
@@ -35,17 +39,28 @@ final class RepoCell: UITableViewCell {
     repoLanguages.text = ""
     repoLanguageColor.isHidden = true
   }
-}
 
-private extension RepoCell {
-  func configureBindings(repo: Repo) {
-    bindRepoLanguages(repo: repo)
-    bindRepoInfo(repo: repo)
+  override func prepareForReuse() {
+    super.prepareForReuse()
   }
 }
 
 private extension RepoCell {
-  func bindRepoLanguages(repo: Repo) {
+  func configureBindings(repo: Repo) {
+    bindRepoLanguages()
+    bindRepoInfo()
+  }
+}
+
+private extension RepoCell {
+  func bindRepoLanguages() {
+    // Bind RepoLanguages to currentRepoObservable
+    currentRepoObservable
+      .subscribe(onNext: { [weak self] repo in
+        self?.repoCellViewModel.updateRepoLanguagesSequence(repo: repo)
+      })
+      .disposed(by: disposeBag)
+
     currentRepoLanguagesObservable
       .map { [weak self] languages in
         let mostUsedLanguage = Utils.getMostUsedLanguage(languages: languages)
@@ -60,7 +75,7 @@ private extension RepoCell {
   }
 
   // TODO: Can this be improved? Too much boiler
-  func bindRepoInfo(repo: Repo) {
+  func bindRepoInfo() {
     currentRepoObservable
       .map { $0.name }
       .bind(to: repoName.rx.text)

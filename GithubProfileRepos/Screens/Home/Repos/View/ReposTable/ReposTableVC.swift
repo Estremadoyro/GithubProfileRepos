@@ -87,6 +87,7 @@ extension ReposTableVC {
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
       .bind(to: tableView.rx.items(cellIdentifier: Nibs.repoCell, cellType: RepoCell.self)) { [weak self] _, repo, cell in
+        print("CURRENT REPO: \(repo.name)")
         cell.repoCellViewModel.networkManager = self?.viewModel.networkManager
         cell.repo = repo
       }

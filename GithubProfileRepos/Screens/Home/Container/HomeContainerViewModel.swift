@@ -26,7 +26,10 @@ extension HomeContainerViewModel {
   func updateUserReposSequence(username: String) {
     networkManager.getReposByUsername(username: username, mocking: true) { [weak self] repos, error in
       if let error = error { self?.userReposObservable.onError(error) }
-      if let repos = repos { self?.userReposObservable.onNext(repos) }
+      if let repos = repos {
+        self?.userReposObservable.onNext(repos)
+        print("REPOS OBTAINED: \(repos.count)")
+      }
       print("userReposObservable DID EMIT event")
     }
   }
