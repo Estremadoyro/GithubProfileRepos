@@ -20,9 +20,6 @@ final class RepoCell: UITableViewCell {
   lazy var disposeBag = DisposeBag()
 
   // Observables
-//  lazy var currentRepoObservable: Observable<Repo> = repoCellViewModel.currentRepoObservable(repo: repo).share()
-//  lazy var currentRepoLanguagesObservable: Observable<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable(repo: repo).share()
-
   lazy var currentRepoObservable: PublishSubject<Repo> = repoCellViewModel.currentRepoObservable
   lazy var currentRepoLanguagesObservable: PublishSubject<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable
 
@@ -40,8 +37,10 @@ final class RepoCell: UITableViewCell {
     repoLanguageColor.isHidden = true
   }
 
-  override func prepareForReuse() {
-    super.prepareForReuse()
+  deinit {
+    print("\(self) deinited")
+    currentRepoObservable.dispose()
+    currentRepoLanguagesObservable.dispose()
   }
 }
 

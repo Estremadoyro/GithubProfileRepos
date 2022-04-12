@@ -27,7 +27,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         guard let data = data else { completion(nil, NetworkResponse.noData); return }
         completion(data, nil)
       }
-      print("User mocking")
       return
     }
     router.request(.user(username: username)) { data, response, error in
@@ -64,7 +63,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         guard let data = data else { completion(nil, NetworkResponse.noData); return }
         completion(data, nil)
       }
-      print("Repos mocking")
       return
     }
     router.request(.reposByUsername(username: username)) { data, response, error in
@@ -101,7 +99,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         guard let data = data else { completion(nil, NetworkResponse.noData); return }
         completion(data, nil)
       }
-      print("User followers mocking")
       return
     }
     router.request(.userFollowers(username: username)) { data, response, error in
@@ -138,7 +135,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         guard let data = data else { completion(nil, NetworkResponse.noData); return }
         completion(data, nil)
       }
-      print("User following mocking")
       return
     }
     router.request(.userFollowing(username: username)) { data, response, error in
@@ -175,7 +171,6 @@ extension NetworkManager: NetworkRequestsProtocol {
         guard let data = data else { return }
         completion(data, nil)
       }
-      print("Languages mocking")
       return
     }
     router.request(.languagesByRepo(repo: repo)) { data, response, error in

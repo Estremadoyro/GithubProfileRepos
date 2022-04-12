@@ -65,6 +65,7 @@ extension HomeContainerVC {
 
 private extension HomeContainerVC {
   func configureContainerView() {
+    navigationItem.searchController = HomeSearchBar()
     view.backgroundColor = UIColor.systemBackground
     navigationItem.title = "Repos"
   }
