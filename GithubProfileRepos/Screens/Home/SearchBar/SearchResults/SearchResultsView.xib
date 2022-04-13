@@ -54,7 +54,7 @@
                 <constraint firstAttribute="trailing" secondItem="blT-2K-Re7" secondAttribute="trailing" constant="15" id="vVl-xR-TSA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="137.68115942028987" y="141.96428571428569"/>
+            <point key="canvasLocation" x="-123" y="140"/>
         </view>
         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sl9-md-Vpp">
             <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
