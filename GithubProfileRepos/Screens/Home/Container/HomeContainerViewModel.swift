@@ -34,7 +34,6 @@ extension HomeContainerViewModel {
     }
   }
 
-  // Currently not necessary, unless wanting to access the Bio
   func updateUserSequence(username: String) {
     networkManager.getUser(username: username, mocking: true) { [weak self] user, error in
       if error != nil { self?.currentUserObservable.accept(UserProfile(name: "Error")) }

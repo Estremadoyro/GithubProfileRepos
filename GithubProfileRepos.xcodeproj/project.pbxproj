@@ -26,6 +26,7 @@
 		A79EE87428052C2400E93B3B /* SearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79EE87228052C2400E93B3B /* SearchResultsView.xib */; };
 		A7A2A7E528029A04009EF621 /* User.json in Resources */ = {isa = PBXBuildFile; fileRef = A7A2A7E428029A04009EF621 /* User.json */; };
 		A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */; };
+		A7B7D1A6280681B4007BC731 /* HomeSearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B7D1A5280681B4007BC731 /* HomeSearchBarViewModel.swift */; };
 		A7C36B6B280350AE00DA52E3 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C36B6A280350AE00DA52E3 /* UserProfile.swift */; };
 		A7C36B6F280388EF00DA52E3 /* RepoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C36B6E280388EF00DA52E3 /* RepoCellViewModel.swift */; };
 		A7C8B40827F2AB6E001F6F93 /* ReposTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */; };
@@ -75,6 +76,7 @@
 		A79EE87228052C2400E93B3B /* SearchResultsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsView.xib; sourceTree = "<group>"; };
 		A7A2A7E428029A04009EF621 /* User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = User.json; path = MockFiles/User.json; sourceTree = SOURCE_ROOT; };
 		A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		A7B7D1A5280681B4007BC731 /* HomeSearchBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchBarViewModel.swift; sourceTree = "<group>"; };
 		A7C36B6A280350AE00DA52E3 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A7C36B6E280388EF00DA52E3 /* RepoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellViewModel.swift; sourceTree = "<group>"; };
 		A7C8B40727F2AB6E001F6F93 /* ReposTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewModel.swift; sourceTree = "<group>"; };
@@ -222,8 +224,8 @@
 		A79EE86D280521C100E93B3B /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
+				A7B7D1A22806813F007BC731 /* SearchBar */,
 				A79EE87028052C0300E93B3B /* SearchResults */,
-				A79EE86E280521F100E93B3B /* HomeSearchBar.swift */,
 			);
 			path = SearchBar;
 			sourceTree = "<group>";
@@ -235,6 +237,31 @@
 				A79EE87228052C2400E93B3B /* SearchResultsView.xib */,
 			);
 			path = SearchResults;
+			sourceTree = "<group>";
+		};
+		A7B7D1A22806813F007BC731 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				A7B7D1A4280681A7007BC731 /* ViewModel */,
+				A7B7D1A3280681A4007BC731 /* View */,
+			);
+			path = SearchBar;
+			sourceTree = "<group>";
+		};
+		A7B7D1A3280681A4007BC731 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A79EE86E280521F100E93B3B /* HomeSearchBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A7B7D1A4280681A7007BC731 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A7B7D1A5280681B4007BC731 /* HomeSearchBarViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A7DF1AED27F1328F0030DA50 = {
@@ -577,6 +604,7 @@
 				A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */,
 				A7DF1B3327F1452A0030DA50 /* HTTPMethod.swift in Sources */,
 				A7DF1B3927F16A210030DA50 /* HTTPHeaders.swift in Sources */,
+				A7B7D1A6280681B4007BC731 /* HomeSearchBarViewModel.swift in Sources */,
 				A759B5B027FD48B200002498 /* UIViewControllerExtension.swift in Sources */,
 				A7DF1B2227F13F440030DA50 /* Repo.swift in Sources */,
 				A7DF1B1F27F137F90030DA50 /* RepoCell.swift in Sources */,

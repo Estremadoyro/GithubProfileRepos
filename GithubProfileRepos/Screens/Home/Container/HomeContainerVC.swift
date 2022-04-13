@@ -65,7 +65,6 @@ extension HomeContainerVC {
 
 private extension HomeContainerVC {
   func configureContainerView() {
-    navigationItem.searchController = HomeSearchBar()
     view.backgroundColor = UIColor.systemBackground
     navigationItem.title = "Repos"
   }
@@ -85,6 +84,12 @@ private extension HomeContainerVC {
 private extension HomeContainerVC {
   func buildScreen() {
     print("BUILDING SCREEN")
+    // Add search bar
+    print("ADDING SEARCH BAR")
+    let homeSearchBarVC = HomeSearchBar()
+    homeSearchBarVC.homeSearchBarViewModel.networkManager = networkManager
+    navigationItem.searchController = homeSearchBarVC
+    
     // Add child VCs (Also instantiating them)
     addChildVC(userVC)
     addChildVC(reposTableVC)

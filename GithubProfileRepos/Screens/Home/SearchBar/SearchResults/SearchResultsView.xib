@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="searchHelpLabel" destination="PwZ-iu-oCE" id="ohJ-HW-8nS"/>
                 <outlet property="searchHelpTopAnchor" destination="3Rt-Fb-Plh" id="ebF-7I-lxu"/>
+                <outlet property="searchResultsCollection" destination="blT-2K-Re7" id="mSM-AB-q3Q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

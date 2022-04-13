@@ -10,6 +10,7 @@ import UIKit
 final class SearchResultsVC: UIViewController {
   @IBOutlet private weak var searchHelpLabel: UILabel!
   @IBOutlet private weak var searchHelpTopAnchor: NSLayoutConstraint!
+  @IBOutlet private weak var searchResultsCollection: UICollectionView!
 
   init() {
     super.init(nibName: Nibs.searchResultsView, bundle: Bundle.main)
@@ -37,6 +38,18 @@ extension SearchResultsVC {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     onAppearAnimations()
+  }
+}
+
+private extension SearchResultsVC {
+  func configureBindings() {
+    bindResultsCollection()
+  }
+}
+
+private extension SearchResultsVC {
+  func bindResultsCollection() {
+    searchResultsCollection
   }
 }
 
