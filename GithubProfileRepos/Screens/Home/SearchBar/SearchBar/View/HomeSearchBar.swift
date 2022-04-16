@@ -58,7 +58,8 @@ extension HomeSearchBar {
     let disposables: [Disposable?] = [
       searchBarDisposable,
       searchBarOnEnterDisposable,
-      searchSubjectDisposable
+      searchSubjectDisposable,
+      searchingUserDisposable
     ]
     disposeSequences(disposables)
   }
@@ -135,8 +136,6 @@ private extension HomeSearchBar {
 
     searchingUserDisposable = searchingUserSubject
       .asObservable()
-      .subscribe(onNext: { [weak self] status in
-        self?.isActive = status
-      })
+      .bind(to: rx.isActive)
   }
 }
