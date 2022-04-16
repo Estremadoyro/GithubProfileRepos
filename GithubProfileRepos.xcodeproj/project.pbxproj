@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		6BB3C104AA563B0EC6AC6726 /* Pods_GithubProfileRepos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3DE93CCA114A2601F728F6 /* Pods_GithubProfileRepos.framework */; };
+		A71BA1602808AEC600921536 /* SearchUserResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BA15F2808AEC600921536 /* SearchUserResultItem.swift */; };
+		A71BA1642808BAE500921536 /* SearchUserResultItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BA1632808BAE500921536 /* SearchUserResultItemViewModel.swift */; };
+		A71BA1662808DB4400921536 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BA1652808DB4400921536 /* SearchResultsViewModel.swift */; };
+		A71BA16C2808F58600921536 /* SearchUserResultItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71BA16B2808F58600921536 /* SearchUserResultItem.xib */; };
 		A72F566D27FE8D7700D6650F /* HomeContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72F566C27FE8D7700D6650F /* HomeContainerViewModel.swift */; };
 		A72F566F27FEA22700D6650F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72F566E27FEA22700D6650F /* User.swift */; };
 		A72F567327FEA59900D6650F /* RepoLanguages.json in Resources */ = {isa = PBXBuildFile; fileRef = A72F567127FEA59900D6650F /* RepoLanguages.json */; };
@@ -58,6 +62,10 @@
 
 /* Begin PBXFileReference section */
 		3D67EA8AA75DF875A50078A4 /* Pods-GithubProfileRepos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubProfileRepos.debug.xcconfig"; path = "Target Support Files/Pods-GithubProfileRepos/Pods-GithubProfileRepos.debug.xcconfig"; sourceTree = "<group>"; };
+		A71BA15F2808AEC600921536 /* SearchUserResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResultItem.swift; sourceTree = "<group>"; };
+		A71BA1632808BAE500921536 /* SearchUserResultItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserResultItemViewModel.swift; sourceTree = "<group>"; };
+		A71BA1652808DB4400921536 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
+		A71BA16B2808F58600921536 /* SearchUserResultItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchUserResultItem.xib; sourceTree = "<group>"; };
 		A72F566C27FE8D7700D6650F /* HomeContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainerViewModel.swift; sourceTree = "<group>"; };
 		A72F566E27FEA22700D6650F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A72F567127FEA59900D6650F /* RepoLanguages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = RepoLanguages.json; path = MockFiles/RepoLanguages.json; sourceTree = SOURCE_ROOT; };
@@ -129,6 +137,26 @@
 				D06877A76E953C3101BD1B69 /* Pods-GithubProfileRepos.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A71BA1612808AED400921536 /* ResultsCollection */ = {
+			isa = PBXGroup;
+			children = (
+				A79EE87128052C2400E93B3B /* SearchResultsVC.swift */,
+				A79EE87228052C2400E93B3B /* SearchResultsView.xib */,
+				A71BA1652808DB4400921536 /* SearchResultsViewModel.swift */,
+			);
+			path = ResultsCollection;
+			sourceTree = "<group>";
+		};
+		A71BA1622808AEFE00921536 /* ResultsItem */ = {
+			isa = PBXGroup;
+			children = (
+				A71BA15F2808AEC600921536 /* SearchUserResultItem.swift */,
+				A71BA1632808BAE500921536 /* SearchUserResultItemViewModel.swift */,
+				A71BA16B2808F58600921536 /* SearchUserResultItem.xib */,
+			);
+			path = ResultsItem;
 			sourceTree = "<group>";
 		};
 		A72F566B27FE8D6300D6650F /* Container */ = {
@@ -233,8 +261,8 @@
 		A79EE87028052C0300E93B3B /* SearchResults */ = {
 			isa = PBXGroup;
 			children = (
-				A79EE87128052C2400E93B3B /* SearchResultsVC.swift */,
-				A79EE87228052C2400E93B3B /* SearchResultsView.xib */,
+				A71BA1622808AEFE00921536 /* ResultsItem */,
+				A71BA1612808AED400921536 /* ResultsCollection */,
 			);
 			path = SearchResults;
 			sourceTree = "<group>";
@@ -519,6 +547,7 @@
 				A759B59E27FCDAC600002498 /* UserView.xib in Resources */,
 				A72F567427FEA59900D6650F /* UserRepos.json in Resources */,
 				A7A2A7E528029A04009EF621 /* User.json in Resources */,
+				A71BA16C2808F58600921536 /* SearchUserResultItem.xib in Resources */,
 				A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */,
 				A72F567727FEA5F700D6650F /* UserFollowers.json in Resources */,
 				A72F567327FEA59900D6650F /* RepoLanguages.json in Resources */,
@@ -581,6 +610,7 @@
 				A7DF1B3527F1453A0030DA50 /* HTTPTask.swift in Sources */,
 				A7DF1B2727F142B60030DA50 /* NetworkManager.swift in Sources */,
 				A7DF1B2C27F142E70030DA50 /* URLParameterEncoder.swift in Sources */,
+				A71BA1662808DB4400921536 /* SearchResultsViewModel.swift in Sources */,
 				A7F81B1F27F7FCA200082EFE /* NetworkProtocol.swift in Sources */,
 				A7DF1B1027F1358C0030DA50 /* Keys.swift in Sources */,
 				A7DF1B2A27F142D60030DA50 /* ParameterEncoder.swift in Sources */,
@@ -594,10 +624,12 @@
 				A79EE87328052C2400E93B3B /* SearchResultsVC.swift in Sources */,
 				A7DF1B2527F142AD0030DA50 /* GithubUsersEndpoint.swift in Sources */,
 				A7DF1B3B27F16D050030DA50 /* Router.swift in Sources */,
+				A71BA1642808BAE500921536 /* SearchUserResultItemViewModel.swift in Sources */,
 				A7DF1AFC27F1328F0030DA50 /* SceneDelegate.swift in Sources */,
 				A777805A27FC1746004AF800 /* Utils.swift in Sources */,
 				A7C36B6F280388EF00DA52E3 /* RepoCellViewModel.swift in Sources */,
 				A72F566D27FE8D7700D6650F /* HomeContainerViewModel.swift in Sources */,
+				A71BA1602808AEC600921536 /* SearchUserResultItem.swift in Sources */,
 				A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */,
 				A7DF1B3027F143680030DA50 /* EndpointProtocol.swift in Sources */,
 				A72F566F27FEA22700D6650F /* User.swift in Sources */,

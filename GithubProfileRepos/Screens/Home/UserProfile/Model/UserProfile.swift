@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct UserProfile: Decodable {
+struct UserProfile: Decodable, Equatable {
   let name: String
   let profilePicture: String
-  let bio: String
+  let bio: String?
   let reposCount: Int
 
   enum CodingKeys: String, CodingKey {

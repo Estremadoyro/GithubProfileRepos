@@ -34,8 +34,8 @@
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="blT-2K-Re7">
                     <rect key="frame" x="15" y="44" width="384" height="837"/>
                     <color key="backgroundColor" systemColor="systemGray6Color"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1wb-jZ-C57">
-                        <size key="itemSize" width="128" height="128"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vbx-Fx-kit">
+                        <size key="itemSize" width="180" height="230"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

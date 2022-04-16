@@ -39,15 +39,31 @@ class HomeSearchBarViewModel {
     return errorSubject
       .asDriver(onErrorJustReturn: SearchError.unknowned)
   }
+
+  // Users obtained while searching
+  let resultUsersSubject = PublishSubject<[UserProfile]>()
+
+  let searchingUserSubject = PublishSubject<Bool>()
+  var isSearchingUser: Driver<Bool> {
+    return searchingUserSubject
+      .asDriver(onErrorJustReturn: false)
+  }
 }
 
 extension HomeSearchBarViewModel {
-  func searchUser(username: String) -> Observable<UserProfile> {
+  func searchUser(username: String) -> Observable<[UserProfile]> {
     print("USER SEARCHING: \(username)")
-    return Observable<UserProfile>.create { [weak self] observer in
-      self?.networkManager?.getUser(username: username, mocking: true, completion: { user, error in
-        if let error = error { observer.onError(error) }
-        if let user = user { observer.onNext(user) }
+    return Observable<[UserProfile]>.create { [weak self] observer in
+      self?.networkManager?.getUser(username: username, mocking: false, completion: { user, error in
+        if let error = error {
+          print("ERROR: \(error)")
+          observer.onError(error)
+        }
+        if let user = user {
+          print("USERS FOUND: \(user)")
+          observer.onNext([user])
+          observer.onCompleted()
+        }
       })
       return Disposables.create()
     }

@@ -73,9 +73,11 @@ private extension HomeContainerVC {
 private extension HomeContainerVC {
   func configureBindings() {
     currentUserObservable
+      .asObservable()
+      .distinctUntilChanged()
       .subscribe(onNext: { [weak self] user in
+        print("USER UPDATED TO: \(user.name)")
         self?.homeContainerViewModel.updateUserReposSequence(username: user.name)
-        print("REPOS FOR USER: \(user.name)")
       })
       .disposed(by: disposeBag)
   }
@@ -86,10 +88,10 @@ private extension HomeContainerVC {
     print("BUILDING SCREEN")
     // Add search bar
     print("ADDING SEARCH BAR")
-    let homeSearchBarVC = HomeSearchBar()
+    let homeSearchBarVC = HomeSearchBar(currentUserRelay: currentUserObservable)
     homeSearchBarVC.homeSearchBarViewModel.networkManager = networkManager
     navigationItem.searchController = homeSearchBarVC
-    
+
     // Add child VCs (Also instantiating them)
     addChildVC(userVC)
     addChildVC(reposTableVC)

@@ -12,6 +12,7 @@ import UIKit
 final class HomeSearchBar: UISearchController {
   fileprivate var searchSubjectDisposable: Disposable?
   fileprivate var searchBarDisposable: Disposable?
+  fileprivate var searchingUserDisposable: Disposable?
   fileprivate var searchBarOnEnterDisposable: Disposable?
   fileprivate let disposeBag = CompositeDisposable()
 
@@ -19,10 +20,16 @@ final class HomeSearchBar: UISearchController {
 
   // Observables
   fileprivate lazy var searchSubject: PublishSubject<String> = homeSearchBarViewModel.searchSubject
+  fileprivate lazy var searchingUserSubject: PublishSubject<Bool> = homeSearchBarViewModel.searchingUserSubject
 
-  init() {
+  init(currentUserRelay: PublishRelay<UserProfile>) {
     print("Inited search controller")
-    super.init(searchResultsController: SearchResultsVC())
+    // Passing the current user for the CollectionView to handle
+    super.init(searchResultsController: SearchResultsVC(
+      currentUserRelay: currentUserRelay,
+      resultUsersSubject: homeSearchBarViewModel.resultUsersSubject,
+      searchingUserSubject: homeSearchBarViewModel.searchingUserSubject
+    ))
     configureSearchBar()
   }
 
@@ -97,25 +104,26 @@ private extension HomeSearchBar {
       .filter { !$0.isEmpty } // prevents empty
       .distinctUntilChanged() // prevents duplicates
       .debounce(.milliseconds(500), scheduler: MainScheduler.instance) // Ignore any element coming before 0.5 seconds
-      .flatMapLatest { [unowned self] searchInput -> Observable<UserProfile> in
+      .flatMapLatest { [unowned self] searchInput -> Observable<[UserProfile]> in
         self.homeSearchBarViewModel.errorSubject.onNext(nil)
         self.homeSearchBarViewModel.loadingSubject.onNext(true)
         return self.homeSearchBarViewModel.searchUser(username: searchInput)
-          .catch { error -> Observable<UserProfile> in
+          .catch { error -> Observable<[UserProfile]> in
             self.homeSearchBarViewModel.errorSubject.onNext(SearchError.underlyingError(error))
             return Observable.empty()
           }
       }
-      .subscribe(onNext: { [weak self] userProfile in
+      .subscribe(onNext: { [weak self] usersProfile in
         self?.homeSearchBarViewModel.loadingSubject.onNext(false)
-        print("USER RESULT: \(userProfile.name)")
-        if userProfile.name.isEmpty {
+        print("USER RESULT: \(usersProfile.first?.name ?? "")")
+        if usersProfile.isEmpty {
           self?.homeSearchBarViewModel.errorSubject.onNext(SearchError.notFound)
           print("UserProfile was empty")
         } else {
           // User found
-          // onNext should be called on the currentUser Relay
-          print("Update current user to: \(userProfile.name)")
+          // Update the Result's Collection View
+          print("Update current user to: \(usersProfile.first?.name ?? "")")
+          self?.homeSearchBarViewModel.resultUsersSubject.onNext(usersProfile)
         }
       })
 
@@ -124,5 +132,11 @@ private extension HomeSearchBar {
       .text
       .orEmpty
       .bind(to: homeSearchBarViewModel.searchObserver)
+
+    searchingUserDisposable = searchingUserSubject
+      .asObservable()
+      .subscribe(onNext: { [weak self] status in
+        self?.isActive = status
+      })
   }
 }
