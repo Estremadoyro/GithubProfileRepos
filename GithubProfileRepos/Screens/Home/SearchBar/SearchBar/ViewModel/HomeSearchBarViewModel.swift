@@ -42,12 +42,7 @@ class HomeSearchBarViewModel {
 
   // Users obtained while searching
   let resultUsersSubject = PublishSubject<[UserProfile]>()
-
   let searchingUserSubject = PublishSubject<Bool>()
-  var isSearchingUser: Driver<Bool> {
-    return searchingUserSubject
-      .asDriver(onErrorJustReturn: false)
-  }
 }
 
 extension HomeSearchBarViewModel {

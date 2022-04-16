@@ -45,11 +45,11 @@ extension SearchResultsVC {
     edgesForExtendedLayout = []
     configureCollection()
     configureViewBindings()
-    configureInitialConstraints()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    configureInitialConstraints()
     searchResultsViewModel.emptyUsersSubject(resultUsersSubject)
   }
 
