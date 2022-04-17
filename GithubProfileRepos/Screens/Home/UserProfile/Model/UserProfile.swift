@@ -12,9 +12,11 @@ struct UserProfile: Decodable, Equatable {
   let profilePicture: String
   let bio: String?
   let reposCount: Int
+  let followers: Int
+  let following: Int
 
   enum CodingKeys: String, CodingKey {
-    case bio
+    case bio, followers, following
     case name = "login"
     case profilePicture = "avatar_url"
     case reposCount = "public_repos"
@@ -25,5 +27,7 @@ struct UserProfile: Decodable, Equatable {
     self.profilePicture = ""
     self.bio = ""
     self.reposCount = 0
+    self.followers = 0 
+    self.following = 0
   }
 }

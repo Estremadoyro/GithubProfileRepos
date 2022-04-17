@@ -28,7 +28,9 @@ final class HomeSearchBar: UISearchController {
     super.init(searchResultsController: SearchResultsVC(
       currentUserRelay: currentUserRelay,
       resultUsersSubject: homeSearchBarViewModel.resultUsersSubject,
-      searchingUserSubject: homeSearchBarViewModel.searchingUserSubject
+      searchingUserSubject: homeSearchBarViewModel.searchingUserSubject,
+      searchingResultLoading: homeSearchBarViewModel.isLoading,
+      searchingResultError: homeSearchBarViewModel.error
     ))
     configureSearchBar()
   }
@@ -88,34 +90,25 @@ private extension HomeSearchBar {
 
 private extension HomeSearchBar {
   func bindSearchBar() {
-//    searchBarDisposable = searchBar.rx.value.subscribe(onNext: { value in
-//      print("value: \(value ?? "")")
-//    }, onDisposed: { print("Searchbar disposed") })
-//
-//    searchBarOnEnterDisposable = searchBar.rx.searchButtonClicked
-//      .subscribe(onNext: { [weak self] value in
-//        let username: String = "\(value)"
-//        self?.homeSearchBarViewModel.updateUserResultsSequence(username: username)
-//        print("SEARCH: \(value)")
-//      }, onDisposed: { print("searchBarOnEnterDisposable disposed") })
-
     // TODO: Fully understand the flatMap/conactMap operators, update CurrentUserRelay & bind with the SearchBarRxObservable
     searchSubjectDisposable = searchSubject
       .asObservable() // specifiying the Subject's current role
       .filter { !$0.isEmpty } // prevents empty
       .distinctUntilChanged() // prevents duplicates
-      .debounce(.milliseconds(500), scheduler: MainScheduler.instance) // Ignore any element coming before 0.5 seconds
+      .debounce(.milliseconds(1000), scheduler: MainScheduler.instance) // Ignore any element coming before 0.5 seconds
       .flatMapLatest { [unowned self] searchInput -> Observable<[UserProfile]> in
-        self.homeSearchBarViewModel.errorSubject.onNext(nil)
         self.homeSearchBarViewModel.loadingSubject.onNext(true)
+        self.homeSearchBarViewModel.errorSubject.onNext(nil)
         return self.homeSearchBarViewModel.searchUser(username: searchInput)
           .catch { error -> Observable<[UserProfile]> in
+            self.homeSearchBarViewModel.loadingSubject.onNext(false)
             self.homeSearchBarViewModel.errorSubject.onNext(SearchError.underlyingError(error))
             return Observable.empty()
           }
       }
       .subscribe(onNext: { [weak self] usersProfile in
         self?.homeSearchBarViewModel.loadingSubject.onNext(false)
+        self?.homeSearchBarViewModel.errorSubject.onNext(nil)
         print("USER RESULT: \(usersProfile.first?.name ?? "")")
         if usersProfile.isEmpty {
           self?.homeSearchBarViewModel.errorSubject.onNext(SearchError.notFound)

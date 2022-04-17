@@ -22,7 +22,7 @@ final class ReposTableVC: UIViewController {
 
   init(reposObservable: PublishSubject<[Repo]>) {
     self.reposObservable = reposObservable
-    super.init(nibName: Nibs.reposTableView, bundle: Bundle.main)
+    super.init(nibName: Xibs.reposTableView, bundle: Bundle.main)
   }
 
   deinit {
@@ -46,7 +46,7 @@ extension ReposTableVC {
 
 extension ReposTableVC {
   private func configureTable() {
-    tableView.register(UINib(nibName: Nibs.repoCell, bundle: Bundle.main), forCellReuseIdentifier: Nibs.repoCell)
+    tableView.register(UINib(nibName: Xibs.repoCell, bundle: Bundle.main), forCellReuseIdentifier: Xibs.repoCell)
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 100
   }
@@ -86,7 +86,7 @@ extension ReposTableVC {
       // So, the Observable<Repo> needs to become Observable<[Repo]>, so Observable is a Sequence and it's elements need to aswell.
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
-      .bind(to: tableView.rx.items(cellIdentifier: Nibs.repoCell, cellType: RepoCell.self)) { [weak self] _, repo, cell in
+      .bind(to: tableView.rx.items(cellIdentifier: Xibs.repoCell, cellType: RepoCell.self)) { [weak self] _, repo, cell in
         cell.repoCellViewModel.networkManager = self?.viewModel.networkManager
         cell.repo = repo
       }

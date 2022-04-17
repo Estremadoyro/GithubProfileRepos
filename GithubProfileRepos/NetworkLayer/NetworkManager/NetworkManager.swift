@@ -42,7 +42,7 @@ extension NetworkManager: NetworkRequestsProtocol {
           case .success:
             guard let responseData = data else {
               completion(nil, NetworkResponse.noData)
-            return
+              return
             }
             do {
               let apiReponse = try JSONDecoder().decode(UserProfile.self, from: responseData)
@@ -51,6 +51,7 @@ extension NetworkManager: NetworkRequestsProtocol {
               completion(nil, NetworkResponse.unableToDecode)
             }
           case .failure(let networkFailureError):
+            print("ERROR CODE: \(response.statusCode)")
             completion(nil, networkFailureError)
         }
       }
@@ -209,6 +210,7 @@ private extension NetworkManager {
 
   enum NetworkResponse: String, Error {
     case success
+    case notFound = "Not found"
     case authenticationError = "You need to be authenticated first."
     case badRequest = "Bad request"
     case outdated = "The url you requested is outdated."
@@ -221,7 +223,8 @@ private extension NetworkManager {
   func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<NetworkResponse> {
     switch response.statusCode {
       case 200 ... 299: return .success
-      case 401 ... 500: return .failure(networkFailureError: NetworkResponse.authenticationError)
+      case 401: return .failure(networkFailureError: NetworkResponse.authenticationError)
+      case 404: return .failure(networkFailureError: NetworkResponse.notFound)
       case 501 ... 599: return .failure(networkFailureError: NetworkResponse.badRequest)
       case 600: return .failure(networkFailureError: NetworkResponse.outdated)
       default: return .failure(networkFailureError: NetworkResponse.failed)

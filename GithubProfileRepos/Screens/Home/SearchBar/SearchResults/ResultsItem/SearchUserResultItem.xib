@@ -12,29 +12,34 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchUserResultItem" id="sZX-OR-hpD" customClass="SearchUserResultItem" customModule="GithubProfileRepos" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+            <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OJf-Ql-Bob">
-                <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+                <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jzo-22-tmk">
-                        <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+                        <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vVR-jG-Ccm">
-                                <rect key="frame" x="5" y="5" width="170" height="220"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vVR-jG-Ccm">
+                                <rect key="frame" x="5" y="5" width="170" height="190"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="repo-profile-image" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-es-7eq">
-                                        <rect key="frame" x="0.0" y="0.0" width="170" height="198"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="166"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ne-g3-m9J">
-                                        <rect key="frame" x="0.0" y="198" width="170" height="22"/>
+                                        <rect key="frame" x="0.0" y="171" width="170" height="19"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="3Ne-g3-m9J" firstAttribute="height" secondItem="vVR-jG-Ccm" secondAttribute="height" multiplier="0.1" id="Dkz-Yk-E7z"/>
                                 </constraints>
@@ -60,16 +65,13 @@
                 <outlet property="userProfileImage" destination="Mm1-es-7eq" id="7K2-GU-0D3"/>
                 <outlet property="userUsername" destination="3Ne-g3-m9J" id="7yx-OD-Uxo"/>
             </connections>
-            <point key="canvasLocation" x="-229" y="-150"/>
+            <point key="canvasLocation" x="-230.43478260869566" y="-150"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="repo-profile-image" width="230" height="230"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

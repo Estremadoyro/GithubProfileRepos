@@ -43,7 +43,7 @@
 		A7DF1B1027F1358C0030DA50 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B0F27F1358C0030DA50 /* Keys.swift */; };
 		A7DF1B1827F1366F0030DA50 /* ReposTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1627F1366F0030DA50 /* ReposTableVC.swift */; };
 		A7DF1B1927F1366F0030DA50 /* ReposTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B1727F1366F0030DA50 /* ReposTableView.xib */; };
-		A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1A27F136AE0030DA50 /* Nibs.swift */; };
+		A7DF1B1B27F136AE0030DA50 /* Xibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1A27F136AE0030DA50 /* Xibs.swift */; };
 		A7DF1B1F27F137F90030DA50 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B1D27F137F90030DA50 /* RepoCell.swift */; };
 		A7DF1B2027F137F90030DA50 /* RepoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7DF1B1E27F137F90030DA50 /* RepoCell.xib */; };
 		A7DF1B2227F13F440030DA50 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DF1B2127F13F440030DA50 /* Repo.swift */; };
@@ -101,7 +101,7 @@
 		A7DF1B0F27F1358C0030DA50 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		A7DF1B1627F1366F0030DA50 /* ReposTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableVC.swift; sourceTree = "<group>"; };
 		A7DF1B1727F1366F0030DA50 /* ReposTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReposTableView.xib; sourceTree = "<group>"; };
-		A7DF1B1A27F136AE0030DA50 /* Nibs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nibs.swift; sourceTree = "<group>"; };
+		A7DF1B1A27F136AE0030DA50 /* Xibs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xibs.swift; sourceTree = "<group>"; };
 		A7DF1B1D27F137F90030DA50 /* RepoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		A7DF1B1E27F137F90030DA50 /* RepoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepoCell.xib; sourceTree = "<group>"; };
 		A7DF1B2127F13F440030DA50 /* Repo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 		A7DF1B0D27F1357B0030DA50 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A7DF1B1A27F136AE0030DA50 /* Nibs.swift */,
+				A7DF1B1A27F136AE0030DA50 /* Xibs.swift */,
 				A7DF1B1127F135AC0030DA50 /* Home */,
 			);
 			path = Screens;
@@ -665,7 +665,7 @@
 				A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */,
 				A7DF1B3027F143680030DA50 /* EndpointProtocol.swift in Sources */,
 				A72F566F27FEA22700D6650F /* User.swift in Sources */,
-				A7DF1B1B27F136AE0030DA50 /* Nibs.swift in Sources */,
+				A7DF1B1B27F136AE0030DA50 /* Xibs.swift in Sources */,
 				A7DF1B3327F1452A0030DA50 /* HTTPMethod.swift in Sources */,
 				A7DF1B3927F16A210030DA50 /* HTTPHeaders.swift in Sources */,
 				A7B7D1A6280681B4007BC731 /* HomeSearchBarViewModel.swift in Sources */,

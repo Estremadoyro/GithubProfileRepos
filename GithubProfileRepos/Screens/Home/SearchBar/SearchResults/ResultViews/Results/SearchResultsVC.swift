@@ -15,20 +15,33 @@ final class SearchResultsVC: UIViewController {
   @IBOutlet private weak var searchHelpTopAnchor: NSLayoutConstraint!
   @IBOutlet private weak var searchResultsCollection: UICollectionView!
 
+  var loadingView: UIView?
+  var emptyView: UIView?
+
   let searchResultsViewModel = SearchResultsViewModel()
 
   weak var currentUserRelay: PublishRelay<UserProfile>?
   weak var resultUsersSubject: PublishSubject<[UserProfile]>?
 
-  let searchingUserSubject: PublishSubject<Bool>
+  var searchingResultLoading: Driver<Bool>
+  var searchingResultError: Driver<SearchError?>
+
+  let searchBarShowingSubject: PublishSubject<Bool>
 
   let disposeBag = DisposeBag()
 
-  init(currentUserRelay: PublishRelay<UserProfile>, resultUsersSubject: PublishSubject<[UserProfile]>, searchingUserSubject: PublishSubject<Bool>) {
+  init(currentUserRelay: PublishRelay<UserProfile>,
+       resultUsersSubject: PublishSubject<[UserProfile]>,
+       searchingUserSubject: PublishSubject<Bool>,
+       searchingResultLoading: Driver<Bool>,
+       searchingResultError: Driver<SearchError?>)
+  {
     self.currentUserRelay = currentUserRelay
     self.resultUsersSubject = resultUsersSubject
-    self.searchingUserSubject = searchingUserSubject
-    super.init(nibName: Nibs.searchResultsView, bundle: Bundle.main)
+    self.searchBarShowingSubject = searchingUserSubject
+    self.searchingResultLoading = searchingResultLoading
+    self.searchingResultError = searchingResultError
+    super.init(nibName: Xibs.searchResultsView, bundle: Bundle.main)
   }
 
   deinit { print("\(self) deinited") }
@@ -43,8 +56,9 @@ extension SearchResultsVC {
   override func viewDidLoad() {
     super.viewDidLoad()
     edgesForExtendedLayout = []
-    configureCollection()
+    configureViews()
     configureViewBindings()
+    configureCollection()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -60,13 +74,38 @@ extension SearchResultsVC {
 }
 
 private extension SearchResultsVC {
+  func configureViews() {
+    loadingView = Bundle.main.loadNibNamed(Xibs.searchLoadingView, owner: self, options: nil)![0] as? UIView
+    emptyView = Bundle.main.loadNibNamed(Xibs.searchResultEmptyView, owner: self, options: nil)![0] as? UIView
+    print("XIBS loaded")
+
+    guard let loadingView = loadingView, let emptyView = emptyView else { return }
+
+    emptyView.isHidden = true
+    loadingView.isHidden = true
+//    searchResultsCollection.isHidden = true
+    view.addSubview(emptyView)
+    view.addSubview(loadingView)
+
+    let views: [UIView] = [loadingView, emptyView]
+    views.forEach { customView in
+      NSLayoutConstraint.activate([
+        customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        customView.topAnchor.constraint(equalTo: view.topAnchor, constant: 44),
+        customView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      ])
+    }
+  }
+
   func configureCollection() {
-    searchResultsCollection.register(UINib(nibName: Nibs.searchUserResultItem, bundle: Bundle.main), forCellWithReuseIdentifier: Nibs.searchUserResultItem)
+    searchResultsCollection.register(UINib(nibName: Xibs.searchUserResultItem, bundle: Bundle.main), forCellWithReuseIdentifier: Xibs.searchUserResultItem)
   }
 
   func configureViewBindings() {
     bindResultsCollection()
     bindItemSelected()
+    bindResultViews()
   }
 }
 
@@ -74,7 +113,7 @@ private extension SearchResultsVC {
   func bindResultsCollection() {
     resultUsersSubject?
       .asObservable()
-      .bind(to: searchResultsCollection.rx.items(cellIdentifier: Nibs.searchUserResultItem, cellType: SearchUserResultItem.self)) { _, user, item in
+      .bind(to: searchResultsCollection.rx.items(cellIdentifier: Xibs.searchUserResultItem, cellType: SearchUserResultItem.self)) { _, user, item in
         item.resultUser = user
       }
       .disposed(by: disposeBag)
@@ -88,9 +127,79 @@ private extension SearchResultsVC {
         // Update emit new CurrentuserRelay for selected user
         print("User selected: \(userProfile.name)")
         self?.currentUserRelay?.accept(userProfile)
-        self?.searchingUserSubject.onNext(false)
+        self?.searchBarShowingSubject.onNext(false)
 
       })
+      .disposed(by: disposeBag)
+  }
+
+  func bindResultViews() {
+    // When loading is active, hide the CollectionView
+//    searchingResultLoading
+//      .drive(searchResultsCollection.rx.isHidden)
+//      .disposed(by: disposeBag)
+//    // When error is active, hide the CollectionView
+//    searchingResultError
+//      .map { $0 != nil }
+//      .drive(searchResultsCollection.rx.isHidden)
+//      .disposed(by: disposeBag)
+//
+//    if let loadingView = loadingView {
+//      // When loading, display LoadingView
+//      searchingResultLoading
+//        .map { !$0 }
+//        .drive(loadingView.rx.isHidden)
+//        .disposed(by: disposeBag)
+//
+//      // When error, hide LoadingView
+//      searchingResultError
+//        .map { $0 != nil }
+//        .drive(loadingView.rx.isHidden)
+//        .disposed(by: disposeBag)
+//    }
+//
+//    if let emptyView = emptyView {
+//      // When no error, hide ErrorView
+//      searchingResultError
+//        .map { $0 == nil }
+//        .drive(emptyView.rx.isHidden)
+//        .disposed(by: disposeBag)
+//    }
+
+    searchingResultLoading
+      .drive(searchResultsCollection.rx.isHidden)
+      .disposed(by: disposeBag)
+
+    searchingResultError
+      .map { $0 != nil }
+      .drive(searchResultsCollection.rx.isHidden)
+      .disposed(by: disposeBag)
+
+    if let loadingView = loadingView {
+      searchingResultLoading
+        .map(!)
+        .drive(loadingView.rx.isHidden)
+        .disposed(by: disposeBag)
+    }
+
+    if let emptyView = emptyView {
+      searchingResultError
+        .map { $0 == nil }
+        .drive(emptyView.rx.isHidden)
+        .disposed(by: disposeBag)
+    }
+
+    searchingResultLoading.asObservable().subscribe(onNext: { value in
+      print("STATE - LOADING: \(value)")
+    })
+      .disposed(by: disposeBag)
+    searchingResultError.asObservable().subscribe(onNext: { value in
+      print("STATE - ERROR: \(value)")
+    })
+      .disposed(by: disposeBag)
+    resultUsersSubject?.asObservable().subscribe(onNext: { value in
+      print("STATE - USER: \(value.first?.name ?? "")")
+    })
       .disposed(by: disposeBag)
   }
 }

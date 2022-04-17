@@ -24,9 +24,6 @@ final class UserVC: UIViewController {
   // User View Model
   fileprivate lazy var userViewModel = UserViewModel()
 
-  // Own observables
-  fileprivate lazy var userFollowersObservable: PublishSubject<Followers> = userViewModel.userFollowersObservable
-  fileprivate lazy var userFollowingObservable: PublishSubject<Following> = userViewModel.userFollowingObservable
   fileprivate lazy var userProfilePictureObservable: PublishSubject<UIImage> = userViewModel.userProfilePictureObservable
 
   fileprivate let disposeBag = DisposeBag()
@@ -34,13 +31,11 @@ final class UserVC: UIViewController {
   init(reposObservable: PublishSubject<[Repo]>, currentUserObservable: PublishRelay<UserProfile>) {
     self.reposObservable = reposObservable
     self.currentUserObservable = currentUserObservable
-    super.init(nibName: Nibs.userView, bundle: Bundle.main)
+    super.init(nibName: Xibs.userView, bundle: Bundle.main)
   }
 
   deinit {
     print("\(self) deinited")
-    userFollowersObservable.dispose()
-    userFollowingObservable.dispose()
   }
 
   @available(*, unavailable)
@@ -91,28 +86,28 @@ private extension UserVC {
 
 private extension UserVC {
   func bindFollowsAndFollowers() {
-    currentUserObservable?
-      .map { $0.name }
-      .subscribe(onNext: { [weak self] username in
-        self?.userViewModel.updateFollowersSequence(username: username)
-        self?.userViewModel.updateFollowingSequence(username: username)
-      })
-      .disposed(by: disposeBag)
+//    currentUserObservable?
+//      .map { $0.name }
+//      .subscribe(onNext: { [weak self] username in
+//        self?.userViewModel.updateFollowersSequence(username: username)
+//        self?.userViewModel.updateFollowingSequence(username: username)
+//      })
+//      .disposed(by: disposeBag)
 
     bindUserFollowers()
     bindUserFollowing()
   }
 
   func bindUserFollowers() {
-    userFollowersObservable
-      .map { "\($0.count) followers" }
+    currentUserObservable?
+      .map { "\($0.followers) followers" }
       .bind(to: userFollowers.rx.text)
       .disposed(by: disposeBag)
   }
 
   func bindUserFollowing() {
-    userFollowingObservable
-      .map { "\($0.count) following" }
+    currentUserObservable?
+      .map { "\($0.following) following" }
       .bind(to: userFollowing.rx.text)
       .disposed(by: disposeBag)
   }
