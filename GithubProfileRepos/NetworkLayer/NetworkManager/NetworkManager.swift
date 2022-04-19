@@ -172,6 +172,7 @@ extension NetworkManager: NetworkRequestsProtocol {
   }
 
   func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
+    print("getLanguagesByRepo: \(repo.name)")
     // Retrieve from local JSON
     if mocking {
       LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguages.self) { mock in

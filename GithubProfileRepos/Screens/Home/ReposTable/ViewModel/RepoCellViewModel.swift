@@ -22,6 +22,7 @@ final class RepoCellViewModel {
 
 extension RepoCellViewModel {
   func updateCurrentRepoSequence(repo: Repo) {
+    print("updateCurrentRepoSequence: \(repo.name)")
     currentRepoObservable.onNext(repo)
   }
 
