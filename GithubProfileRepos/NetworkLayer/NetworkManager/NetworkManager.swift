@@ -14,9 +14,10 @@ enum NetworkEnvironment {
 
 /// # HANDLES THE REQUEST STATUS AND COMPLETION
 /// Accessible by other layers
-struct NetworkManager {
+class NetworkManager {
   static let environment: NetworkEnvironment = .develop
   static let githubApiKey = Keys.githubApiKey
+  fileprivate lazy var languagesCache = RepoLanguagesCache()
   fileprivate let router = Router<GithubUsersEndpoint>()
 }
 
@@ -29,7 +30,8 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
       return
     }
-    router.request(.user(username: username)) { data, response, error in
+    router.request(.user(username: username)) { [weak self] data, response, error in
+      guard let strongSelf = self else { completion(nil, NetworkResponse.failed); return }
       print("API REQUEST RESPONSE")
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
@@ -37,7 +39,7 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
 
       if let response = response as? HTTPURLResponse {
-        let result = handleNetworkResponse(response)
+        let result = strongSelf.handleNetworkResponse(response)
         switch result {
           case .success:
             guard let responseData = data else {
@@ -66,7 +68,7 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
       return
     }
-    router.request(.reposByUsername(username: username)) { data, response, error in
+    router.request(.reposByUsername(username: username)) { [weak self] data, response, error in
       print("API REQUEST RESPONSE")
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
@@ -74,7 +76,8 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
 
       if let response = response as? HTTPURLResponse {
-        let result = handleNetworkResponse(response)
+        guard let strongSelf = self else { completion(nil, NetworkResponse.failed); return }
+        let result = strongSelf.handleNetworkResponse(response)
         switch result {
           case .success:
             guard let responseData = data else {
@@ -102,7 +105,7 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
       return
     }
-    router.request(.userFollowers(username: username)) { data, response, error in
+    router.request(.userFollowers(username: username)) { [weak self] data, response, error in
       print("API REQUEST RESPONSE")
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
@@ -110,7 +113,8 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
 
       if let response = response as? HTTPURLResponse {
-        let result = handleNetworkResponse(response)
+        guard let strongSelf = self else { completion(nil, NetworkResponse.failed); return }
+        let result = strongSelf.handleNetworkResponse(response)
         switch result {
           case .success:
             guard let responseData = data else {
@@ -138,7 +142,7 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
       return
     }
-    router.request(.userFollowing(username: username)) { data, response, error in
+    router.request(.userFollowing(username: username)) { [weak self] data, response, error in
       print("API REQUEST RESPONSE")
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
@@ -146,7 +150,8 @@ extension NetworkManager: NetworkRequestsProtocol {
       }
 
       if let response = response as? HTTPURLResponse {
-        let result = handleNetworkResponse(response)
+        guard let strongSelf = self else { completion(nil, NetworkResponse.failed); return }
+        let result = strongSelf.handleNetworkResponse(response)
         switch result {
           case .success:
             guard let responseData = data else {
@@ -167,20 +172,32 @@ extension NetworkManager: NetworkRequestsProtocol {
   }
 
   func getLanguagesByRepo(repo: Repo, mocking: Bool = false, completion: @escaping GithubRepoLanguagesCompletion) {
+    // Retrieve from local JSON
     if mocking {
-      LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguage.self) { data in
-        guard let data = data else { return }
-        completion(data, nil)
+      LocalStorageManager.loadMock(fileName: "RepoLanguages", obj: RepoLanguages.self) { mock in
+        guard let mock = mock else { return }
+        completion(mock, nil)
+        print("LANGUAGES FROM MOCK: \(mock) for \(repo.name)")
       }
       return
     }
-    router.request(.languagesByRepo(repo: repo)) { data, response, error in
+
+    // Retrieve from Cache
+    if let cachedLanguages = languagesCache.getRepoLanguages(repo: repo) {
+      completion(cachedLanguages, nil)
+      print("LANGUAGES FROM CACHE: \(cachedLanguages)")
+      return
+    }
+
+    // Retrieve from NetworkRequest
+    router.request(.languagesByRepo(repo: repo)) { [weak self] data, response, error in
       if error != nil {
         completion(nil, NetworkResponse.errorFound)
         return
       }
       if let response = response as? HTTPURLResponse {
-        let result = handleNetworkResponse(response)
+        guard let strongSelf = self else { completion(nil, NetworkResponse.failed); return }
+        let result = strongSelf.handleNetworkResponse(response)
         switch result {
           case .success:
             guard let responseData = data else {
@@ -188,8 +205,9 @@ extension NetworkManager: NetworkRequestsProtocol {
               return
             }
             do {
-              let apiReponse = try JSONDecoder().decode(RepoLanguage.self, from: responseData)
+              let apiReponse = try JSONDecoder().decode(RepoLanguages.self, from: responseData)
               print("Languages data: \(apiReponse)")
+              strongSelf.languagesCache.setRepoLanguages(repo: repo, languages: apiReponse)
               completion(apiReponse, nil)
             } catch {
               completion(nil, NetworkResponse.unableToDecode)

@@ -64,12 +64,15 @@ extension SearchResultsVC {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     configureInitialConstraints()
-    searchResultsViewModel.emptyUsersSubject(resultUsersSubject)
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     onAppearAnimations()
+  }
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    searchResultsViewModel.emptyUsersSubject(resultUsersSubject)
   }
 }
 
@@ -134,38 +137,7 @@ private extension SearchResultsVC {
   }
 
   func bindResultViews() {
-    // When loading is active, hide the CollectionView
-//    searchingResultLoading
-//      .drive(searchResultsCollection.rx.isHidden)
-//      .disposed(by: disposeBag)
-//    // When error is active, hide the CollectionView
-//    searchingResultError
-//      .map { $0 != nil }
-//      .drive(searchResultsCollection.rx.isHidden)
-//      .disposed(by: disposeBag)
-//
-//    if let loadingView = loadingView {
-//      // When loading, display LoadingView
-//      searchingResultLoading
-//        .map { !$0 }
-//        .drive(loadingView.rx.isHidden)
-//        .disposed(by: disposeBag)
-//
-//      // When error, hide LoadingView
-//      searchingResultError
-//        .map { $0 != nil }
-//        .drive(loadingView.rx.isHidden)
-//        .disposed(by: disposeBag)
-//    }
-//
-//    if let emptyView = emptyView {
-//      // When no error, hide ErrorView
-//      searchingResultError
-//        .map { $0 == nil }
-//        .drive(emptyView.rx.isHidden)
-//        .disposed(by: disposeBag)
-//    }
-
+    // Binding ResultsCollectionView
     searchingResultLoading
       .drive(searchResultsCollection.rx.isHidden)
       .disposed(by: disposeBag)
@@ -175,6 +147,7 @@ private extension SearchResultsVC {
       .drive(searchResultsCollection.rx.isHidden)
       .disposed(by: disposeBag)
 
+    // Binding SearchLoadingView
     if let loadingView = loadingView {
       searchingResultLoading
         .map(!)
@@ -182,6 +155,7 @@ private extension SearchResultsVC {
         .disposed(by: disposeBag)
     }
 
+    // Bing SearchErrorView
     if let emptyView = emptyView {
       searchingResultError
         .map { $0 == nil }

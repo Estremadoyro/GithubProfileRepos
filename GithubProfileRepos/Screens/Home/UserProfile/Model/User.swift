@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Decodable {
+struct User: Decodable, Hashable {
   let name: String
 
   enum CodingKeys: String, CodingKey {

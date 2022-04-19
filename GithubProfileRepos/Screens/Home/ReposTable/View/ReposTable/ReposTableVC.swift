@@ -20,9 +20,12 @@ final class ReposTableVC: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  init(reposObservable: PublishSubject<[Repo]>) {
+  init(reposObservable: PublishSubject<[Repo]>,
+       networkManager: NetworkManager)
+  {
     self.reposObservable = reposObservable
     super.init(nibName: Xibs.reposTableView, bundle: Bundle.main)
+    viewModel.networkManager = networkManager
   }
 
   deinit {

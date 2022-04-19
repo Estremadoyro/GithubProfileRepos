@@ -28,10 +28,14 @@ final class UserVC: UIViewController {
 
   fileprivate let disposeBag = DisposeBag()
 
-  init(reposObservable: PublishSubject<[Repo]>, currentUserObservable: PublishRelay<UserProfile>) {
+  init(reposObservable: PublishSubject<[Repo]>,
+       currentUserObservable: PublishRelay<UserProfile>,
+       networkManager: NetworkManager)
+  {
     self.reposObservable = reposObservable
     self.currentUserObservable = currentUserObservable
     super.init(nibName: Xibs.userView, bundle: Bundle.main)
+    userViewModel.networkManager = networkManager
   }
 
   deinit {
@@ -86,14 +90,6 @@ private extension UserVC {
 
 private extension UserVC {
   func bindFollowsAndFollowers() {
-//    currentUserObservable?
-//      .map { $0.name }
-//      .subscribe(onNext: { [weak self] username in
-//        self?.userViewModel.updateFollowersSequence(username: username)
-//        self?.userViewModel.updateFollowingSequence(username: username)
-//      })
-//      .disposed(by: disposeBag)
-
     bindUserFollowers()
     bindUserFollowing()
   }

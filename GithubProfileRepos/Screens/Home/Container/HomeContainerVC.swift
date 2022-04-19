@@ -16,10 +16,12 @@ final class HomeContainerVC: UIViewController {
   // ViewControllers
   fileprivate lazy var userVC = UserVC(
     reposObservable: reposFromUserNameObservable,
-    currentUserObservable: currentUserObservable
+    currentUserObservable: currentUserObservable,
+    networkManager: networkManager
   )
   fileprivate lazy var reposTableVC = ReposTableVC(
-    reposObservable: reposFromUserNameObservable
+    reposObservable: reposFromUserNameObservable,
+    networkManager: networkManager
   )
 
   // Container View Model

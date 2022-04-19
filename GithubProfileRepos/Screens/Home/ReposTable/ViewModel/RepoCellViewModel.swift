@@ -15,7 +15,7 @@ enum RepoError: Error {
 final class RepoCellViewModel {
   var networkManager: NetworkManager?
   var currentRepoObservable = PublishSubject<Repo>()
-  var currentRepoLanguagesObservable = PublishSubject<RepoLanguage>()
+  var currentRepoLanguagesObservable = PublishSubject<RepoLanguages>()
 
   deinit { print("\(self) deinited") }
 }
@@ -26,6 +26,7 @@ extension RepoCellViewModel {
   }
 
   func updateRepoLanguagesSequence(repo: Repo) {
+    print("updateRepo: \(repo.name)")
     networkManager?.getLanguagesByRepo(repo: repo, mocking: true, completion: { [weak self] languages, error in
       if let error = error { self?.currentRepoLanguagesObservable.onError(error) }
       if let languages = languages { self?.currentRepoLanguagesObservable.onNext(languages) }

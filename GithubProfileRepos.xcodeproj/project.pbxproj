@@ -32,6 +32,8 @@
 		A79EE87428052C2400E93B3B /* SearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79EE87228052C2400E93B3B /* SearchResultsView.xib */; };
 		A7A2A7E528029A04009EF621 /* User.json in Resources */ = {isa = PBXBuildFile; fileRef = A7A2A7E428029A04009EF621 /* User.json */; };
 		A7A2A7E72802A059009EF621 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */; };
+		A7B6D364280CAF0B00CEDB0E /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B6D363280CAF0B00CEDB0E /* CacheManager.swift */; };
+		A7B6D366280CBC9F00CEDB0E /* RepoLanguagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B6D365280CBC9F00CEDB0E /* RepoLanguagesCache.swift */; };
 		A7B7D1A6280681B4007BC731 /* HomeSearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B7D1A5280681B4007BC731 /* HomeSearchBarViewModel.swift */; };
 		A7C36B6B280350AE00DA52E3 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C36B6A280350AE00DA52E3 /* UserProfile.swift */; };
 		A7C36B6F280388EF00DA52E3 /* RepoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C36B6E280388EF00DA52E3 /* RepoCellViewModel.swift */; };
@@ -88,6 +90,8 @@
 		A79EE87228052C2400E93B3B /* SearchResultsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsView.xib; sourceTree = "<group>"; };
 		A7A2A7E428029A04009EF621 /* User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = User.json; path = MockFiles/User.json; sourceTree = SOURCE_ROOT; };
 		A7A2A7E62802A059009EF621 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		A7B6D363280CAF0B00CEDB0E /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		A7B6D365280CBC9F00CEDB0E /* RepoLanguagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoLanguagesCache.swift; sourceTree = "<group>"; };
 		A7B7D1A5280681B4007BC731 /* HomeSearchBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchBarViewModel.swift; sourceTree = "<group>"; };
 		A7C36B6A280350AE00DA52E3 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A7C36B6E280388EF00DA52E3 /* RepoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +301,15 @@
 			path = SearchResults;
 			sourceTree = "<group>";
 		};
+		A7B6D362280CAEC900CEDB0E /* CacheLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A7B6D363280CAF0B00CEDB0E /* CacheManager.swift */,
+				A7B6D365280CBC9F00CEDB0E /* RepoLanguagesCache.swift */,
+			);
+			path = CacheLayer;
+			sourceTree = "<group>";
+		};
 		A7B7D1A22806813F007BC731 /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +360,7 @@
 				A7DF1AFB27F1328F0030DA50 /* SceneDelegate.swift */,
 				A7F81B2027F8065800082EFE /* LocalStorageLayer */,
 				A7DF1B0E27F1357F0030DA50 /* NetworkLayer */,
+				A7B6D362280CAEC900CEDB0E /* CacheLayer */,
 				A7DF1B0D27F1357B0030DA50 /* Screens */,
 				A777805627FBFFEE004AF800 /* Utils */,
 				A759B5AE27FD484700002498 /* Extensions */,
@@ -639,6 +653,7 @@
 				A79EE86F280521F100E93B3B /* HomeSearchBar.swift in Sources */,
 				A72F567A27FEAA5D00D6650F /* UserViewModel.swift in Sources */,
 				A7C8B40827F2AB6E001F6F93 /* ReposTableViewModel.swift in Sources */,
+				A7B6D366280CBC9F00CEDB0E /* RepoLanguagesCache.swift in Sources */,
 				A7DF1B3527F1453A0030DA50 /* HTTPTask.swift in Sources */,
 				A7DF1B2727F142B60030DA50 /* NetworkManager.swift in Sources */,
 				A7DF1B2C27F142E70030DA50 /* URLParameterEncoder.swift in Sources */,
@@ -648,6 +663,7 @@
 				A7DF1B2A27F142D60030DA50 /* ParameterEncoder.swift in Sources */,
 				A759B5A727FD3B1500002498 /* UserVC.swift in Sources */,
 				A7DF1B1827F1366F0030DA50 /* ReposTableVC.swift in Sources */,
+				A7B6D364280CAF0B00CEDB0E /* CacheManager.swift in Sources */,
 				A7DF1AFA27F1328F0030DA50 /* AppDelegate.swift in Sources */,
 				A777805827FC000E004AF800 /* LanguageColors.swift in Sources */,
 				A7DF1B3D27F16D2D0030DA50 /* RouterProtocol.swift in Sources */,

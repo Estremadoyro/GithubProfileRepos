@@ -19,6 +19,22 @@ struct Repo: Decodable {
     case fullName = "full_name"
     case stars = "stargazers_count"
   }
+
+  // Can be used for generating a Unique ID based on the Repo properties
+//  struct ID {
+//    let id = UUID()
+//  }
 }
 
-public typealias RepoLanguage = [String: Int]
+extension Repo: Hashable {
+  static func == (lhs: Repo, rhs: Repo) -> Bool {
+    return
+      lhs.owner == rhs.owner &&
+      lhs.name == rhs.name &&
+      lhs.fullName == rhs.fullName &&
+      lhs.description == rhs.description &&
+      lhs.stars == rhs.stars
+  }
+}
+
+public typealias RepoLanguages = [String: Int]

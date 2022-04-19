@@ -8,7 +8,7 @@
 import RxSwift
 
 final class UserViewModel {
-  fileprivate lazy var networkManager = NetworkManager()
+  var networkManager: NetworkManager?
   lazy var userFollowersObservable = PublishSubject<Followers>()
   lazy var userFollowingObservable = PublishSubject<Following>()
   lazy var userProfilePictureObservable = PublishSubject<UIImage>()
@@ -17,14 +17,14 @@ final class UserViewModel {
 extension UserViewModel {
   // These 2 are not used anymore, as UserProfile already comes with the # of followers and following
   func updateFollowersSequence(username: String) {
-    networkManager.getUserFollowers(username: username, mocking: false) { [weak self] followers, error in
+    networkManager?.getUserFollowers(username: username, mocking: false) { [weak self] followers, error in
       if let error = error { self?.userFollowersObservable.onError(error) }
       if let followers = followers { self?.userFollowersObservable.onNext(followers) }
     }
   }
 
   func updateFollowingSequence(username: String) {
-    networkManager.getUserFollowing(username: username, mocking: false) { [weak self] followers, error in
+    networkManager?.getUserFollowing(username: username, mocking: false) { [weak self] followers, error in
       if let error = error { self?.userFollowingObservable.onError(error) }
       if let followers = followers { self?.userFollowingObservable.onNext(followers) }
     }

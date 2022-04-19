@@ -64,6 +64,8 @@ extension HomeSearchBar {
       searchingUserDisposable
     ]
     disposeSequences(disposables)
+    searchResultsController?.dismiss(animated: true, completion: nil)
+    searchResultsController?.removeFromParent()
   }
 }
 

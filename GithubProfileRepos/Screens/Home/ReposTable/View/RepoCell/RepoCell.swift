@@ -21,12 +21,13 @@ final class RepoCell: UITableViewCell {
 
   // Observables
   lazy var currentRepoObservable: PublishSubject<Repo> = repoCellViewModel.currentRepoObservable
-  lazy var currentRepoLanguagesObservable: PublishSubject<RepoLanguage> = repoCellViewModel.currentRepoLanguagesObservable
+  lazy var currentRepoLanguagesObservable: PublishSubject<RepoLanguages> = repoCellViewModel.currentRepoLanguagesObservable
 
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
       configureBindings(repo: repo)
+      print("repoDidSet: \(repo.name)")
       repoCellViewModel.updateCurrentRepoSequence(repo: repo)
     }
   }
@@ -56,6 +57,7 @@ private extension RepoCell {
     // Bind RepoLanguages to currentRepoObservable
     currentRepoObservable
       .subscribe(onNext: { [weak self] repo in
+        print("REPO OBSERVED: \(repo.name)")
         self?.repoCellViewModel.updateRepoLanguagesSequence(repo: repo)
       })
       .disposed(by: disposeBag)
@@ -96,7 +98,7 @@ private extension RepoCell {
 }
 
 private extension RepoCell {
-  func getMostUsedLanguage(languages: RepoLanguage) -> ColorByLanguage.Element {
+  func getMostUsedLanguage(languages: RepoLanguages) -> ColorByLanguage.Element {
     return Utils.getMostUsedLanguage(languages: languages)
   }
 

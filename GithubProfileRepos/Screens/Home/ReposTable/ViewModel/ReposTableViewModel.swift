@@ -10,5 +10,5 @@ import RxSwift
 
 final class ReposTableViewModel {
   // For sharing across cells, it's a struct tho, so no state is being managed
-  lazy var networkManager = NetworkManager()
+  var networkManager: NetworkManager?
 }
