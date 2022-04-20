@@ -13,7 +13,6 @@ final class HomeSearchBar: UISearchController {
   fileprivate var searchSubjectDisposable: Disposable?
   fileprivate var searchBarDisposable: Disposable?
   fileprivate var searchingUserDisposable: Disposable?
-  fileprivate var searchBarOnEnterDisposable: Disposable?
   fileprivate let disposeBag = CompositeDisposable()
 
   let homeSearchBarViewModel = HomeSearchBarViewModel()
@@ -59,7 +58,6 @@ extension HomeSearchBar {
     super.viewWillDisappear(animated)
     let disposables: [Disposable?] = [
       searchBarDisposable,
-      searchBarOnEnterDisposable,
       searchSubjectDisposable,
       searchingUserDisposable
     ]

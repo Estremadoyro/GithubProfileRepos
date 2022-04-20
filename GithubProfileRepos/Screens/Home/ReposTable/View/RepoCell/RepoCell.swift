@@ -26,7 +26,6 @@ final class RepoCell: UITableViewCell {
   var repo: Repo? {
     didSet {
       guard let repo = repo else { return }
-      configureBindings(repo: repo)
       print("repoDidSet: \(repo.name)")
       repoCellViewModel.updateCurrentRepoSequence(repo: repo)
     }
@@ -36,6 +35,7 @@ final class RepoCell: UITableViewCell {
     super.awakeFromNib()
     repoLanguages.text = ""
     repoLanguageColor.isHidden = true
+    configureBindings()
   }
 
   deinit {
@@ -46,7 +46,7 @@ final class RepoCell: UITableViewCell {
 }
 
 private extension RepoCell {
-  func configureBindings(repo: Repo) {
+  func configureBindings() {
     bindRepoLanguages()
     bindRepoInfo()
   }
