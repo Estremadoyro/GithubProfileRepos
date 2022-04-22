@@ -32,7 +32,8 @@ struct Keys {
 
 | Demo | 
 | --- |
-| <img src="images/demo.mp4" width=250 />|
+| ![demo](https://user-images.githubusercontent.com/41656406/164605499-323214e9-8cd9-4fcc-9a16-8de6bad849b1.mp4) |
+
 ### Todo
 Small Todo's yet to complete, will be filling out periodically. PR's are welcome.  
 - [x]  Passing observable to the RepoCell in a clean manner
