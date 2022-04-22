@@ -51,6 +51,7 @@ extension HomeSearchBar {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    automaticallyShowsSearchResultsController = false
     configureBindings()
   }
 
@@ -63,7 +64,6 @@ extension HomeSearchBar {
     ]
     disposeSequences(disposables)
     searchResultsController?.dismiss(animated: true, completion: nil)
-    searchResultsController?.removeFromParent()
   }
 }
 
@@ -90,37 +90,6 @@ private extension HomeSearchBar {
 
 private extension HomeSearchBar {
   func bindSearchBar() {
-    // TODO: Fully understand the flatMap/conactMap operators, update CurrentUserRelay & bind with the SearchBarRxObservable
-    searchSubjectDisposable = searchSubject
-      .asObservable() // specifiying the Subject's current role
-      .filter { !$0.isEmpty } // prevents empty
-      .distinctUntilChanged() // prevents duplicates
-      .debounce(.milliseconds(1000), scheduler: MainScheduler.instance) // Ignore any element coming before 0.5 seconds
-      .flatMapLatest { [unowned self] searchInput -> Observable<[UserProfile]> in
-        self.homeSearchBarViewModel.loadingSubject.onNext(true)
-        self.homeSearchBarViewModel.errorSubject.onNext(nil)
-        return self.homeSearchBarViewModel.searchUser(username: searchInput)
-          .catch { error -> Observable<[UserProfile]> in
-            self.homeSearchBarViewModel.loadingSubject.onNext(false)
-            self.homeSearchBarViewModel.errorSubject.onNext(SearchError.underlyingError(error))
-            return Observable.empty()
-          }
-      }
-      .subscribe(onNext: { [weak self] usersProfile in
-        self?.homeSearchBarViewModel.loadingSubject.onNext(false)
-        self?.homeSearchBarViewModel.errorSubject.onNext(nil)
-        print("USER RESULT: \(usersProfile.first?.name ?? "")")
-        if usersProfile.isEmpty {
-          self?.homeSearchBarViewModel.errorSubject.onNext(SearchError.notFound)
-          print("UserProfile was empty")
-        } else {
-          // User found
-          // Update the Result's Collection View
-          print("Update current user to: \(usersProfile.first?.name ?? "")")
-          self?.homeSearchBarViewModel.resultUsersSubject.onNext(usersProfile)
-        }
-      })
-
     searchBarDisposable = searchBar
       .rx
       .text
@@ -132,3 +101,5 @@ private extension HomeSearchBar {
       .bind(to: rx.isActive)
   }
 }
+
+class OwoVC: UIViewController {}

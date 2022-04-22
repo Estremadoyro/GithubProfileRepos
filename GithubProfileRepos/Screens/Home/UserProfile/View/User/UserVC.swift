@@ -74,7 +74,6 @@ private extension UserVC {
     bindUsername()
     bindFollowsAndFollowers()
     bindUserStars()
-    bindUserProfilePicture()
     bindUserBio()
   }
 }

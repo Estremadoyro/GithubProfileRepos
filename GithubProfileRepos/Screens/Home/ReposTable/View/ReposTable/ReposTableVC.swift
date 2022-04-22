@@ -45,6 +45,16 @@ extension ReposTableVC {
     configureView()
     configureBindings()
   }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    print("TABLE DID APPEAR")
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    print("TABLE willAppear")
+  }
 }
 
 extension ReposTableVC {
@@ -70,6 +80,7 @@ extension ReposTableVC {
     DispatchQueue.main.async { [weak self] in
       self?.loadingIndicator.stopAnimating()
       self?.loadingIndicator.alpha = 0
+      self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
     }
   }
 }
@@ -85,7 +96,8 @@ extension ReposTableVC {
   private func bindRepos(reposObservable: PublishSubject<[Repo]>) {
     // Yet to concatenate with the Lanaguages API
     reposObservable
-      .delay(.seconds(1), scheduler: MainScheduler.instance)
+      .asObservable()
+//      .delay(.seconds(1), scheduler: MainScheduler.instance)
       // So, the Observable<Repo> needs to become Observable<[Repo]>, so Observable is a Sequence and it's elements need to aswell.
       // The Observable Type, in this case [Repo], must be a Sequence in order for tableView.rx.items() to be able to subscrible to it.
       // Observable: Sequence <[Repo]: Sequence>
@@ -96,7 +108,8 @@ extension ReposTableVC {
       .disposed(by: disposeBag)
 
     reposObservable
-      .delay(.seconds(1), scheduler: MainScheduler.instance)
+      .asObservable()
+//      .delay(.seconds(1), scheduler: MainScheduler.instance)
       .subscribe(onNext: { [weak self] _ in
         self?.reposDidLoad()
       })

@@ -10,25 +10,30 @@ import RxSwift
 import UIKit
 
 // Must deinit when Searching is not active
-final class SearchResultsVC: UIViewController {
+final class SearchResultsVC: UIViewController, UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    
+  }
+  
   @IBOutlet private weak var searchHelpLabel: UILabel!
   @IBOutlet private weak var searchHelpTopAnchor: NSLayoutConstraint!
   @IBOutlet private weak var searchResultsCollection: UICollectionView!
 
-  var loadingView: UIView?
-  var emptyView: UIView?
+  // Views
+  fileprivate var loadingView: UIView?
+  fileprivate var emptyView: UIView?
 
-  let searchResultsViewModel = SearchResultsViewModel()
+  // ViewModel
+  var searchResultsViewModel: SearchResultsViewModel?
 
+  // Injected properties
   weak var currentUserRelay: PublishRelay<UserProfile>?
   weak var resultUsersSubject: PublishSubject<[UserProfile]>?
-
   var searchingResultLoading: Driver<Bool>
   var searchingResultError: Driver<SearchError?>
-
   let searchBarShowingSubject: PublishSubject<Bool>
 
-  let disposeBag = DisposeBag()
+  fileprivate var disposeBag: DisposeBag?
 
   init(currentUserRelay: PublishRelay<UserProfile>,
        resultUsersSubject: PublishSubject<[UserProfile]>,
@@ -57,22 +62,29 @@ extension SearchResultsVC {
     super.viewDidLoad()
     edgesForExtendedLayout = []
     configureViews()
-    configureViewBindings()
     configureCollection()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    searchResultsViewModel = SearchResultsViewModel()
+    disposeBag = DisposeBag()
+    configureViewBindings()
     configureInitialConstraints()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    print("SearchResultsDidAppear")
     onAppearAnimations()
   }
+
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    searchResultsViewModel.emptyUsersSubject(resultUsersSubject)
+    print("SearchResultsDidDisappear")
+    searchResultsViewModel?.emptyUsersSubject(resultUsersSubject)
+    searchResultsViewModel = nil
+    disposeBag = nil
   }
 }
 
@@ -106,14 +118,15 @@ private extension SearchResultsVC {
   }
 
   func configureViewBindings() {
-    bindResultsCollection()
-    bindItemSelected()
-    bindResultViews()
+    guard let disposeBag = disposeBag else { fatalError("No disposebag set for: \(self)") }
+    bindResultsCollection(disposeBag)
+    bindItemSelected(disposeBag)
+    bindResultViews(disposeBag)
   }
 }
 
 private extension SearchResultsVC {
-  func bindResultsCollection() {
+  func bindResultsCollection(_ disposeBag: DisposeBag) {
     resultUsersSubject?
       .asObservable()
       .bind(to: searchResultsCollection.rx.items(cellIdentifier: Xibs.searchUserResultItem, cellType: SearchUserResultItem.self)) { _, user, item in
@@ -122,7 +135,7 @@ private extension SearchResultsVC {
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelected() {
+  func bindItemSelected(_ disposeBag: DisposeBag) {
     searchResultsCollection
       .rx
       .modelSelected(UserProfile.self)
@@ -136,7 +149,7 @@ private extension SearchResultsVC {
       .disposed(by: disposeBag)
   }
 
-  func bindResultViews() {
+  func bindResultViews(_ disposeBag: DisposeBag) {
     // Binding ResultsCollectionView
     searchingResultLoading
       .drive(searchResultsCollection.rx.isHidden)
@@ -155,26 +168,13 @@ private extension SearchResultsVC {
         .disposed(by: disposeBag)
     }
 
-    // Bing SearchErrorView
+    // Bind SearchErrorView
     if let emptyView = emptyView {
       searchingResultError
         .map { $0 == nil }
         .drive(emptyView.rx.isHidden)
         .disposed(by: disposeBag)
     }
-
-    searchingResultLoading.asObservable().subscribe(onNext: { value in
-      print("STATE - LOADING: \(value)")
-    })
-      .disposed(by: disposeBag)
-    searchingResultError.asObservable().subscribe(onNext: { value in
-      print("STATE - ERROR: \(value)")
-    })
-      .disposed(by: disposeBag)
-    resultUsersSubject?.asObservable().subscribe(onNext: { value in
-      print("STATE - USER: \(value.first?.name ?? "")")
-    })
-      .disposed(by: disposeBag)
   }
 }
 
