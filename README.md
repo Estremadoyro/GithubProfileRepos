@@ -25,7 +25,8 @@ struct Keys {
 ```
 
 #### Demo
-![demo](https://user-images.githubusercontent.com/41656406/164605499-323214e9-8cd9-4fcc-9a16-8de6bad849b1.mp4 =250x300)
+https://user-images.githubusercontent.com/41656406/164609574-1a2fd943-89f4-4304-98f6-89d6376d2ca3.mp4
+
 
 ### Screenshots
 #### Home
