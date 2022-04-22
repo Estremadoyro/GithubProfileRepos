@@ -24,15 +24,19 @@ struct Keys {
 }
 ```
 
+#### Demo
+<img src="https://user-images.githubusercontent.com/41656406/164605499-323214e9-8cd9-4fcc-9a16-8de6bad849b1.mp4" width=250 />
+
 ### Screenshots
 #### Home
 | Light | Dark | 
 | --- | --- | 
 | <img src="images/home-light.png" width=250 /> | <img src="images/home-dark.png" width=250 /> |
 
-| Demo | 
-| --- |
-| ![demo](https://user-images.githubusercontent.com/41656406/164605499-323214e9-8cd9-4fcc-9a16-8de6bad849b1.mp4) |
+#### Searching user
+| Light | Dark |
+| --- | --- |
+| <img src="images/search-light.png" width=250 /> | <img src="images/search-dark.png" width=250 /> |
 
 ### Todo
 Small Todo's yet to complete, will be filling out periodically. PR's are welcome.  
@@ -54,3 +58,5 @@ Small Todo's yet to complete, will be filling out periodically. PR's are welcome
 - [x]  Added User's bio, this required an API call to /user/{user} endpoint
 - [ ]  Handle binding errors when the API block the sender IP after many requests (Mainly for Languages requets)
 - [x]  Handle User profile picture by making it an asyn sequence (PublishSubject)
+
+###### If this was of any help, a 🌟 would be highly appreciated!!
