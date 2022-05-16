@@ -10,21 +10,22 @@ import UIKit
 
 enum Utils {
   fileprivate static let errorColorByLanguage: ColorByLanguage.Element = ("Error language", LanguageColors.defaultColor)
-  fileprivate static let errorNoLanguages: ColorByLanguage.Element = ("No languages", LanguageColors.defaultColor)
+  fileprivate static let errorNoLanguages: RepoLanguages.Element = ("error_language", 0)
 
-  public static func getMostUsedLanguage(languages: RepoLanguages) -> ColorByLanguage.Element {
+  public static func getMostUsedLanguage(languages: RepoLanguages) -> RepoLanguages.Element {
     guard languages.count > 0 else { return errorNoLanguages } // No languages
-    guard languages.count >= 2 else { return getColorByRepoLanguage(repoLanguage: languages.first) } // 1 language
-    let mostUsedLanguage = languages.max { first, second in first.value < second.value }
-    return getColorByRepoLanguage(repoLanguage: mostUsedLanguage)
+    guard languages.count >= 2 else { return languages.first ?? errorNoLanguages } // 1 language
+    guard let mostUsedLanguage = (languages.max { first, second in first.value < second.value }) else {
+      return errorNoLanguages
+    }
+    return mostUsedLanguage
   }
 
-  fileprivate static func getColorByRepoLanguage(repoLanguage: RepoLanguages.Element?) -> ColorByLanguage.Element {
-    guard let language = repoLanguage else { return errorColorByLanguage }
-    guard let color = LanguageColors.colors[language.key.lowercased()] else {
-      return (language.key, LanguageColors.defaultColor)
+  public static func getColorByRepoLanguage(repoLanguage: RepoLanguages.Element) -> ColorByLanguage.Element {
+    guard let color = LanguageColors.colors[repoLanguage.key.lowercased()] else {
+      return (repoLanguage.key, LanguageColors.defaultColor)
     }
-    return (language.key, color)
+    return (repoLanguage.key, color)
   }
 }
 

@@ -37,4 +37,5 @@ extension Repo: Hashable {
   }
 }
 
+// Language name + # lines
 public typealias RepoLanguages = [String: Int]

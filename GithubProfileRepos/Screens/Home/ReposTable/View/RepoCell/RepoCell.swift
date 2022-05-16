@@ -64,12 +64,14 @@ private extension RepoCell {
 
     currentRepoLanguagesObservable
       .map { [weak self] languages in
+        // TODO: Change here
         let mostUsedLanguage = Utils.getMostUsedLanguage(languages: languages)
+        let mostUsedLanguageColor = Utils.getColorByRepoLanguage(repoLanguage: mostUsedLanguage)
         DispatchQueue.main.async {
-          self?.setLanguageColor(language: mostUsedLanguage)
+          self?.setLanguageColor(language: mostUsedLanguageColor)
           self?.repoLanguageColor.isHidden = false
         }
-        return mostUsedLanguage.key
+        return mostUsedLanguageColor.key
       }
       .bind(to: repoLanguages.rx.text)
       .disposed(by: disposeBag)
@@ -98,8 +100,11 @@ private extension RepoCell {
 }
 
 private extension RepoCell {
+  // TODO: Change here
   func getMostUsedLanguage(languages: RepoLanguages) -> ColorByLanguage.Element {
-    return Utils.getMostUsedLanguage(languages: languages)
+    let mostUsedLanguage = Utils.getMostUsedLanguage(languages: languages)
+    let mostUsedLanguageColor = Utils.getColorByRepoLanguage(repoLanguage: mostUsedLanguage)
+    return mostUsedLanguageColor
   }
 
   func setLanguageColor(language: ColorByLanguage.Element) {
